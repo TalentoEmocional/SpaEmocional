@@ -576,6 +576,7 @@ body.pres-mode .gm-row{max-width:80%}
   </div>
   <div style="max-width:660px;margin:16px auto 0;padding:0 1rem;text-align:center">
     <button id="btn-update-spa" onclick="updateSpaFromTemplate()" style="background:none;border:1px solid var(--border);color:var(--muted);border-radius:999px;padding:8px 18px;font-size:13.5px;cursor:pointer;font-family:inherit">🔄 Actualizar mi SPA a la última versión</button>
+    <p style="font-size:12px;color:var(--muted);margin-top:6px">Versión actual: <span id="spa-current-version"></span></p>
   </div>
   <p class="copy">Talento Emocional by © Santiago Delgado · Todos los derechos reservados</p>
 </div>
@@ -2683,7 +2684,8 @@ function profileFromConfig(c) {
 //  El SPA descarga la plantilla más reciente, le inyecta su
 //  propio perfil congelado y genera el archivo actualizado.
 // ══════════════════════════════════════════════════════
-const SPA_UPDATE_URL = 'https://www.dropbox.com/scl/fi/g0zoowx04tv61yxau27cj/SPA_IA_TE_CONSTRUCTOR_V8.html?rlkey=4qn6f76nchnvpmzm01u64fqhc&st=8dxhctkh&dl=1'; // ← URL directa de la plantilla en Dropbox (termina en dl=1)
+const SPA_VERSION = 'V8';
+const SPA_UPDATE_URL = 'https://raw.githubusercontent.com/TalentoEmocional/SpaEmocional/main/SPA_IA_TE_CONSTRUCTOR.html'; // ← URL fija, nombre sin versión — nunca cambia
 
 async function updateSpaFromTemplate() {
   if (!FROZEN) { alert('Esta opción solo está disponible en el SPA del cliente.'); return; }
@@ -2701,6 +2703,11 @@ async function updateSpaFromTemplate() {
     if (!/window\.SPA_FROZEN=null;/.test(tpl)) {
       throw new Error('La plantilla descargada no es válida (marcador no encontrado).');
     }
+    // Detectar la versión de la plantilla descargada para informar al líder
+    const verMatch = tpl.match(/const SPA_VERSION\s*=\s*'([^']+)'/);
+    const nuevaVersion = verMatch ? verMatch[1] : '(sin identificar)';
+    const mismaVersion = nuevaVersion === SPA_VERSION;
+
     // Inyectar el perfil congelado ACTUAL de este SPA en la plantilla nueva
     const json = JSON.stringify(FROZEN).replace(/<\//g, '<\\/');
     let out = tpl.replace('window.SPA_FROZEN=null;', 'window.SPA_FROZEN=' + json + ';');
@@ -2713,7 +2720,10 @@ async function updateSpaFromTemplate() {
     a.download = fname;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 2000);
-    alert('✅ Actualización descargada: ' + fname + '\n\nReemplaza tu archivo anterior con este nuevo. Tu nombre, resultados y acceso quedan intactos.');
+    const msgVersion = mismaVersion
+      ? '\n\nYa tenías la versión más reciente (' + SPA_VERSION + ').'
+      : '\n\nVersión anterior: ' + SPA_VERSION + ' → Versión nueva: ' + nuevaVersion;
+    alert('✅ Actualización descargada: ' + fname + msgVersion + '\n\nReemplaza tu archivo anterior con este nuevo. Tu nombre, resultados y acceso quedan intactos.');
   } catch(e) {
     alert('No se pudo actualizar: ' + e.message + '\n\nRevisa tu conexión a internet e intenta de nuevo, o contacta a tu coach.');
   }
@@ -3205,6 +3215,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const firstScreen = () => FROZEN ? 'menu' : 'setup';
   showScreen(firstScreen());
+  const verSpan = document.getElementById('spa-current-version');
+  if (verSpan) verSpan.textContent = SPA_VERSION;
 
   // ── API KEY ──
   const keyInput   = document.getElementById('key-input');
