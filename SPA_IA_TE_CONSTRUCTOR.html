@@ -3323,17 +3323,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── UPLOAD GRÁFICAS (EQ-i y MMP por separado) ──
   // ── ANÁLISIS DE GRÁFICA CON CLAUDE (llamada directa, cargo a cuenta de Santiago) ──
   async function analyzeGraph(imageB64, graphType, previewId) {
+    const pv = document.getElementById(previewId);
+    // Un único elemento de estado reutilizable — nunca se duplica en reintentos
+    function setStatus(text, color) {
+      if (!pv) return;
+      let statusEl = document.getElementById(previewId + '-status');
+      if (!statusEl) {
+        pv.appendChild(document.createElement('br'));
+        statusEl = document.createElement('span');
+        statusEl.id = previewId + '-status';
+        statusEl.style.fontSize = '14px';
+        pv.appendChild(statusEl);
+      }
+      statusEl.style.color = color;
+      statusEl.textContent = text;
+    }
     const apiKey = state.apiKey
       || localStorage.getItem('spa_api_key')
       || (document.getElementById('s-apikey') || {}).value?.trim()
       || '';
     if (!apiKey) {
-      const pv = document.getElementById(previewId);
-      if (pv) pv.innerHTML += '<br><span style="font-size:13px;color:#E07A5F">⚠️ Ingresa tu API Key abajo para analizar la gráfica.</span>';
+      setStatus('⚠️ Ingresa tu API Key abajo para analizar la gráfica.', '#E07A5F');
       return '';
     }
-    const pv = document.getElementById(previewId);
-    if (pv) pv.innerHTML += '<br><span style="font-size:14px;color:var(--muted)">🔍 Analizando habilidades...</span>';
+    setStatus('🔍 Analizando habilidades...', 'var(--muted)');
     const promptEqi = `Analiza esta gráfica EQ-i 2.0. Lee cada habilidad y su valor numérico exacto directamente de la imagen.
 Responde ÚNICAMENTE con este bloque de texto, sin introducción ni explicación:
 
@@ -3376,14 +3389,21 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
         })
       });
       const data = await res.json();
-      const texto = (data.content || []).map(b => b.text || '').join('').trim();
-      if (pv) {
-        const span = pv.querySelector('span:last-child');
-        if (span) span.textContent = '✓ Habilidades leídas · toca para cambiar gráfica';
+      // Detectar error real de la API (antes se ignoraba y se mostraba éxito falso)
+      if (!res.ok || data.error) {
+        const msg = (data.error && data.error.message) || ('HTTP ' + res.status);
+        setStatus('⚠️ No se pudo analizar: ' + msg + ' — vuelve a intentar', '#E07A5F');
+        return '';
       }
+      const texto = (data.content || []).map(b => b.text || '').join('').trim();
+      if (!texto) {
+        setStatus('⚠️ La IA no devolvió resultados. Toca la gráfica para volver a intentar.', '#E07A5F');
+        return '';
+      }
+      setStatus('✓ Habilidades leídas · toca para cambiar gráfica', 'var(--green)');
       return texto;
     } catch(e) {
-      if (pv) { const span = pv.querySelector('span:last-child'); if (span) span.textContent = '⚠️ Sin análisis automático'; }
+      setStatus('⚠️ Sin análisis automático — ' + e.message, '#E07A5F');
       return '';
     }
   }
@@ -3911,7 +3931,15 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
     });
     // Resetear el reto en memoria para que no se herede al siguiente SPA
     state.profile.reto = '';
-    // Limpiar análisis de gráficas heredados (EQ-i y MMP) y datos numéricos
+    // Limpiar análisis y gráficas heredadas — ESTAS son las variables reales que usa
+    // buildConfigFromForm() al generar (no state.profile.*, que es una copia distinta).
+    state.eqiAnalysis   = '';
+    state.mmpAnalysis   = '';
+    state.eqiGraphData  = BLANK_IMAGE_B64;
+    state.eqiGraphMedia = BLANK_IMAGE_MEDIA;
+    state.mmpGraphData  = BLANK_IMAGE_B64;
+    state.mmpGraphMedia = BLANK_IMAGE_MEDIA;
+    // También limpiamos el espejo en state.profile por si algo lo llegara a leer
     state.profile.eqiAnalysis = '';
     state.profile.mmpAnalysis = '';
     state.profile.eqiGraph = null;
@@ -3925,15 +3953,21 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
     ['s-f1','s-f2','s-f3','s-f4'].forEach(id => {
       const el = document.getElementById(id); if (el) el.selectedIndex = 0;
     });
-    // Limpiar previews de gráficas
+    // Limpiar previews de gráficas Y el desglose de habilidades leídas
     ['eqi','mmp'].forEach(k => {
       const prev = document.getElementById('upload-preview-' + k);
       const prom = document.getElementById('upload-prompt-' + k);
       const inp  = document.getElementById('s-graph-' + k);
+      const analysisPrev = document.getElementById(k + '-analysis-preview');
       if (prev) { prev.style.display='none'; prev.innerHTML=''; }
       if (prom) prom.style.display='block';
       if (inp)  inp.value = '';
+      if (analysisPrev) { analysisPrev.style.display='none'; analysisPrev.innerHTML=''; }
     });
+    // Limpiar el aviso "✅ Análisis completado" del cliente anterior
+    // (la API key en sí NO se borra: es la misma que usas para analizar al siguiente cliente)
+    const apiStatus = document.getElementById('s-apikey-status');
+    if (apiStatus) { apiStatus.style.display = 'none'; apiStatus.innerHTML = ''; }
     // Deshabilitar botones hasta que se llene el formulario
     const bg = document.getElementById('btn-generate');
     const bs = document.getElementById('btn-setup');
