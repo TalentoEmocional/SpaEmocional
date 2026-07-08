@@ -3322,6 +3322,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── UPLOAD GRÁFICAS (EQ-i y MMP por separado) ──
   // ── ANÁLISIS DE GRÁFICA CON CLAUDE (llamada directa, cargo a cuenta de Santiago) ──
+  async function callClaudeVision(imageB64, prompt, apiKey) {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-5',
+        max_tokens: 1500,
+        messages: [{ role: 'user', content: [
+          { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageB64 } },
+          { type: 'text', text: prompt }
+        ]}]
+      })
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      const msg = (data.error && data.error.message) || ('HTTP ' + res.status);
+      return { ok: false, msg };
+    }
+    const texto = (data.content || []).map(b => b.text || '').join('').trim();
+    return { ok: !!texto, texto, msg: texto ? '' : 'La IA no devolvió resultados' };
+  }
+
   async function analyzeGraph(imageB64, graphType, previewId) {
     const pv = document.getElementById(previewId);
     // Un único elemento de estado reutilizable — nunca se duplica en reintentos
@@ -3371,37 +3398,18 @@ Niveles según T-score (>T60=fortaleza sobresaliente, T56-T60=fortaleza, T45-T55
 Ejemplo de formato correcto: "Físico: T58 (fortaleza)" o "Cognitivo: T42 (área por desarrollar)".
 Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, Inspirador y Factores de anillo) con su T-score exacto. No inventes. Incluye SIEMPRE el T-score junto al nivel.`;
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true'
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-5',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: [
-            { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageB64 } },
-            { type: 'text', text: graphType === 'eqi' ? promptEqi : promptMmp }
-          ]}]
-        })
-      });
-      const data = await res.json();
-      // Detectar error real de la API (antes se ignoraba y se mostraba éxito falso)
-      if (!res.ok || data.error) {
-        const msg = (data.error && data.error.message) || ('HTTP ' + res.status);
-        setStatus('⚠️ No se pudo analizar: ' + msg + ' — vuelve a intentar', '#E07A5F');
-        return '';
+      let attempt = await callClaudeVision(imageB64, graphType === 'eqi' ? promptEqi : promptMmp, apiKey);
+      if (!attempt.ok) {
+        // Reintento automático — los fallos vacíos suelen ser momentáneos
+        setStatus('🔁 Reintentando análisis...', 'var(--muted)');
+        attempt = await callClaudeVision(imageB64, graphType === 'eqi' ? promptEqi : promptMmp, apiKey);
       }
-      const texto = (data.content || []).map(b => b.text || '').join('').trim();
-      if (!texto) {
-        setStatus('⚠️ La IA no devolvió resultados. Toca la gráfica para volver a intentar.', '#E07A5F');
+      if (!attempt.ok) {
+        setStatus('⚠️ No se pudo analizar: ' + attempt.msg + ' — toca la gráfica para reintentar', '#E07A5F');
         return '';
       }
       setStatus('✓ Habilidades leídas · toca para cambiar gráfica', 'var(--green)');
-      return texto;
+      return attempt.texto;
     } catch(e) {
       setStatus('⚠️ Sin análisis automático — ' + e.message, '#E07A5F');
       return '';
@@ -3516,7 +3524,20 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
           state.mmpAnalysis = r;
           if (r) showAnalysisPreview('mmp-analysis-preview', r);
         }
-        if (sApiKeyStatus) { sApiKeyStatus.style.display = 'block'; sApiKeyStatus.innerHTML = '✅ Análisis completado — ya puedes generar el SPA.'; sApiKeyStatus.style.color = 'var(--green)'; }
+        // Mensaje final honesto: solo confirma éxito si TODAS las gráficas cargadas
+        // realmente devolvieron análisis. Si alguna falló, lo dice explícitamente.
+        const eqiOk = !tieneEqi || !!state.eqiAnalysis;
+        const mmpOk = !tieneMmp || !!state.mmpAnalysis;
+        if (sApiKeyStatus) {
+          sApiKeyStatus.style.display = 'block';
+          if (eqiOk && mmpOk) {
+            sApiKeyStatus.innerHTML = '✅ Análisis completado — ya puedes generar el SPA.';
+            sApiKeyStatus.style.color = 'var(--green)';
+          } else {
+            sApiKeyStatus.innerHTML = '⚠️ Alguna gráfica no se pudo analizar — revisa el aviso junto a ella y reintenta antes de generar.';
+            sApiKeyStatus.style.color = '#E07A5F';
+          }
+        }
       }, 1200);
     });
   }
