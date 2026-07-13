@@ -3448,7 +3448,7 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
           const clearBtn = document.getElementById('btn-clear-' + graphType);
           if (clearBtn) clearBtn.style.display = '';
           // Análisis silencioso con Claude
-          const analisis = await analyzeGraph(state[stateDataKey], graphType, previewId);
+          const analisis = await queueAnalyzeGraph(state[stateDataKey], graphType, previewId);
           if (analysisKey) state[analysisKey] = analisis;
           // Mostrar resultado visible del análisis
           const previewDiv = document.getElementById(graphType + '-analysis-preview');
@@ -3481,6 +3481,11 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
     if (pr)  pr.style.display = '';
     if (inp) inp.value = '';
     if (cb)  cb.style.display = 'none';
+    // Limpiar el desglose de habilidades leídas y su estado
+    const analysisPrev = document.getElementById(type + '-analysis-preview');
+    if (analysisPrev) { analysisPrev.style.display = 'none'; analysisPrev.innerHTML = ''; }
+    const statusEl = document.getElementById(previewId + '-status');
+    if (statusEl) statusEl.remove();
   }
   setupUpload('upload-zone-eqi','s-graph-eqi','upload-prompt-eqi','upload-preview-eqi','eqiGraphData','eqiGraphMedia','eqiAnalysis','eqi');
   setupUpload('upload-zone-mmp','s-graph-mmp','upload-prompt-mmp','upload-preview-mmp','mmpGraphData','mmpGraphMedia','mmpAnalysis','mmp');
@@ -3515,12 +3520,12 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
         }
         if (sApiKeyStatus) { sApiKeyStatus.style.display = 'block'; sApiKeyStatus.innerHTML = '🔍 Analizando gráfica(s)...'; sApiKeyStatus.style.color = 'var(--muted)'; }
         if (tieneEqi && !state.eqiAnalysis) {
-          const r = await analyzeGraph(state.eqiGraphData, 'eqi', 'upload-preview-eqi');
+          const r = await queueAnalyzeGraph(state.eqiGraphData, 'eqi', 'upload-preview-eqi');
           state.eqiAnalysis = r;
           if (r) showAnalysisPreview('eqi-analysis-preview', r);
         }
         if (tieneMmp && !state.mmpAnalysis) {
-          const r = await analyzeGraph(state.mmpGraphData, 'mmp', 'upload-preview-mmp');
+          const r = await queueAnalyzeGraph(state.mmpGraphData, 'mmp', 'upload-preview-mmp');
           state.mmpAnalysis = r;
           if (r) showAnalysisPreview('mmp-analysis-preview', r);
         }
@@ -3540,6 +3545,16 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
         }
       }, 1200);
     });
+  }
+
+  // Cola global: garantiza que solo un análisis de gráfica corra a la vez.
+  // Dos llamadas simultáneas a la API con la misma key producen "invalid x-api-key".
+  let analysisQueue = Promise.resolve();
+  function queueAnalyzeGraph(imageB64, graphType, previewId) {
+    const run = analysisQueue.then(() => analyzeGraph(imageB64, graphType, previewId));
+    // La cola avanza aunque falle, para no bloquear análisis siguientes
+    analysisQueue = run.catch(() => {});
+    return run;
   }
 
   function showAnalysisPreview(divId, texto) {
