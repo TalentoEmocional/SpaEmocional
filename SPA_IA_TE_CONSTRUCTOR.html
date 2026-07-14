@@ -411,7 +411,7 @@ body.pres-mode .gm-row{max-width:80%}
         <input type="file" id="s-graph-eqi" accept="image/*" style="display:none">
         <div id="upload-prompt-eqi">📊 Toca para subir la gráfica EQ-i<br><span style="font-size:14px;color:var(--muted)">Claude leerá todas las habilidades directamente</span></div>
         <div id="upload-preview-eqi" style="display:none"></div>
-        <button id="btn-clear-eqi" onclick="clearUpload('eqi')" style="display:none;margin-top:6px;background:none;border:1px solid #E07A5F;color:#E07A5F;border-radius:6px;padding:4px 12px;font-size:13px;cursor:pointer">✕ Quitar gráfica EQ-i</button>
+        <button id="btn-clear-eqi" onclick="event.stopPropagation(); clearUpload('eqi')" style="display:none;margin-top:6px;background:none;border:1px solid #E07A5F;color:#E07A5F;border-radius:6px;padding:4px 12px;font-size:13px;cursor:pointer">✕ Quitar gráfica EQ-i</button>
       </div>
       <div id="eqi-analysis-preview" style="display:none;margin-top:8px"></div>
     </div>
@@ -441,7 +441,7 @@ body.pres-mode .gm-row{max-width:80%}
         <input type="file" id="s-graph-mmp" accept="image/*" style="display:none">
         <div id="upload-prompt-mmp">📊 Toca para subir la gráfica MMP<br><span style="font-size:14px;color:var(--muted)">Claude leerá motivadores y filosofía operante</span></div>
         <div id="upload-preview-mmp" style="display:none"></div>
-        <button id="btn-clear-mmp" onclick="clearUpload('mmp')" style="display:none;margin-top:6px;background:none;border:1px solid #E07A5F;color:#E07A5F;border-radius:6px;padding:4px 12px;font-size:13px;cursor:pointer">✕ Quitar gráfica MMP</button>
+        <button id="btn-clear-mmp" onclick="event.stopPropagation(); clearUpload('mmp')" style="display:none;margin-top:6px;background:none;border:1px solid #E07A5F;color:#E07A5F;border-radius:6px;padding:4px 12px;font-size:13px;cursor:pointer">✕ Quitar gráfica MMP</button>
       </div>
       <div id="mmp-analysis-preview" style="display:none;margin-top:8px"></div>
     </div>
@@ -452,6 +452,13 @@ body.pres-mode .gm-row{max-width:80%}
     <input type="password" id="s-apikey" placeholder="sk-ant-..." autocomplete="off" style="font-family:monospace;letter-spacing:.05em">
     <div id="s-apikey-status" style="display:none;margin-top:6px;font-size:13px"></div>
     <p style="font-size:13px;color:var(--muted);margin-top:5px;line-height:1.45">Ingresa la key después de subir las gráficas — el análisis correrá automáticamente y verás la palomita ✅. El cliente entrará directo sin teclear nada.</p>
+
+    <!-- 🔧 Registro de diagnóstico: aparece solo si un análisis falla -->
+    <div id="debug-log-box" style="display:none;margin-top:14px;background:#1A1208;border:1px solid #7A5A20;border-radius:10px;padding:12px 14px">
+      <div style="font-size:13px;font-weight:700;color:#E0B050;margin-bottom:6px">🔧 Registro de diagnóstico (copia este texto y compártelo con soporte)</div>
+      <pre id="debug-log" style="font-size:11.5px;color:#C0A060;white-space:pre-wrap;line-height:1.5;max-height:260px;overflow-y:auto;margin:0;user-select:all"></pre>
+      <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('debug-log').textContent).then(()=>alert('Registro copiado ✓'))" style="margin-top:8px;font-size:12px;padding:5px 12px;border-radius:6px;border:1px solid #7A5A20;background:rgba(224,176,80,.12);color:#E0B050;cursor:pointer;font-family:inherit">📋 Copiar registro</button>
+    </div>
 
     <button class="btn btn-navy" id="btn-generate" disabled="" style="margin-top:1.25rem">⬇ Generar archivo del cliente</button>
     <button class="btn" id="btn-setup" disabled="" style="margin-top:.6rem;background:#1A2233;color:var(--navy-text);border:1px solid var(--border)">Probar antes de generar →</button>
@@ -1718,7 +1725,7 @@ async function generarResumen(textoPegado) {
         // El resumen SIEMPRE usa Sonnet 5 (estable para JSON), sin importar el modelo del chat.
         // Fable u otros modelos premium pueden devolver vacío al pedir JSON estructurado.
         model: 'claude-sonnet-5',
-        max_tokens: 1500,
+        max_tokens: 10000,
         messages: msgs
       })
     });
@@ -2730,7 +2737,7 @@ async function updateSpaFromTemplate() {
   if (btn) { btn.disabled = false; btn.textContent = prevTxt; }
 }
 
-function generateClientFile() {
+async function generateClientFile() {
   const cfg = buildConfigFromForm();
   if (!cfg.spaName || !cfg.name) { alert('Escribe el Nombre del SPA y el nombre del cliente antes de generar.'); return; }
   let json = JSON.stringify(cfg).replace(/<\//g, '<\\/');
@@ -2744,11 +2751,33 @@ function generateClientFile() {
   out = out.replace('</head>', clientCSS + '</head>');
   const fname = 'SPA_' + slugify(cfg.spaName) + '.html';
   const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
+
+  // Si el navegador soporta elegir carpeta de destino (Chrome/Brave/Edge en escritorio), úsalo.
+  // Si no (Safari, iOS, etc.), cae al método clásico que descarga directo a Descargas.
+  if (window.showSaveFilePicker) {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: fname,
+        types: [{ description: 'Página web', accept: { 'text/html': ['.html'] } }]
+      });
+      const writable = await handle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      mostrarModalGenerado(fname);
+      return;
+    } catch(e) {
+      if (e && e.name === 'AbortError') return; // el usuario canceló el diálogo — no hacer nada más
+      // Si falla por otra razón, seguimos con el método clásico de respaldo
+    }
+  }
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = fname;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  mostrarModalGenerado(fname);
+}
+function mostrarModalGenerado(fname) {
   // Modal de confirmación con botón Crear nuevo SPA
   setTimeout(() => {
     const overlay = document.getElementById('spa-generated-overlay');
@@ -3323,30 +3352,58 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── UPLOAD GRÁFICAS (EQ-i y MMP por separado) ──
   // ── ANÁLISIS DE GRÁFICA CON CLAUDE (llamada directa, cargo a cuenta de Santiago) ──
   async function callClaudeVision(imageB64, prompt, apiKey) {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-5',
-        max_tokens: 1500,
-        messages: [{ role: 'user', content: [
-          { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageB64 } },
-          { type: 'text', text: prompt }
-        ]}]
-      })
-    });
-    const data = await res.json();
-    if (!res.ok || data.error) {
-      const msg = (data.error && data.error.message) || ('HTTP ' + res.status);
-      return { ok: false, msg };
+    const t0 = Date.now();
+    let rawText = '';
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-5',
+          max_tokens: 10000,
+          messages: [{ role: 'user', content: [
+            { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageB64 } },
+            { type: 'text', text: prompt }
+          ]}]
+        })
+      });
+      rawText = await res.text();
+      let data = {};
+      try { data = JSON.parse(rawText); } catch(pe) {
+        debugLog('Respuesta NO-JSON (' + res.status + ', ' + (Date.now()-t0) + 'ms): ' + rawText.slice(0, 600));
+        return { ok: false, msg: 'Respuesta inválida de la API (HTTP ' + res.status + ')' };
+      }
+      if (!res.ok || data.error) {
+        const msg = (data.error && data.error.message) || ('HTTP ' + res.status);
+        debugLog('ERROR API (' + res.status + ', ' + (Date.now()-t0) + 'ms): ' + rawText.slice(0, 800));
+        return { ok: false, msg };
+      }
+      const texto = (data.content || []).map(b => b.text || '').join('').trim();
+      if (!texto) {
+        debugLog('RESPUESTA VACÍA (' + (Date.now()-t0) + 'ms) — stop_reason: ' + (data.stop_reason||'?') + ' — raw: ' + rawText.slice(0, 800));
+      }
+      return { ok: !!texto, texto, msg: texto ? '' : 'La IA no devolvió resultados' };
+    } catch(netErr) {
+      debugLog('EXCEPCIÓN RED (' + (Date.now()-t0) + 'ms): ' + netErr.message);
+      return { ok: false, msg: netErr.message };
     }
-    const texto = (data.content || []).map(b => b.text || '').join('').trim();
-    return { ok: !!texto, texto, msg: texto ? '' : 'La IA no devolvió resultados' };
+  }
+
+  // ── Registro de diagnóstico: captura la causa real de los fallos de análisis ──
+  function debugLog(text) {
+    try {
+      const box = document.getElementById('debug-log-box');
+      const pre = document.getElementById('debug-log');
+      if (!box || !pre) return;
+      box.style.display = 'block';
+      const ts = new Date().toLocaleTimeString();
+      pre.textContent += '[' + ts + '] ' + text + '\n\n';
+    } catch(e) {}
   }
 
   async function analyzeGraph(imageB64, graphType, previewId) {
@@ -3385,7 +3442,7 @@ Habilidades EQ-i:
 Niveles según el valor numérico (>119=fortaleza sobresaliente, 111-119=fortaleza, 90-110=promedio, 80-89=área por desarrollar, <80=área de desarrollo prioritaria).
 Ejemplo de formato correcto: "Empatía: 112 (fortaleza)" o "Autocontrol: 88 (área por desarrollar)".
 Lee TODAS las habilidades visibles con su número exacto. No inventes habilidades que no estén en la gráfica. Incluye SIEMPRE el número junto al nivel.`;
-    const promptMmp = `Analiza esta gráfica MMP/Performance. La línea punteada es el benchmark T56. Lee cada comportamiento, su valor T-score exacto y su posición respecto al benchmark.
+    const promptMmp = `Analiza esta gráfica MMP/Performance. Cada comportamiento es un punto sobre una escala de columnas (Exceptionally Low, Very Low, Low, Average, High, Very High, Exceptionally High). Guíate por la POSICIÓN del punto sobre esas columnas, no por su color. El benchmark central puede estar en distintas posiciones. Estima el T-score por su posición (Average ≈ T45-55).
 Responde ÚNICAMENTE con este bloque de texto, sin introducción ni explicación:
 
 Comportamientos MMP:
@@ -3395,14 +3452,16 @@ Factores de anillo:
   • [nombre en español]: T[número] ([nivel])
 
 Niveles según T-score (>T60=fortaleza sobresaliente, T56-T60=fortaleza, T45-T55=promedio, T40-T44=área por desarrollar, <T40=área de desarrollo prioritaria).
-Ejemplo de formato correcto: "Físico: T58 (fortaleza)" o "Cognitivo: T42 (área por desarrollar)".
-Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, Inspirador y Factores de anillo) con su T-score exacto. No inventes. Incluye SIEMPRE el T-score junto al nivel.`;
+Ejemplo de formato correcto: "Bienestar: T52 (promedio)" o "Autocontrol: T42 (área por desarrollar)".
+Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. Incluye SIEMPRE el T-score junto al nivel.`;
     try {
-      let attempt = await callClaudeVision(imageB64, graphType === 'eqi' ? promptEqi : promptMmp, apiKey);
-      if (!attempt.ok) {
-        // Reintento automático — los fallos vacíos suelen ser momentáneos
-        setStatus('🔁 Reintentando análisis...', 'var(--muted)');
-        attempt = await callClaudeVision(imageB64, graphType === 'eqi' ? promptEqi : promptMmp, apiKey);
+      const prompt = graphType === 'eqi' ? promptEqi : promptMmp;
+      let attempt = await callClaudeVision(imageB64, prompt, apiKey);
+      // Hasta 2 reintentos (3 intentos totales) — MMP a veces falla en el primer disparo
+      for (let i = 0; i < 2 && !attempt.ok; i++) {
+        setStatus('🔁 Reintentando análisis (' + (i+2) + '/3)...', 'var(--muted)');
+        await new Promise(r => setTimeout(r, 1200)); // pausa entre intentos (el primer MMP frío a veces necesita margen)
+        attempt = await callClaudeVision(imageB64, prompt, apiKey);
       }
       if (!attempt.ok) {
         setStatus('⚠️ No se pudo analizar: ' + attempt.msg + ' — toca la gráfica para reintentar', '#E07A5F');
@@ -3429,7 +3488,9 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
         const dataUrl = ev.target.result;
         const img = new Image();
         img.onload = async () => {
-          const MAX = 1000;
+          // Resolución alta para que gráficas densas (MMP: 26 comportamientos apilados)
+          // conserven las etiquetas legibles. Antes MAX=1000/q=0.75 las volvía ilegibles.
+          const MAX = 1100;
           let w = img.width, h = img.height;
           if (w > MAX || h > MAX) {
             if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
@@ -3437,8 +3498,16 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
           }
           const canvas = document.createElement('canvas');
           canvas.width = w; canvas.height = h;
-          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          const compressed = canvas.toDataURL('image/jpeg', 0.75);
+          const ctx = canvas.getContext('2d');
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          // Fondo blanco ANTES de dibujar: los PNG con transparencia (RGBA) rellenan
+          // las zonas transparentes con NEGRO al exportar a JPEG, lo que tapa el texto
+          // y deja a la IA sin poder leer las etiquetas. El fondo blanco lo evita.
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
+          const compressed = canvas.toDataURL('image/jpeg', 0.82);
           state[stateDataKey]  = compressed.split(',')[1];
           state[stateMediaKey] = 'image/jpeg';
           const pr = document.getElementById(promptId);
@@ -3447,7 +3516,24 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
           if (pv) { pv.style.display = 'block'; pv.innerHTML = '<img src="'+compressed+'"><br><span style="font-size:14px;color:var(--green)">✓ Gráfica cargada</span>'; }
           const clearBtn = document.getElementById('btn-clear-' + graphType);
           if (clearBtn) clearBtn.style.display = '';
-          // Análisis silencioso con Claude
+          // Análisis con Claude — requiere API key
+          const keyPresente = (state.apiKey || localStorage.getItem('spa_api_key') || (document.getElementById('s-apikey')||{}).value?.trim() || '').length > 20;
+          // Al cargar una gráfica NUEVA, su análisis anterior deja de ser válido
+          if (analysisKey) state[analysisKey] = '';
+          const analysisPrevEl = document.getElementById(graphType + '-analysis-preview');
+          if (analysisPrevEl) { analysisPrevEl.style.display = 'none'; analysisPrevEl.innerHTML = ''; }
+          if (!keyPresente) {
+            const st = document.getElementById(previewId + '-status');
+            if (pv && !st) {
+              pv.appendChild(document.createElement('br'));
+              const s = document.createElement('span');
+              s.id = previewId + '-status';
+              s.style.fontSize = '14px'; s.style.color = '#E07A5F';
+              s.textContent = '⏳ Ingresa tu API Key abajo para leer esta gráfica.';
+              pv.appendChild(s);
+            }
+            return; // sin key no se puede analizar — el re-análisis correrá al escribir la key
+          }
           const analisis = await queueAnalyzeGraph(state[stateDataKey], graphType, previewId);
           if (analysisKey) state[analysisKey] = analisis;
           // Mostrar resultado visible del análisis
@@ -3547,14 +3633,10 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
     });
   }
 
-  // Cola global: garantiza que solo un análisis de gráfica corra a la vez.
-  // Dos llamadas simultáneas a la API con la misma key producen "invalid x-api-key".
-  let analysisQueue = Promise.resolve();
+  // Llamada directa al análisis. (Antes había una "cola" que causaba que MMP se
+  // trabara o se cortara; como subes una gráfica a la vez, no hace falta encolar.)
   function queueAnalyzeGraph(imageB64, graphType, previewId) {
-    const run = analysisQueue.then(() => analyzeGraph(imageB64, graphType, previewId));
-    // La cola avanza aunque falle, para no bloquear análisis siguientes
-    analysisQueue = run.catch(() => {});
-    return run;
+    return analyzeGraph(imageB64, graphType, previewId);
   }
 
   function showAnalysisPreview(divId, texto) {
@@ -3562,7 +3644,7 @@ Lee TODOS los comportamientos visibles (Físico, Cognitivo, Personal, Social, In
     if (!div) return;
     div.style.display = 'block';
     div.innerHTML = '<div style="font-size:13px;color:var(--green);font-weight:700;margin-bottom:4px">✓ Habilidades leídas:</div>'
-      + '<pre style="font-size:12px;color:var(--muted);white-space:pre-wrap;line-height:1.5;max-height:160px;overflow-y:auto;background:rgba(0,0,0,.2);padding:8px;border-radius:6px;margin:0">' + texto + '</pre>';
+      + '<pre style="font-size:12.5px;color:var(--muted);white-space:pre-wrap;line-height:1.55;max-height:420px;overflow-y:auto;background:rgba(0,0,0,.2);padding:10px 12px;border-radius:6px;margin:0">' + texto + '</pre>';
   }
 
   // ── OPCIONES DEL MENÚ ──
