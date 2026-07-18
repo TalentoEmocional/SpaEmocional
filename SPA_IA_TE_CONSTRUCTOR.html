@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SPA Emocional IA PREMIUM V4 · Santiago Delgado</title>
 <script id="spa-cfg">window.SPA_FROZEN=null;</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <style>
 
 
@@ -22,7 +22,7 @@
   --teal:#2A8A7A;--purple:#5A4880
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI','Helvetica Neue',Arial,sans-serif !important;background:var(--bg);min-height:100vh;color:var(--text);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
-.app{max-width:820px;margin:0 auto;padding:0 0 2rem}
+.app{max-width:900px;margin:0 auto;padding:0 0 2rem}
 .screen{display:none}.screen.active{display:block}
 
 /* ── SHARED ── */
@@ -93,12 +93,12 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 
 /* ── Gold PREMIUM ── */
 .gold{color:#D4AF37;font-weight:800;letter-spacing:.04em}
-.gold-sm{color:#D4AF37;font-size:16px;font-weight:700;letter-spacing:.06em}
+.gold-sm{color:#C9A24E;font-size:16px;font-weight:700;letter-spacing:.06em}
 
 /* ── Header del SPA del cliente (logo-bar) ── */
 .spa-header{background:linear-gradient(160deg,#0A0A0C 0%,#16161A 55%,#0A0A0C 100%)}
-.spa-header-inner{max-width:660px;margin:0 auto;padding:0 2.2rem;border-bottom:2px solid rgba(212,175,55,.55)}
-.logo-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 6px 8px;gap:10px}
+.spa-header-inner{max-width:660px;margin:0 auto;padding:0 2.2rem 6px;border-bottom:2px solid rgba(212,175,55,.55)}
+.logo-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 6px 0;gap:10px}
 .logo-btn{background:none;border:none;cursor:pointer;padding:4px;border-radius:10px;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .logo-btn:hover{background:rgba(255,255,255,.1)}
 .logo-btn img{display:block}
@@ -107,15 +107,109 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 .spa-name-hdr{font-size:20px;font-weight:800;color:#fff;text-align:center;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:.01em}
 
 /* ── Título grande Premium ── */
-.spa-title-block{text-align:center;padding:8px 4px 4px}
-.spa-big-title{font-size:25px;font-weight:800;color:#fff;line-height:1.22;letter-spacing:.005em;margin:0 auto;max-width:560px}
-.spa-premium-line{margin-bottom:9px;font-size:16px;font-weight:700;color:#D4AF37;letter-spacing:.22em}
+.spa-title-block{text-align:center;padding:0 4px 0}
+.spa-big-title{font-size:23px;font-weight:800;color:#fff;line-height:1.22;letter-spacing:.005em;margin:0 auto;max-width:560px}
+.spa-premium-line{margin-top:-2px;margin-bottom:4px;font-size:16px;font-weight:700;color:#D4AF37;letter-spacing:.22em}
 .spa-premium-line .star{font-size:19px;color:#E8C547;margin:0 5px;vertical-align:middle}
 .fb-dot-btn{width:36px;height:36px;border-radius:50%;background:rgba(229,64,64,.22);border:1.5px solid rgba(229,64,64,.55);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;position:relative;flex-shrink:0}
 .fb-dot-btn:hover{background:rgba(229,64,64,.4)}
 .fb-dot-btn::after{content:'💬';font-size:15px}
 .fb-dot-btn::before{content:'';position:absolute;top:6px;right:6px;width:9px;height:9px;border-radius:50%;background:#FF4D4D;border:1.5px solid #0A0A0C;box-shadow:0 0 6px rgba(255,77,77,.9);animation:fbpulse 1.8s infinite}
 @keyframes fbpulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.25);opacity:.7}}
+
+/* ══════════════════════════════════════════════════════
+   CONSTRUCTOR.2 V1 — Nueva pantalla de inicio (arranque ágil)
+   ══════════════════════════════════════════════════════ */
+.c2-block{margin:14px auto 0;max-width:640px;width:calc(100% - 2rem);background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.c2-motto-line{font-size:14px;color:rgba(255,255,255,.48);text-align:center;line-height:1.4;
+  margin-bottom:12px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,.07);font-weight:500}
+.c2-greeting{font-size:16px;color:var(--text);line-height:1.5;margin-bottom:14px;text-align:center}
+.c2-greeting b{color:#fff;font-weight:700}
+.c2-greeting .bienestar{color:#C9A24E;font-weight:700}
+
+/* Mood Meter compacto-expandible embebido en la pantalla de inicio */
+.c2-mood-compact{cursor:pointer}
+.c2-mood-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.c2-mood-mini{display:flex;gap:3px;align-items:center}
+.c2-mood-mini-cell{width:22px;height:22px;border-radius:5px;opacity:.85}
+.c2-mood-txt{flex:1;font-size:13.5px;color:var(--muted);line-height:1.4}
+.c2-mood-txt b{color:var(--text)}
+.c2-mood-chevron{font-size:15px;color:#C9A24E;transition:transform .25s}
+.c2-mood-open .c2-mood-chevron{transform:rotate(180deg)}
+.c2-mood-full{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.c2-mood-open .c2-mood-full{max-height:760px;margin-top:14px}
+.c2-mood-axis-x{display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted);font-weight:600;padding:0 36px 5px}
+.c2-mood-body{display:flex;gap:5px;justify-content:center;align-items:stretch}
+.c2-mood-axis-y{display:flex;flex-direction:column;justify-content:space-between;font-size:9px;color:var(--muted);font-weight:600;width:30px;padding:2px 0}
+.c2-mood-axis-y.right{align-items:flex-start}
+.c2-mood-axis-y.left{align-items:flex-end;text-align:right}
+.c2-mood-grid-wrap{flex:1;max-width:320px}
+#c2-mood-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;width:100%;aspect-ratio:1/1}
+#c2-mood-grid .cell{border-radius:2px;cursor:pointer;transition:all .15s;opacity:.55}
+.c2-mood-preview{text-align:center;font-size:13px;color:var(--muted);font-weight:600;margin-top:12px;min-height:34px;
+  line-height:1.4;background:#11141A;border:1px dashed var(--border);border-radius:8px;padding:6px 8px;
+  display:flex;flex-direction:column;justify-content:center;gap:1px}
+
+/* Reto / qué está sucediendo */
+.c2-reto{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:9px;
+  font-size:15px;font-family:inherit;background:#11141A;color:var(--text);outline:none;min-height:58px;resize:vertical;line-height:1.5}
+.c2-reto:focus{border-color:var(--navy)}
+
+/* Botones de acción (¿Qué deseas hacer?) */
+.c2-action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.c2-action-btn{display:flex;flex-direction:column;align-items:flex-start;gap:4px;
+  background:#11141A;border:1px solid var(--border);border-radius:12px;padding:14px 15px;cursor:pointer;
+  transition:all .18s;text-align:left;min-height:74px;justify-content:center}
+.c2-action-btn:hover{border-color:#C9A24E;background:#151821}
+.c2-action-btn.sel{border-color:#C9A24E;background:rgba(201,162,78,.1);box-shadow:0 0 0 1px #C9A24E inset}
+.c2-action-btn .row1{display:flex;align-items:center;gap:10px}
+.c2-action-btn .ico{font-size:26px;line-height:1}
+.c2-action-btn .t{font-size:19px;font-weight:800;color:var(--text);letter-spacing:-.01em}
+.c2-action-btn .s{font-size:13px;color:var(--muted);line-height:1.3}
+
+/* Profundidad */
+.c2-depth-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.c2-depth-btn{background:#11141A;border:1px solid var(--border);border-radius:10px;padding:10px 6px;cursor:pointer;
+  transition:all .18s;text-align:center}
+.c2-depth-btn:hover{border-color:var(--navy-text)}
+.c2-depth-btn.sel{border-color:#C9A24E;background:rgba(201,162,78,.1);box-shadow:0 0 0 1px #C9A24E inset}
+.c2-depth-btn .t{font-size:14px;font-weight:700;color:var(--text)}
+.c2-depth-btn .s{font-size:10.5px;color:var(--muted);margin-top:2px}
+.c2-depth-info{margin-top:11px;font-size:12.5px;color:var(--muted);line-height:1.5;background:#11141A;
+  border:1px dashed var(--border);border-radius:8px;padding:9px 11px}
+.c2-depth-info b{color:var(--navy-text)}
+.c2-depth-info .tok{color:#C9A24E}
+.c2-depth-info .tag{font-size:10px;font-weight:700;color:#E0B050;background:rgba(224,176,80,.12);
+  border:1px solid rgba(224,176,80,.3);border-radius:5px;padding:1px 6px;letter-spacing:.05em;text-transform:uppercase;margin-right:4px}
+
+/* CTA dorado brilloso */
+.c2-cta{width:calc(100% - 2rem);max-width:640px;margin:16px auto 0;display:block;padding:17px;border:none;border-radius:14px;
+  background:linear-gradient(120deg,#E8C879 0%,#C9A24E 30%,#F0DA9E 50%,#C9A24E 70%,#E8C879 100%);
+  background-size:220% 100%;color:#241705;font-size:16.5px;font-weight:800;
+  cursor:pointer;letter-spacing:.01em;box-shadow:0 4px 20px rgba(201,162,78,.4),0 0 0 1px rgba(255,255,255,.08) inset;
+  transition:all .2s;animation:c2-shine 3.5s ease-in-out infinite}
+.c2-cta:hover{transform:translateY(-1px);box-shadow:0 6px 26px rgba(201,162,78,.55),0 0 0 1px rgba(255,255,255,.12) inset}
+.c2-cta:disabled{opacity:.4;cursor:not-allowed;transform:none;animation:none;box-shadow:none}
+@keyframes c2-shine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* Fila de accesos */
+.c2-access-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;max-width:640px;margin:14px auto 0;padding:0 1rem}
+.c2-access-btn{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:13px 6px;cursor:pointer;
+  transition:all .18s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px}
+.c2-access-btn:hover{border-color:var(--navy-text);background:#1c2029}
+.c2-access-btn .ico{font-size:22px;line-height:1}
+.c2-access-btn .t{font-size:12px;font-weight:600;color:var(--text)}
+.c2-access-panel{max-width:640px;margin:10px auto 0;padding:0 1rem;display:none}
+.c2-access-panel.show{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+
+/* Mejor práctica del día */
+.c2-practice{max-width:640px;margin:16px auto 0;width:calc(100% - 2rem);background:linear-gradient(135deg,#141821,#1A2233);
+  border:1px solid rgba(143,180,232,.28);border-radius:var(--radius);padding:18px 18px 16px;position:relative;overflow:hidden}
+.c2-practice-label{font-size:11px;font-weight:700;color:#C9A24E;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.c2-practice-text{font-size:17px;font-weight:600;color:var(--text);line-height:1.45}
+.c2-practice-sub{font-size:13px;color:var(--muted);margin-top:9px;line-height:1.5}
+
+/* Barra de contexto que viaja a la pantalla de chat */
 /* Franja de perfil: horizontal de izquierda a derecha, legible */
 .profile-strip{display:flex;align-items:center;gap:10px;padding:9px 4px 13px;border-top:1px solid rgba(255,255,255,.1);color:#fff}
 .profile-strip strong{color:#fff;font-weight:800}
@@ -123,6 +217,8 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 .ps-flow .lbl{color:#D4AF37;font-weight:700}
 .ps-flow .sep{color:rgba(255,255,255,.35);margin:0 8px}
 .ps-graph{flex:0 0 auto;display:flex;align-items:center}
+#resumen-overlay:not(.mostrar), #group-resumen-overlay:not(.mostrar), #doc-pdf-overlay:not(.mostrar), #mood-overlay:not(.mostrar) { display: none !important; }
+#resumen-overlay.mostrar, #group-resumen-overlay.mostrar, #doc-pdf-overlay.mostrar, #mood-overlay.mostrar { display: block !important; }
 .graph-ok{display:inline-flex;align-items:center;justify-content:center;font-size:22px;background:rgba(80,180,140,.14);border:1px solid rgba(80,180,140,.3);border-radius:50%;width:40px;height:40px;white-space:nowrap}
 
 /* ── Instrucciones overlay ── */
@@ -161,12 +257,32 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 
 /* ── CHAT SCREEN ── */
 .chat-wrap{display:flex;flex-direction:column;min-height:100vh}
-.chat-hdr{background:var(--navy);padding:12px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
+.chat-hdr-sticky-wrap{position:sticky;top:0;z-index:10;border-radius:0 0 20px 20px;overflow:hidden;border-bottom:2px solid rgba(201,162,78,.55)}
+.chat-hdr{background:#232220;padding:16px 14px 14px;display:flex;align-items:flex-start;justify-content:center;position:relative}
+.chat-hdr::after{content:"";position:absolute;left:36px;right:36px;bottom:0;height:2px;background:#C9A24E;border-radius:2px}
+.chat-hdr .back-btn{position:absolute;left:14px;top:16px}
+.chat-hdr-stack{display:flex;flex-direction:column;align-items:center;gap:5px;max-width:78%}
+.chat-title-center{color:#fff;font-size:17px;font-weight:700;letter-spacing:.03em;text-align:center}
+.chat-client-line{color:#fff;font-size:15px;font-weight:700;text-align:center;line-height:1.2}
+.chat-hdr .status{position:absolute;right:14px;top:20px}
+.chat-hinfo{display:none}
+.toolbar-row{background:#232220;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;flex-wrap:wrap;border-radius:20px 20px 0 0}
+.tool-btn{background:rgba(255,255,255,.08);border:1px solid rgba(201,162,78,.45);color:#fff;padding:9px 16px;border-radius:20px;font-size:14.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .2s}
+.tool-btn:hover{background:rgba(255,255,255,.16)}
 .back-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
 .chat-hinfo{flex:1;min-width:0}
 .chat-hinfo p:first-child{font-size:14px;font-weight:600;color:#fff;margin-bottom:1px}
 .chat-hinfo p:last-child{font-size:15px;color:rgba(255,255,255,.65);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .status{width:7px;height:7px;border-radius:50%;background:#10B981;transition:background .3s;flex-shrink:0}
+.ctx-reto-row{width:100%;display:flex;justify-content:center;margin-top:4px}
+.ctx-bottom-row{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;background:linear-gradient(135deg,#141821,#1A2233);padding:9px 14px;box-sizing:border-box}
+.ctx-emo-side{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start}
+.ctx-model-side{display:flex;justify-content:flex-end;flex-shrink:0}
+.ctx-mini-chip{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--text);font-weight:600}
+.ctx-mini-chip .dot{width:6px;height:6px;border-radius:50%}
+.ctx-mini-chip.reto{background:rgba(143,180,232,.1);border-color:rgba(143,180,232,.3)}
+.ctx-mini-chip.depth{background:rgba(201,162,78,.1);border-color:rgba(201,162,78,.3)}
+.ctx-mini-chip .lbl{color:#C9A24E;font-weight:700}
 .status.loading{background:#F59E0B}
 .resumen-btn{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;font-weight:600;padding:7px 11px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:all .2s;font-family:inherit}
 .resumen-btn:hover{background:rgba(255,255,255,.28)}
@@ -175,22 +291,23 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 .msg-row{display:flex;align-items:flex-end;gap:8px}
 .msg-row.user{justify-content:flex-end}
 .ai-icon{width:28px;height:28px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;flex-shrink:0;margin-bottom:2px}
-.bubble{max-width:82%;padding:14px 18px;border-radius:18px;font-size:18px;line-height:1.65;white-space:pre-wrap;word-break:break-word;letter-spacing:.01em}
-.bubble.ai{background:var(--white);border:1px solid var(--border);border-bottom-left-radius:4px;color:var(--text);font-weight:400}
-.bubble.user{background:var(--navy);color:#fff;border-bottom-right-radius:4px;font-weight:400}
+.bubble{max-width:90%;padding:14px 18px;border-radius:18px;font-size:23px;line-height:1.30;white-space:pre-wrap;word-break:break-word;letter-spacing:.01em;font-weight:400}
+.bubble.ai{background:transparent;border:none;color:var(--text);font-weight:400;padding:14px 0;max-width:100%}
+.bubble.user{background:rgba(255,255,255,.55);color:#000000;font-weight:700;border-bottom-right-radius:4px;max-width:72%;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(3px)}
 .typing{display:flex;gap:5px;padding:10px 14px;background:var(--white);border:1px solid var(--border);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
 .dot{width:6px;height:6px;border-radius:50%;background:#8FB4E8;animation:pulse 1.2s ease-in-out infinite}
 .dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
 @keyframes pulse{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
-.input-row{background:var(--white);border-top:1px solid var(--border);padding:10px;display:flex;gap:8px;align-items:flex-end;position:sticky;bottom:0}
-.msg-inp{flex:1;padding:11px 15px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:15px;font-family:inherit;resize:none;outline:none;min-height:42px;max-height:110px;line-height:1.6;background:#11141A;color:var(--text);transition:border-color .2s}
-.msg-inp:focus{border-color:var(--navy)}
+.input-row{background:#232220;border-top:1px solid rgba(255,255,255,.08);padding:14px;display:flex;gap:10px;align-items:flex-end;position:sticky;bottom:0}
+.msg-inp{flex:1;padding:14px 18px;border:1px solid rgba(255,255,255,.14);border-radius:28px;font-size:19px;font-family:inherit;resize:none;outline:none;min-height:74px;max-height:160px;line-height:1.6;background:#2E2C28;color:#fff;transition:border-color .2s}
+.msg-inp:focus{border-color:#C9A24E}
 .send-btn{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:all .2s}
-.send-btn.on{background:var(--navy);color:#fff}
+.send-btn.on{background:#C9A24E;color:#fff}
 .send-btn.off{background:#2A2E36;color:#777;cursor:not-allowed}
 .mic-btn{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all .2s;background:#2A2E36;color:#BBB}
 .mic-btn:hover{background:#363B45}
 .mic-btn.listening{background:var(--wine);color:#fff;animation:micpulse 1.3s ease-in-out infinite}
+.tool-btn.mic-btn{padding:0;box-sizing:border-box;align-self:center}
 @keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(200,64,64,.5)}50%{box-shadow:0 0 0 7px rgba(200,64,64,0)}}
 .tts-btn{background:var(--white);border:1px solid var(--border);border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:16px;opacity:.7;flex-shrink:0;padding:0;align-self:flex-end;transition:all .2s;display:flex;align-items:center;justify-content:center}
 .tts-btn:hover{opacity:1;border-color:var(--navy-text)}
@@ -357,7 +474,7 @@ body.pres-mode .gm-row{max-width:80%}
 <!-- ── SCREEN: API KEY ── -->
 <div id="screen-key" class="screen">
   <div class="hdr">
-    <div class="badge">💆 SPA EMOCIONAL IA PREMIUM</div>
+    <div class="badge">💆 SPA EMOCIONAL IA PREMIUM · V25</div>
     <h1 style="font-size:24px">Bienvenido a tu SPA</h1>
     <p>Ingresa tu API Key de Anthropic para comenzar</p>
   </div>
@@ -381,7 +498,7 @@ body.pres-mode .gm-row{max-width:80%}
 <div id="screen-setup" class="screen">
   <div class="hdr">
     <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:1rem;position:relative">
-      <div class="badge" style="margin-bottom:0">🛠️ CONSTRUCCIÓN · MODO COACH</div>
+      <div class="badge" style="margin-bottom:0">🛠️ CONSTRUCCIÓN · MODO COACH · V25</div>
       <button class="fb-dot-btn" id="btn-feedback-setup" title="Feedback / Soporte" style="position:absolute;right:0;top:50%;transform:translateY(-50%)"></button>
     </div>
     <h1 style="font-size:24px">Construye el SPA de tu cliente</h1>
@@ -491,26 +608,41 @@ body.pres-mode .gm-row{max-width:80%}
       <div class="spa-premium-line"><span class="star">✦</span> P R E M I U M <span class="star">✦</span></div>
       <h1 class="spa-big-title">Liderazgo con Inteligencia Emocional y Social</h1>
     </div>
-
-    <!-- Franja de perfil horizontal: Líder · Sexo · Performance/Bienestar · Focus · 📊 -->
-    <div class="profile-strip" id="menu-profile">
-      <div class="ps-flow" id="ps-flow"></div>
-      <div class="ps-graph" id="ps-graph"></div>
-    </div>
    </div>
   </div>
 
-  <div class="card" style="margin:10px auto 0;max-width:640px;width:calc(100% - 2rem)">
-    <label>Reto o problema a resolver</label>
-    <input type="text" id="m-reto" placeholder="Ej: Sin control de gastos en la tarjeta">
-    <label>Modelo de IA</label>
-    <select id="m-model" onchange="updateModelHint('m-model','m-model-hint')">
-      <option value="claude-fable-5">Fable 5 — Lo más avanzado (nuevo)</option>
-      <option value="claude-opus-4-8">Opus 4.8 — Máxima calidad (premium)</option>
-      <option value="claude-sonnet-5" selected="">Sonnet 5 — Excelente balance (recomendado)</option>
-      <option value="claude-haiku-4-5-20251001">Haiku 4.5 — Rápido y económico</option>
-    </select>
-    <p id="m-model-hint" style="font-size:13px;color:var(--muted);margin-top:5px;line-height:1.4"></p>
+  <!-- ══ CONSTRUCTOR.2 V1 — Saludo + frase + Mood Meter compacto ══ -->
+  <div class="c2-block">
+    <div class="c2-motto-line">Cada emoción desagradable es una oportunidad de Mejora Continua.</div>
+    <div class="c2-greeting">Hola <b id="c2-greet-name">Santiago</b>, ¿cómo te sientes hoy?</div>
+    <div class="c2-mood-compact" id="c2-mood-compact">
+      <div class="c2-mood-head" id="c2-mood-toggle">
+        <div class="c2-mood-mini">
+          <div class="c2-mood-mini-cell" style="background:var(--q-red)"></div>
+          <div class="c2-mood-mini-cell" style="background:var(--q-yellow)"></div>
+          <div class="c2-mood-mini-cell" style="background:var(--q-blue)"></div>
+          <div class="c2-mood-mini-cell" style="background:var(--q-green)"></div>
+        </div>
+        <div class="c2-mood-txt" id="c2-mood-txt"><b>Toca para ubicar tu emoción</b> en el Mood Meter</div>
+        <div class="c2-mood-chevron">▾</div>
+      </div>
+      <div class="c2-mood-full" id="c2-mood-full">
+        <div class="c2-mood-axis-x"><span>Desagrado ◄</span><span>► Agrado</span></div>
+        <div class="c2-mood-body">
+          <div class="c2-mood-axis-y left"><span>Energía<br>alta</span><span>Energía<br>baja</span></div>
+          <div class="c2-mood-grid-wrap"><div id="c2-mood-grid"></div></div>
+          <div class="c2-mood-axis-y right"><span>Energía<br>alta</span><span>Energía<br>baja</span></div>
+        </div>
+        <div class="c2-mood-axis-x" style="padding-top:5px"><span>Desagrado ◄</span><span>► Agrado</span></div>
+        <div class="c2-mood-preview" id="c2-mood-preview"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ¿Qué está sucediendo? ══ -->
+  <div class="c2-block">
+    <label style="margin-top:0">💬 ¿Qué está sucediendo?</label>
+    <textarea class="c2-reto" id="m-reto" placeholder="Cuéntame en una o dos líneas qué reto estás viviendo..."></textarea>
   </div>
 
   <!-- Banner: sesión en curso -->
@@ -523,18 +655,73 @@ body.pres-mode .gm-row{max-width:80%}
     </div>
   </div>
 
-  <div class="section-label">Tu desarrollo individual</div>
-  <div class="opts">
-    <button class="opt opt-1" data-opt="1" data-msg="Opción 1: Resolver y mejorar una situación personal.">
-      <span class="opt-ico">🎯</span>
-      Resolver una situación
-      <span class="opt-sub">tu reto personal, paso a paso</span>
+  <!-- ══ ¿Qué deseas hacer? ══ -->
+  <div class="c2-block">
+    <label style="margin-top:0">✨ ¿Qué deseas hacer?</label>
+    <div class="c2-action-grid" id="c2-action-grid">
+      <div class="c2-action-btn" data-opt="1" data-msg="Opción 1: Resolver y mejorar una situación personal.">
+        <div class="row1"><span class="ico">🎯</span><span class="t">Resolver</span></div>
+        <span class="s">tu reto personal</span>
+      </div>
+      <div class="c2-action-btn" data-opt="coach" data-msg="Opción 2: Estilo Coaching — quiero acompañar a alguien de mi equipo (mi coachee) a resolver su reto.">
+        <div class="row1"><span class="ico">🤝</span><span class="t">Coachear</span></div>
+        <span class="s">acompaña a alguien</span>
+      </div>
+      <div class="c2-action-btn" data-opt="group">
+        <div class="row1"><span class="ico">👥</span><span class="t">Reunión</span></div>
+        <span class="s">alto desempeño</span>
+      </div>
+      <div class="c2-action-btn" data-opt="kids">
+        <div class="row1"><span class="ico">🧒</span><span class="t">Apoyo Hijos</span></div>
+        <span class="s">niños y jóvenes</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ¿Con qué profundidad? ══ -->
+  <div class="c2-block">
+    <label style="margin-top:0">⚙️ ¿Con qué profundidad?</label>
+    <div class="c2-depth-grid" id="c2-depth-grid">
+      <div class="c2-depth-btn" data-depth="rapido" data-model="claude-sonnet-5">
+        <div class="t">Rápido</div><div class="s">al grano</div>
+      </div>
+      <div class="c2-depth-btn sel" data-depth="normal" data-model="claude-opus-4-8">
+        <div class="t">Normal</div><div class="s">equilibrado</div>
+      </div>
+      <div class="c2-depth-btn" data-depth="profundo" data-model="claude-fable-5">
+        <div class="t">Profundo</div><div class="s">a fondo</div>
+      </div>
+    </div>
+    <div class="c2-depth-info" id="c2-depth-info"></div>
+  </div>
+
+  <!-- Selects reales ocultos: siguen existiendo para el resto del código, ya no se muestran directo -->
+  <select id="m-model" onchange="updateModelHint('m-model','m-model-hint')" style="display:none">
+    <option value="claude-fable-5">Fable 5 — Lo más avanzado (nuevo)</option>
+    <option value="claude-opus-4-8" selected="">Opus 4.8 — Máxima calidad (premium)</option>
+    <option value="claude-sonnet-5">Sonnet 5 — Excelente balance (recomendado)</option>
+    <option value="claude-haiku-4-5-20251001">Haiku 4.5 — Rápido y económico</option>
+  </select>
+  <p id="m-model-hint" style="display:none"></p>
+
+  <!-- ══ CTA principal ══ -->
+  <button class="c2-cta" id="c2-cta" disabled="">Comenzar mi sesión →</button>
+
+  <!-- ══ Fila de accesos ══ -->
+  <div class="c2-access-row">
+    <div class="c2-access-btn" id="c2-access-auto">
+      <span class="ico">💬</span><span class="t">Feedback</span>
+    </div>
+    <button class="c2-access-btn" id="c2-access-history" style="border:1px solid var(--border)">
+      <span class="ico">🗂️</span><span class="t">Historial</span>
     </button>
-    <button class="opt opt-coach" data-opt="coach" data-msg="Opción 2: Estilo Coaching — quiero acompañar a alguien de mi equipo (mi coachee) a resolver su reto.">
-      <span class="opt-ico">🤝</span>
-      Estilo Coaching
-      <span class="opt-sub">acompaña a tu coachee</span>
+    <button class="c2-access-btn" id="c2-access-disclaimer" data-msg="Opción 9: Muéstrame el Disclaimer / Aviso Legal completo." style="border:1px solid var(--border)">
+      <span class="ico">🔖</span><span class="t">Disclaimer</span>
     </button>
+  </div>
+
+  <!-- Panel Feedback: Fast-SPA y Líder SPA (feedback de perfil) -->
+  <div class="c2-access-panel" id="c2-access-panel">
     <button class="opt opt-2" data-opt="fast" data-msg="Quiero un feedback Fast-SPA: la versión corta y ágil sobre mis resultados.">
       <span class="opt-ico">⚡</span>
       Fast-SPA
@@ -547,40 +734,13 @@ body.pres-mode .gm-row{max-width:80%}
     </button>
   </div>
 
-  <div class="section-label">Tu equipo y tu familia</div>
-  <div class="opts">
-    <button class="opt opt-group" data-opt="group">
-      <span class="opt-badge">ALTO DESEMPEÑO</span>
-      <span class="opt-ico">👥</span>
-      <span class="opt-body">
-        <span class="opt-title">Coaching Grupal</span>
-        <span class="opt-sub">resuelve un reto con todo tu equipo en tiempo real</span>
-      </span>
-      <span class="opt-arrow">→</span>
-    </button>
-    <button class="opt opt-kids" data-opt="kids">
-      <span class="opt-badge opt-badge-dev">ESTILO COACHING</span>
-      <span class="opt-ico">🧒</span>
-      <span class="opt-body">
-        <span class="opt-title">Ayuda a tus hijos con IE</span>
-        <span class="opt-sub">acompaña a niñas, niños y jóvenes (11+) estilo coaching</span>
-      </span>
-      <span class="opt-arrow">→</span>
-    </button>
+  <!-- ══ Mejor práctica del día ══ -->
+  <div class="c2-practice">
+    <div class="c2-practice-label">✦ Mejor práctica del día</div>
+    <div class="c2-practice-text" id="c2-practice-text">Antes de tu primera reunión, respira hondo tres veces y pregúntate: «¿Qué necesita sentir mi equipo de mí hoy?»</div>
+    <div class="c2-practice-sub" id="c2-practice-sub">Pequeño gesto de autoconciencia que abre tu día con presencia de líder.</div>
   </div>
 
-  <div class="opt-row2">
-    <button class="opt opt-history" data-opt="history">
-      <span class="opt-ico">🗂️</span>
-      Historial
-      <span class="opt-sub">tus últimas sesiones</span>
-    </button>
-    <button class="opt opt-9" data-opt="9" data-msg="Opción 9: Muéstrame el Disclaimer / Aviso Legal completo.">
-      <span class="opt-ico">🔖</span>
-      Disclaimer
-      <span class="opt-sub">aviso legal</span>
-    </button>
-  </div>
   <div style="max-width:660px;margin:16px auto 0;padding:0 1rem;text-align:center">
     <button id="btn-update-spa" onclick="updateSpaFromTemplate()" style="background:var(--navy);border:1px solid var(--navy);color:#fff;border-radius:999px;padding:9px 20px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit">🔄 Actualizar mi SPA a la última versión</button>
     <p style="font-size:12px;color:var(--muted);margin-top:6px">Versión actual: <span id="spa-current-version"></span></p>
@@ -588,31 +748,46 @@ body.pres-mode .gm-row{max-width:80%}
   <p class="copy">Talento Emocional by © Santiago Delgado · Todos los derechos reservados</p>
 </div>
 
+
 <!-- ── SCREEN: CHAT (individual) ── -->
 <div id="screen-chat" class="screen">
   <div class="chat-wrap">
-    <div class="chat-hdr">
-      <button class="back-btn" id="btn-back">‹</button>
-      <div class="chat-hinfo">
-        <p>SPA Emocional IA <span class="gold-sm">PREMIUM</span></p>
-        <p id="chat-subtitle">—</p>
+    <div class="chat-hdr-sticky-wrap">
+      <div class="chat-hdr">
+        <button class="back-btn" id="btn-back">‹</button>
+        <div class="chat-hdr-stack">
+          <div class="chat-title-center">SPA Emocional IA <span class="gold-sm">PREMIUM</span></div>
+          <div class="chat-client-line" id="chat-subtitle">—</div>
+          <div class="ctx-reto-row" id="ctx-reto-row" style="display:none"></div>
+        </div>
+        <div class="chat-hinfo"><p>SPA Emocional IA <span class="gold-sm">PREMIUM</span></p></div>
+        <div class="status" id="status-dot"></div>
       </div>
-      <button class="resumen-btn" id="btn-moodmeter" title="Mood Meter">🎯 Mood</button>
-      <button class="resumen-btn" id="btn-voice" title="Ajustes de voz">🔊</button>
-      <button class="resumen-btn" id="btn-autoread-toggle" title="Voz automática ON/OFF" style="font-size:14px;padding:6px 10px;opacity:.6">AUTO</button>
-      <button class="resumen-btn" id="btn-guardar" title="Guardar conversación">💾</button>
-      <button class="resumen-btn" id="btn-resumen" title="Generar Hoja Resumen">📄 Resumen</button>
-      <button class="fb-dot-btn" id="btn-feedback-chat" title="Feedback / Soporte" style="width:32px;height:32px;flex-shrink:0"></button>
-      <div class="status" id="status-dot"></div>
+    </div>
+    <!-- Emociones + Modelo: debajo de la línea dorada, NO fijo — se va con el scroll -->
+    <div class="ctx-bottom-row" id="ctx-bottom-row" style="display:none">
+      <div class="ctx-emo-side" id="ctx-emo-side"></div>
+      <div class="ctx-model-side" id="ctx-model-side"></div>
     </div>
     <div class="msgs" id="msgs-area">
       <div class="empty-chat">Iniciando sesión...</div>
     </div>
     <div id="attach-strip" style="display:none;background:var(--white);border-top:1px solid var(--border);padding:6px 14px;font-size:15px;color:var(--navy-text);font-weight:600;position:sticky;bottom:58px;align-items:center;gap:8px">📎 <span id="attach-name"></span> <button id="attach-remove" style="background:none;border:none;color:var(--wine);cursor:pointer;font-size:16px;font-weight:700">✕</button></div>
+    <div class="toolbar-row">
+      <button class="tool-btn" id="attach-btn-top" title="Adjuntar documento o imagen" style="display:none">📎</button>
+      <button class="tool-btn" id="btn-moodmeter" title="Mood Meter">🎯 Mood</button>
+      <button class="tool-btn" id="btn-voice" title="Ajustes de voz">🔊</button>
+      <button class="tool-btn" id="btn-autoread-toggle" title="Voz automática ON/OFF" style="opacity:.7">AUTO</button>
+      <button class="tool-btn" id="btn-guardar" title="Descargar conversación completa en texto" style="color:#7EB2FF;border-color:rgba(126,178,255,.55)">💾 Txt</button>
+      <button class="tool-btn" id="btn-resumen" title="Generar Hoja Resumen" style="color:#E8C879;border-color:#C9A24E;font-weight:800">📄 Resumen</button>
+      <button class="tool-btn" id="btn-pdf-doc" title="Exportar un documento de la charla en PDF" style="color:#E5342A;border-color:rgba(229,52,42,.65)">📑 PDF</button>
+      <button class="fb-dot-btn" id="btn-feedback-chat" title="Feedback / Soporte" style="width:28px;height:28px;flex-shrink:0"></button>
+      <button class="tool-btn mic-btn" id="mic-btn-top" title="Dictar por voz">🎤</button>
+    </div>
     <div class="input-row">
-      <input type="file" id="chat-file" accept="image/*,application/pdf" style="display:none">
-      <button class="send-btn off" id="attach-btn" title="Adjuntar documento o imagen" style="font-size:15px">📎</button>
-      <button class="mic-btn" id="mic-btn" title="Dictar por voz">🎤</button>
+      <input type="file" id="chat-file" accept="image/*,application/pdf" multiple style="display:none">
+      <button class="send-btn" id="attach-btn" title="Adjuntar documento o imagen" style="background:#2A2E36;color:#C9A24E">📎</button>
+      <button class="mic-btn" id="mic-btn" title="Dictar por voz" style="display:none">🎤</button>
       <textarea class="msg-inp" id="msg-input" placeholder="Escribe o dicta tu respuesta..." rows="1"></textarea>
       <button class="send-btn off" id="send-btn">↑</button>
     </div>
@@ -703,23 +878,28 @@ body.pres-mode .gm-row{max-width:80%}
 
 <!-- ── MOOD METER OVERLAY (compartido: individual y grupal) ── -->
 <div id="mood-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;overflow-y:auto;padding:14px 10px">
-  <div style="max-width:380px;margin:0 auto;background:var(--white);border-radius:14px;padding:16px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+  <div style="max-width:460px;margin:0 auto;background:var(--white);border-radius:14px;padding:18px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
       <div style="font-size:15px;font-weight:700;color:var(--navy-text)" id="mood-title">🎯 Mood Meter</div>
       <button id="btn-close-mood" style="background:#2A2E36;color:#CCC;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
     </div>
     <div id="mood-who" style="display:none;font-size:15px;color:#94DAD0;font-weight:600;margin-bottom:6px"></div>
-    <p style="font-size:14px;color:var(--muted);margin-bottom:10px;line-height:1.45">Toca el o los puntos donde te encuentras (hasta 5 emociones): vertical = energía, horizontal = qué tan agradable te sientes.</p>
-    <div style="display:flex;gap:5px;justify-content:center">
-      <div style="display:flex;flex-direction:column;justify-content:space-between;font-size:8px;color:var(--muted);padding:2px 0;text-align:right"><span>Energía<br>alta 10</span><span>Energía<br>baja 1</span></div>
-      <div style="width:260px;max-width:100%">
-        <div id="mood-grid" style="display:grid;grid-template-columns:repeat(10,1fr);gap:2px;width:260px;height:260px;max-width:100%"></div>
-        <div style="display:flex;justify-content:space-between;font-size:8px;color:var(--muted);margin-top:3px"><span>← Desagradable 1</span><span>Agradable 10 →</span></div>
+
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-weight:600;padding:0 44px 5px"><span>Desagrado 10 ◄</span><span>► Agrado 10</span></div>
+    <div style="display:flex;gap:6px;justify-content:center;align-items:stretch">
+      <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;font-size:10px;color:var(--muted);font-weight:600;text-align:right;width:38px;padding:2px 0"><span>Energía<br>alta 10</span><span>Energía<br>baja 1</span></div>
+      <div style="flex:1;max-width:340px">
+        <div id="mood-grid" style="display:grid;grid-template-columns:repeat(10,1fr);gap:2px;width:100%;aspect-ratio:1/1"></div>
       </div>
+      <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;font-size:10px;color:var(--muted);font-weight:600;width:38px;padding:2px 0"><span>Energía<br>alta 10</span><span>Energía<br>baja 1</span></div>
     </div>
-    <div id="mood-preview" style="text-align:center;font-size:15px;color:var(--muted);font-weight:600;margin-top:10px;min-height:38px;line-height:1.4;background:#11141A;border:1px dashed var(--border);border-radius:8px;padding:7px 8px;display:flex;flex-direction:column;justify-content:center"></div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-weight:600;padding:5px 44px 0"><span>Desagrado 10 ◄</span><span>► Agrado 10</span></div>
+
+    <div id="mood-preview" style="text-align:center;font-size:15px;color:var(--muted);font-weight:600;margin-top:12px;min-height:38px;line-height:1.4;background:#11141A;border:1px dashed var(--border);border-radius:8px;padding:7px 8px;display:flex;flex-direction:column;justify-content:center"></div>
     <div id="mood-selected" style="font-size:15px;color:var(--navy-text);font-weight:600;margin-top:8px;min-height:30px;line-height:1.5;background:#14171D;border:1px solid var(--border);border-radius:8px;padding:8px 10px"></div>
     <button class="btn btn-navy" id="btn-send-mood" disabled="" style="margin-top:10px">Enviar mi ubicación al SPA</button>
+
+    <p style="font-size:12.5px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px solid var(--border);line-height:1.5"><b style="color:var(--navy-text)">¿Cómo funciona?</b> Vertical = tu energía (arriba alta, abajo baja). Horizontal = qué tan agradable se siente (izquierda desagradable, derecha agradable). Pasa el cursor para explorar, toca hasta 3 emociones que resuenen contigo, y envía.</p>
   </div>
 </div>
 
@@ -727,10 +907,7 @@ body.pres-mode .gm-row{max-width:80%}
 <div id="resumen-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;overflow-y:auto;padding:20px 10px">
   <div style="max-width:760px;margin:0 auto">
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-bottom:10px;position:sticky;top:0;z-index:5;flex-wrap:wrap">
-      <button id="btn-download-resumen" style="background:var(--green);color:#fff;border:none;padding:10px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer">⬇ Imagen</button>
-      <button id="btn-download-word" style="background:#2B5797;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer">⬇ Word</button>
-      <button id="btn-download-html" style="background:#C8620A;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer">⬇ HTML</button>
-      <button id="btn-download-pdf" style="background:#7A1525;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer">🖨 PDF</button>
+      <button id="btn-download-pdf" style="background:#C9A24E;color:#1A1A1A;border:none;padding:10px 16px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">⬇ Exportar PDF</button>
       <button id="btn-close-resumen" style="background:#2A2E36;color:#ECECEA;border:none;padding:10px 16px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer">✕ Cerrar</button>
     </div>
     <div id="resumen-loading" style="background:var(--white);border-radius:12px;padding:3rem 2rem;text-align:center;color:var(--muted)">
@@ -749,14 +926,23 @@ body.pres-mode .gm-row{max-width:80%}
   </div>
 </div>
 
+<!-- ── SELECTOR DE DOCUMENTO PARA PDF (individual) ── -->
+<div id="doc-pdf-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;overflow-y:auto;padding:20px 10px">
+  <div style="max-width:640px;margin:0 auto;background:#232220;border-radius:14px;padding:22px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <p style="font-size:17px;font-weight:700;color:#fff;margin:0">📑 Elige el documento a exportar</p>
+      <button id="btn-close-doc-pdf" style="background:rgba(255,255,255,.1);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:14px;cursor:pointer">✕ Cerrar</button>
+    </div>
+    <p style="font-size:13.5px;color:rgba(255,255,255,.6);margin-bottom:14px">Selecciona la respuesta de Claude que quieres exportar como PDF (por ejemplo, una carta, memo o documento redactado durante la charla).</p>
+    <div id="doc-pdf-list" style="display:flex;flex-direction:column;gap:8px;max-height:60vh;overflow-y:auto"></div>
+  </div>
+</div>
+
 <!-- ── RESUMEN GRUPAL OVERLAY ── -->
 <div id="group-resumen-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;overflow-y:auto;padding:20px 10px">
   <div style="max-width:820px;margin:0 auto">
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-bottom:10px;position:sticky;top:0;z-index:5;flex-wrap:wrap">
-      <button id="btn-gr-img" style="background:var(--green);color:#fff;border:none;padding:10px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer">⬇ Imagen</button>
-      <button id="btn-gr-word" style="background:#2B5797;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer">⬇ Word</button>
-      <button id="btn-gr-html" style="background:#C8620A;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer">⬇ HTML</button>
-      <button id="btn-gr-pdf" style="background:#7A1525;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer">🖨 PDF</button>
+      <button id="btn-gr-pdf" style="background:#C9A24E;color:#1A1A1A;border:none;padding:10px 16px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">⬇ Exportar PDF</button>
       <button id="btn-gr-close" style="background:#2A2E36;color:#ECECEA;border:none;padding:10px 16px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer">✕ Cerrar</button>
     </div>
     <div id="gr-loading" style="background:var(--white);border-radius:12px;padding:3rem 2rem;text-align:center;color:var(--muted)">
@@ -972,6 +1158,28 @@ body.pres-mode .gm-row{max-width:80%}
 </div>
 
 <script>
+// ══════════════════════════════════════════════════════
+//  CAJA DE SEGURIDAD PARA localStorage (arregla pantalla negra en iPhone)
+//  Safari en iOS a veces bloquea localStorage en archivos HTML locales.
+//  Si eso pasa, usamos memoria temporal en su lugar — la app sigue
+//  funcionando, solo que no recuerda entre visitas.
+// ══════════════════════════════════════════════════════
+const localStorage = (function () {
+  try {
+    const testKey = '__spa_test__';
+    window.localStorage.setItem(testKey, '1');
+    window.localStorage.removeItem(testKey);
+    return window.localStorage;
+  } catch (e) {
+    const mem = {};
+    return {
+      getItem: k => (k in mem ? mem[k] : null),
+      setItem: (k, v) => { mem[k] = String(v); },
+      removeItem: k => { delete mem[k]; }
+    };
+  }
+})();
+
 const LOGO_SPA="data:image/jpeg;base64,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";
 const LOGO_TE="data:image/png;base64,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";
 
@@ -1174,7 +1382,7 @@ let state = {
   profile: {},
   messages: [],
   loading: false,
-  pendingAttach: null,
+  pendingAttachments: [],
   lastResumenImg: null,
   lastResumenData: null
 };
@@ -1232,6 +1440,12 @@ function showScreen(id) {
   document.getElementById('screen-' + id).classList.add('active');
   window.scrollTo(0,0);
   if (id === 'menu') updateSessionBanner();
+
+  // Cierre defensivo: ningún overlay debe quedar visible al cambiar de pantalla
+  ['resumen-overlay', 'group-resumen-overlay', 'doc-pdf-overlay', 'mood-overlay'].forEach(overlayId => {
+    const el = document.getElementById(overlayId);
+    if (el) el.style.display = 'none';
+  });
 }
 function updateSessionBanner() {
   const banner = document.getElementById('session-banner');
@@ -1262,18 +1476,20 @@ function buildApiMessages(messages) {
           data: state.profile.mmpGraph } });
       }
     }
-    if (m.role === 'user' && m.attach) {
-      if (m.attach.kind === 'pdf') {
-        blocks.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: m.attach.data } });
-      } else {
-        blocks.push({ type: 'image', source: { type: 'base64',
-          media_type: detectImageMediaType(m.attach.data),
-          data: m.attach.data } });
-      }
+    if (m.role === 'user' && m.attach && m.attach.length) {
+      m.attach.forEach(att => {
+        if (att.kind === 'pdf') {
+          blocks.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: att.data } });
+        } else {
+          blocks.push({ type: 'image', source: { type: 'base64',
+            media_type: detectImageMediaType(att.data),
+            data: att.data } });
+        }
+      });
     }
     if (blocks.length) {
       let txt = m.content;
-      if (blocks.some(b => b.type === 'document' || (b.type === 'image' && m.attach))) txt += '\n\n[El líder adjuntó un documento/imagen con datos. Analízalo a fondo: extrae hechos, cifras y patrones relevantes.]';
+      if (blocks.some(b => b.type === 'document' || (b.type === 'image' && m.attach))) txt += '\n\n[El líder adjuntó ' + (m.attach && m.attach.length > 1 ? 'varios documentos/imágenes' : 'un documento/imagen') + ' con datos. Analízalo(s) a fondo: extrae hechos, cifras y patrones relevantes.]';
       blocks.push({ type: 'text', text: txt });
       return { role: m.role, content: blocks };
     }
@@ -1284,9 +1500,9 @@ function buildApiMessages(messages) {
 // ══════════════════════════════════════════════════════
 //  MAKE WEBHOOK — URL del escenario de chat
 // ══════════════════════════════════════════════════════
-const MAKE_CHAT_WEBHOOK = 'https://hook.us2.make.com/iefchquga95ctnnf23apjbsfpwh1nnub';
+const MAKE_CHAT_WEBHOOK = 'https://spa-ia-test.bold-sun-d65a.workers.dev'; // antes: Make. Ahora: Cloudflare Worker directo.
 
-async function callAPI(messages) {
+async function callAPI(messages, onChunk) {
   // ── Conversión cualitativa (igual que SPA Protegido) ──
   function nivelEQi(val) {
     const n = parseFloat(val);
@@ -1392,6 +1608,21 @@ async function callAPI(messages) {
     const errTxt = await res.text().catch(() => '');
     throw new Error('HTTP ' + res.status + ' — ' + errTxt);
   }
+
+  // Streaming real: leemos el cuerpo poco a poco y avisamos con cada fragmento
+  if (onChunk && res.body && res.body.getReader) {
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let acumulado = '';
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      acumulado += decoder.decode(value, { stream: true });
+      onChunk(acumulado);
+    }
+    return acumulado || '(respuesta vacía)';
+  }
+
   const reply = await res.text();
   return reply || '(respuesta vacía)';
 }
@@ -1471,7 +1702,19 @@ async function callGroupAPI(messages) {
 // ══════════════════════════════════════════════════════
 //  CHAT INDIVIDUAL — RENDER
 // ══════════════════════════════════════════════════════
+// Quita del texto MOSTRADO las líneas técnicas silenciosas (profundidad + medición Mood Meter).
+// El texto real enviado a Claude (msg.content / la API) NO se toca — esto es solo para la burbuja visible,
+// ya que esa información ya vive de forma limpia en los chips del encabezado.
+function displayUserContent(text) {
+  return text
+    .replace(/\n?\[PROFUNDIDAD:[^\]]*\]\s*$/, '')
+    .replace(/^\[PROFUNDIDAD:[^\]]*\]\n?/, '')
+    .replace(/^Mi medición en el Mood Meter[^\n]*\n?/, '')
+    .trim();
+}
+
 function renderMessages() {
+  let suprimirScrollRender = window.__suprimirScrollRender || false;
   const area = document.getElementById('msgs-area');
   if (state.messages.length === 0) {
     area.innerHTML = '<div class="empty-chat">Iniciando sesión...</div>';
@@ -1479,8 +1722,10 @@ function renderMessages() {
   }
   area.innerHTML = state.messages.map((msg, i) => {
     if (msg.role === 'user') {
-      const chip = msg.attach ? '<div style="font-size:14px;opacity:.85;margin-bottom:4px">📎 ' + escHtml(msg.attach.name) + '</div>' : '';
-      return `<div class="msg-row user"><div class="bubble user">${chip}${escHtml(msg.content)}</div></div>`;
+      const chip = (msg.attach && msg.attach.length) ? '<div style="font-size:14px;opacity:.85;margin-bottom:4px">📎 ' + msg.attach.map(a => escHtml(a.name)).join(', ') + '</div>' : '';
+      const visible = displayUserContent(msg.content);
+      if (!visible) return ''; // mensaje puramente técnico (raro) — no se muestra burbuja vacía
+      return `<div class="msg-row user"><div class="bubble user">${chip}${escHtml(visible)}</div></div>`;
     } else {
       return `<div class="msg-row ai"><div class="ai-icon">💆</div><div class="bubble ai">${mdToHtml(msg.content)}</div><button class="tts-btn" onclick="speakMsg(${i})" title="Escuchar / detener">🔊</button></div>`;
     }
@@ -1488,7 +1733,9 @@ function renderMessages() {
   if (state.loading) {
     area.innerHTML += `<div class="msg-row ai"><div class="ai-icon">💆</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
   }
-  area.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  if (!suprimirScrollRender) {
+    area.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
 }
 
 function escHtml(str) {
@@ -1516,9 +1763,9 @@ function mdToHtml(str) {
   h = h.replace(/`([^`\n]+)`/g, '<code style="background:rgba(0,0,0,.22);border-radius:4px;padding:1px 5px;font-size:13px;font-family:monospace">$1</code>');
 
   // 4. Encabezados como bloques reales
-  h = h.replace(/^### (.+)$/gm, '<div style="font-size:15px;font-weight:700;margin:10px 0 4px;line-height:1.3">$1</div>');
-  h = h.replace(/^## (.+)$/gm,  '<div style="font-size:16px;font-weight:700;margin:12px 0 5px;line-height:1.3">$1</div>');
-  h = h.replace(/^# (.+)$/gm,   '<div style="font-size:17px;font-weight:800;margin:14px 0 6px;line-height:1.3">$1</div>');
+  h = h.replace(/^### (.+)$/gm, '<div style="font-size:22px;font-weight:700;margin:12px 0 5px;line-height:1.3">$1</div>');
+  h = h.replace(/^## (.+)$/gm,  '<div style="font-size:26px;font-weight:700;margin:14px 0 6px;line-height:1.25">$1</div>');
+  h = h.replace(/^# (.+)$/gm,   '<div style="font-size:30px;font-weight:800;margin:16px 0 7px;line-height:1.2">$1</div>');
 
   // 5. Separador horizontal
   h = h.replace(/^---+\s*$/gm, '<hr style="border:none;border-top:1px solid rgba(255,255,255,.18);margin:10px 0">');
@@ -1570,16 +1817,43 @@ function setLoading(v) {
 async function sendMessage(text) {
   if (!text.trim() || state.loading) return;
   primeSpeech();
-  state.messages.push({ role: 'user', content: text, attach: state.pendingAttach || null });
-  state.pendingAttach = null;
+  state.messages.push({ role: 'user', content: text, attach: state.pendingAttachments.length ? state.pendingAttachments : null });
+  state.pendingAttachments = [];
   saveSession();
   const strip = document.getElementById('attach-strip');
   if (strip) strip.style.display = 'none';
+
+  window.__suprimirScrollRender = true; // nuestro anclaje manda; evita el scroll doble que compite
   setLoading(true);
+
+  // Anclamos TU mensaje cerca de la parte superior, así la respuesta se lee
+  // desde su inicio sin tener que subir manualmente conforme va creciendo.
+  requestAnimationFrame(() => {
+    const filasUsuario = document.querySelectorAll('#msgs-area .msg-row.user');
+    const ultimaFila = filasUsuario[filasUsuario.length - 1];
+    if (ultimaFila) {
+      const headerAlto = document.querySelector('.chat-hdr')?.offsetHeight || 0;
+      const y = ultimaFila.getBoundingClientRect().top + window.scrollY - headerAlto - 12;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  });
+
   try {
-    const reply = await callAPI(state.messages);
-    setLoading(false);
-    await revealMessage(reply);   // efecto de escritura progresiva
+    let burbujaCreada = false;
+    const reply = await callAPI(state.messages, (parcial) => {
+      if (!burbujaCreada) {
+        state.loading = false;
+        document.getElementById('status-dot').className = 'status';
+        document.getElementById('msg-input').disabled = false;
+        crearBurbujaIAStreaming();
+        burbujaCreada = true;
+      }
+      actualizarBurbujaIAStreaming(parcial);
+    });
+    state.messages.push({ role: 'assistant', content: reply });
+    saveSession();
+    renderMessages(); // una sola reconstrucción final, para el botón de voz y formato exacto
+    window.__suprimirScrollRender = false;
     autoReadIfOn(reply);
     return;
   } catch(e) {
@@ -1587,8 +1861,26 @@ async function sendMessage(text) {
       + '\n\n**Qué revisar:**\n• Verifica que tu API Key sea correcta (empieza con `sk-ant-...`)\n• Comprueba que tengas saldo disponible en console.anthropic.com\n• Revisa tu conexión a internet\n• El modelo seleccionado: **' + (state.profile.model || 'claude-sonnet-5') + '**';
     state.messages.push({ role: 'assistant', content: errMsg });
     saveSession();
+    window.__suprimirScrollRender = false;
   }
   setLoading(false);
+}
+
+// ── Streaming real: crea y actualiza la burbuja del coach en vivo, sin redibujar todo el chat ──
+function crearBurbujaIAStreaming() {
+  const area = document.getElementById('msgs-area');
+  const escribiendo = area.querySelector('.msg-row.ai:last-child .typing');
+  if (escribiendo) escribiendo.closest('.msg-row').remove();
+  area.insertAdjacentHTML('beforeend', '<div class="msg-row ai"><div class="ai-icon">💆</div><div class="bubble ai"></div></div>');
+}
+function actualizarBurbujaIAStreaming(texto) {
+  const area = document.getElementById('msgs-area');
+  const fila = area.querySelector('.msg-row.ai:last-child .bubble.ai');
+  if (fila) fila.innerHTML = mdToHtml(texto);
+  // Seguimiento inteligente: solo sigue el crecimiento si ya estabas cerca del final.
+  // Si subiste a leer algo de arriba, no te interrumpe ni te regresa abajo.
+  const cercaDelFondo = (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 200);
+  if (cercaDelFondo) window.scrollTo(0, document.body.scrollHeight);
 }
 
 // ── Efecto de escritura progresiva (no es streaming real de la API — Make entrega el
@@ -1693,7 +1985,7 @@ const RESUMEN_PROMPT = `Basándote en toda la conversación del SPA Emocional qu
 Si algún dato no se trabajó en la sesión, infiérelo de forma coherente con el resto. Usa el nombre del líder del perfil. Todo en español.`;
 
 async function generarResumen(textoPegado) {
-  document.getElementById('resumen-overlay').style.display = 'block';
+  document.getElementById('resumen-overlay').style.display = 'block'; document.getElementById('resumen-overlay').classList.add('mostrar');
   document.getElementById('resumen-loading').style.display = 'block';
   document.getElementById('resumen-content').innerHTML = '';
   const pasteBox = document.getElementById('resumen-paste');
@@ -1861,22 +2153,53 @@ function renderResumen(d) {
   </div>`;
 }
 
-async function descargarResumen() {
+function descargarPDFResumen() {
   const sheet = document.getElementById('resumen-sheet');
-  if (!sheet) return;
-  const btn = document.getElementById('btn-download-resumen');
-  const orig = btn.textContent;
-  btn.textContent = 'Generando...';
-  try {
-    const canvas = await html2canvas(sheet, { scale: 2, backgroundColor: '#F2F1ED', useCORS: true });
-    const link = document.createElement('a');
-    link.download = 'Hoja_Resumen_SPA_' + (state.profile.name||'lider').replace(/\s+/g,'_') + '.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-  } catch(e) { alert('No se pudo descargar la imagen: ' + e.message); }
-  btn.textContent = orig;
+  if (!sheet) { alert('Primero genera el resumen.'); return; }
+  const c = '<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Hoja Resumen · SPA Emocional AI</title></head><body style="margin:0;padding:20px;background:#F2F1ED">' + sheet.outerHTML + '</body></html>';
+  const w = window.open('', '_blank');
+  w.document.write(c); w.document.close(); w.focus();
+  setTimeout(() => { w.focus(); w.print(); }, 600);
 }
 
+// ── Selector de documento para exportar en PDF ──
+function abrirSelectorPDFDoc() {
+  const respuestas = state.messages
+    .map((m, i) => ({ m, i }))
+    .filter(x => x.m.role === 'assistant');
+  const lista = document.getElementById('doc-pdf-list');
+  if (!respuestas.length) {
+    lista.innerHTML = '<p style="color:rgba(255,255,255,.6);font-size:14px">Aún no hay respuestas de Claude en esta sesión.</p>';
+  } else {
+    lista.innerHTML = respuestas.map(({ m, i }) => {
+      const extracto = m.content.replace(/[#*]/g, '').slice(0, 110).trim();
+      return '<button class="doc-pdf-item" data-idx="' + i + '" style="text-align:left;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;border-radius:10px;padding:12px 14px;font-size:14px;cursor:pointer;font-family:inherit">'
+        + extracto + '…</button>';
+    }).join('');
+    lista.querySelectorAll('.doc-pdf-item').forEach(btn => {
+      btn.addEventListener('mouseenter', () => btn.style.background = 'rgba(201,162,78,.18)');
+      btn.addEventListener('mouseleave', () => btn.style.background = 'rgba(255,255,255,.06)');
+      btn.addEventListener('click', () => exportarDocComoPDF(parseInt(btn.dataset.idx, 10)));
+    });
+  }
+  document.getElementById('doc-pdf-overlay').style.display = 'block'; document.getElementById('doc-pdf-overlay').classList.add('mostrar');
+}
+function exportarDocComoPDF(idx) {
+  const msg = state.messages[idx];
+  if (!msg) return;
+  const fecha = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+  const cuerpo = mdToHtml(msg.content);
+  const c = '<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Documento · SPA Emocional AI</title>'
+    + '<style>body{font-family:Georgia,serif;font-size:13pt;line-height:1.7;margin:2.5cm;color:#1A1A1A}'
+    + '.meta{font-size:10pt;color:#777;margin-bottom:24px;border-bottom:1px solid #ccc;padding-bottom:10px}'
+    + '@media print{body{margin:2cm}}</style></head><body>'
+    + '<div class="meta">' + (state.profile.name || '') + ' &middot; ' + fecha + '</div>'
+    + cuerpo + '</body></html>';
+  const w = window.open('', '_blank');
+  w.document.write(c); w.document.close(); w.focus();
+  document.getElementById('doc-pdf-overlay').style.display = 'none'; document.getElementById('doc-pdf-overlay').classList.remove('mostrar');
+  setTimeout(() => { w.focus(); w.print(); }, 600);
+}
 function fullReportHTML() {
   const sheet = document.getElementById('resumen-sheet');
   if (!sheet) return null;
@@ -1931,45 +2254,27 @@ function transcriptHTML() {
     + '"Cada emoci\u00F3n desagradable es un plan de MEJORA CONTINUA" &middot; \u2728 Hazlo con SPA Emocional y Disfruta \u2728</div>'
     + '</body></html>';
 }
-function descargarWordResumen() {
-  const c = transcriptHTML();
-  if (!c) { alert('No hay mensajes en la sesi\u00F3n.'); return; }
-  descargarBlobFile(c, 'application/msword', nombreArchivo('doc'));
-}
-function descargarPDFResumen() {
-  const c = transcriptHTML();
-  if (!c) { alert('No hay mensajes en la sesi\u00F3n.'); return; }
-  const w = window.open('', '_blank');
-  w.document.write(c); w.document.close(); w.focus();
-  setTimeout(() => { w.focus(); w.print(); }, 600);
-}
-function descargarHTMLResumen() { const c = fullReportHTML(); if (!c) return; descargarBlobFile(c, 'text/html', nombreArchivo('html')); }
-function descargarPDFResumen() {
-  const c = resumenComoTextoHTML();
-  if (!c) { alert('Primero genera el resumen.'); return; }
-  const w = window.open('', '_blank');
-  w.document.write(c); w.document.close(); w.focus();
-  setTimeout(() => { w.focus(); w.print(); }, 600);
-}
 
 // ══════════════════════════════════════════════════════
 //  MOOD METER (compartido individual / grupal)
 // ══════════════════════════════════════════════════════
 let moodSels = [];
+// ── MAPA EXACTO 10×10 — Mood Meter (RULER/Yale) con correcciones Plutchik ──
+// Filas: energía 10 (arriba) → 1 (abajo). Columnas: agrado 1 (izq) → 10 (der).
+const MOOD_MAPA = [
+  ['Ira','Pánico','Estrés','Agitación','Conmoción','Sorpresa','Vibrante','Algarabía','Dicha','Euforia'],
+  ['Cólera','Furia','Frustración','Tensión','Aturdimiento','Expectante','Alegre','Motivación','Inspiración','Exaltación'],
+  ['Furor','Temor','Enojo','Nerviosismo','Inquietud','Energía','Ánimo','Entusiasta','Optimista','Emoción'],
+  ['Ansiedad','Aprensión','Preocupación','Irritación','Molestia','Complacencia','Feliz','Esperanza','Orgullo','Deleite'],
+  ['Disgusto','Irascible','Alarma','Desasosiego','Contrariedad','Agradable','Júbilo','Concentración','A gusto','Positividad'],
+  ['Descontento','Desánimo','Decepción','Decaimiento','Apatía','Capaz','Comodidad','Alivio','Cariño','Plenitud'],
+  ['Negatividad','Malhumor','Desaliento','Triste','Aburrimiento','Calma','Seguridad','Satisfacción','Gratitud','Ternura'],
+  ['Aislamiento','Miserable','Soledad','Desconsuelo','Cansancio','Relajación','Tranquilidad','Sosiego','Fortuna','Equilibrio'],
+  ['Abatimiento','Depresión','Sin ganas','Agotamiento','Fatiga','Apacible','Reflexión','Paz','Confortable','Despreocupación'],
+  ['Desesperación','Desesperanza','Desolación','Devastación','Extenuación','Somnolencia','Consuelo','En paz','Afecto','Serenidad']
+];
 function emotionFor(e, a) {
-  if (e > 5) {
-    if (a <= 2) return e >= 8 ? 'Ira / Rabia' : 'Enojo / Molestia';
-    if (a <= 4) return 'Frustración / Irritación';
-    if (a === 5) return 'Estrés / Ansiedad / Miedo';
-    if (a <= 7) return 'Interés / Motivación';
-    return e >= 8 ? 'Entusiasmo / Euforia' : 'Alegría';
-  } else {
-    if (a <= 2) return e <= 2 ? 'Desesperanza / Dolor profundo' : 'Tristeza';
-    if (a <= 4) return 'Melancolía / Desánimo';
-    if (a === 5) return 'Añoranza / Angustia leve';
-    if (a <= 7) return 'Calma / Serenidad';
-    return 'Paz / Gratitud / Confianza';
-  }
+  return MOOD_MAPA[10 - e][a - 1];
 }
 function quadrantInfo(energia, agrado) {
   if (energia > 5 && agrado <= 5) return {n:'ROJO', d:'alta energía y desagradable (enojo, frustración, estrés, ansiedad)', c:'#D64545'};
@@ -1986,7 +2291,7 @@ function refreshMoodLabel() {
   if (!moodSels.length) {
     el.innerHTML = '<span style="font-size:14px;opacity:.6">✓ Aquí aparecerán tus emociones marcadas (toca la cuadrícula)</span>';
   } else {
-    el.innerHTML = '<div style="font-size:16px;text-transform:uppercase;letter-spacing:.06em;opacity:.7;margin-bottom:4px">✓ Tus emociones marcadas · ' + moodSels.length + ' de 5 <span style="opacity:.7;font-weight:400">(toca de nuevo para quitar)</span></div>' +
+    el.innerHTML = '<div style="font-size:16px;text-transform:uppercase;letter-spacing:.06em;opacity:.7;margin-bottom:4px">✓ Tus emociones marcadas · ' + moodSels.length + ' de 3 <span style="opacity:.7;font-weight:400">(toca de nuevo para quitar)</span></div>' +
       moodSels.map((c,i) => {
         const e = +c.dataset.e, a = +c.dataset.a;
         const q = quadrantInfo(e, a);
@@ -2019,7 +2324,7 @@ function buildMoodGrid() {
         const idx = moodSels.indexOf(cell);
         if (idx >= 0) { moodSels.splice(idx, 1); cell.style.outline = 'none'; cell.style.opacity = '.55'; }
         else {
-          if (moodSels.length >= 5) { alert('Puedes marcar máximo 5 emociones por medición.'); return; }
+          if (moodSels.length >= 3) { alert('Puedes marcar máximo 3 emociones por medición.'); return; }
           moodSels.push(cell); cell.style.opacity = '1'; cell.style.outline = '2.5px solid #ECECEA';
         }
         refreshMoodLabel();
@@ -2043,7 +2348,7 @@ function openMood(context, participantIdx) {
     who.style.display = 'none';
     document.getElementById('mood-title').textContent = '🎯 Mood Meter';
   }
-  document.getElementById('mood-overlay').style.display = 'block';
+  document.getElementById('mood-overlay').style.display = 'block'; document.getElementById('mood-overlay').classList.add('mostrar');
   document.body.style.overflow = 'hidden';
   // Reset de selección al abrir una nueva medición
   moodSels.forEach(c => { c.style.outline = 'none'; c.style.opacity = '.55'; });
@@ -2063,7 +2368,7 @@ async function sendMood() {
   moodSels.forEach(c => { c.style.outline = 'none'; c.style.opacity = '.55'; });
   moodSels = [];
   refreshMoodLabel();
-  document.getElementById('mood-overlay').style.display = 'none';
+  document.getElementById('mood-overlay').style.display = 'none'; document.getElementById('mood-overlay').classList.remove('mostrar');
   document.body.style.overflow = '';
 
   if (moodContext === 'group' && groupState.moodParticipantIdx != null) {
@@ -2454,7 +2759,7 @@ Incluye al líder principal dentro de "participantes" y "plan" si participó. Si
 
 async function generarGroupResumen() {
   const overlay = document.getElementById('group-resumen-overlay');
-  overlay.style.display = 'block';
+  overlay.style.display = 'block'; overlay.classList.add('mostrar');
   document.body.style.overflow = 'hidden';
   document.getElementById('gr-loading').style.display = 'flex';
   document.getElementById('gr-content').innerHTML = '';
@@ -2954,6 +3259,34 @@ function updateModelHint(selectId, hintId) {
   hint.textContent = MODEL_HINTS[sel.value] || '';
 }
 
+// ══ Mejor práctica del día: rotación real (14 prácticas, una distinta cada día del año) ══
+const C2_PRACTICES = [
+  { t: 'Antes de tu primera reunión, respira hondo tres veces y pregúntate: «¿Qué necesita sentir mi equipo de mí hoy?»', s: 'Pequeño gesto de autoconciencia que abre tu día con presencia de líder.' },
+  { t: 'Hoy, cuando alguien te comparta un problema, resiste dar la solución de inmediato. Primero pregunta: «¿Cómo lo estás viviendo tú?»', s: 'Ejercita tu empatía antes que tu impulso resolutivo.' },
+  { t: 'Identifica una emoción incómoda que sientas hoy y ponle nombre exacto, no genérico.', s: 'Nombrar con precisión es el primer paso para regular cualquier emoción.' },
+  { t: 'Antes de responder un mensaje que te generó tensión, cuenta hasta cinco.', s: 'El autocontrol se entrena en los segundos, no en las horas.' },
+  { t: 'Reconoce en voz alta un logro de alguien de tu equipo, aunque sea pequeño.', s: 'El reconocimiento genuino fortalece la confianza más que cualquier incentivo.' },
+  { t: 'Antes de dar retroalimentación difícil hoy, pregúntate: «¿Esto ayuda a la otra persona a crecer, o solo alivia mi frustración?»', s: 'La empatía asertiva construye; el desahogo solo descarga.' },
+  { t: 'Elige una decisión pendiente y pregúntate qué haría la versión más serena de ti.', s: 'El autocontrol también se practica imaginando la respuesta calmada.' },
+  { t: 'Dedica 2 minutos a escuchar a alguien sin planear tu respuesta mientras habla.', s: 'La escucha real empieza cuando dejas de preparar tu turno.' },
+  { t: 'Antes de una conversación incómoda hoy, nombra qué emoción esperas sentir tú.', s: 'Anticipar tu propia reacción te da más control sobre ella.' },
+  { t: 'Agradece explícitamente a alguien que normalmente das por hecho.', s: 'La gratitud expresada fortalece vínculos de forma desproporcionada a su costo.' },
+  { t: 'Cuando sientas impaciencia hoy, pregúntate: «¿Qué presión invisible estoy cargando ahora mismo?»', s: 'La impaciencia casi siempre esconde otra emoción detrás.' },
+  { t: 'Antes de delegar una tarea hoy, pregúntate si estás delegando control o solo trabajo.', s: 'Delegar bien requiere soltar también el cómo, no solo el qué.' },
+  { t: 'Haz una pausa de 60 segundos entre reuniones hoy, sin revisar el teléfono.', s: 'La transición consciente evita que arrastres la tensión de una junta a la siguiente.' },
+  { t: 'Piensa en un conflicto reciente y pregúntate qué necesidad tuya no fue atendida.', s: 'Detrás de casi todo conflicto hay una necesidad legítima sin nombrar.' }
+];
+function renderPracticeOfDay(){
+  const start = new Date(new Date().getFullYear(), 0, 0);
+  const diff = new Date() - start;
+  const dayOfYear = Math.floor(diff / 86400000);
+  const p = C2_PRACTICES[dayOfYear % C2_PRACTICES.length];
+  const textEl = document.getElementById('c2-practice-text');
+  const subEl = document.getElementById('c2-practice-sub');
+  if (textEl) textEl.textContent = p.t;
+  if (subEl) subEl.textContent = p.s;
+}
+
 function updateMenuProfile() {
   const p = state.profile;
 
@@ -2966,6 +3299,13 @@ function updateMenuProfile() {
   // Nombre del SPA (centro del logo-bar)
   const nameEl = document.getElementById('menu-spa-name');
   if (nameEl) nameEl.textContent = p.spaName || 'SPA Emocional IA';
+
+  // Saludo Constructor.2: nombre del líder (bienestar se integrará junto al título del SPA — P2-08 pendiente)
+  const greetName = document.getElementById('c2-greet-name');
+  if (greetName) greetName.textContent = (p.name || 'Líder').split(' ')[0];
+
+  // Mejor práctica del día: rotación real por día del año (antes quedaba fija — corregido)
+  renderPracticeOfDay();
 
   // ── Franja horizontal: Líder · Performance/Bienestar · Focus ──
   const partes = [];
@@ -2988,7 +3328,19 @@ function updateMenuProfile() {
 
   // Chat subtitle
   const sub = document.getElementById('chat-subtitle');
-  if (sub) sub.textContent = (p.spaName || 'SPA Emocional IA') + ' · ' + (p.name || '');
+  if (sub) {
+    const bienNum = parseFloat(p.bienestar);
+    const B = '<span style="color:#C9A24E">Bienestar</span>';
+    let bienTxt = '';
+    if (!isNaN(bienNum)) {
+      if (bienNum > 119) bienTxt = B + ' sobresaliente';
+      else if (bienNum >= 111) bienTxt = B + ': fortaleza';
+      else if (bienNum >= 90) bienTxt = B + ': promedio';
+      else if (bienNum >= 80) bienTxt = B + ': área por desarrollar';
+      else bienTxt = B + ': área prioritaria';
+    }
+    sub.innerHTML = escHtml(p.name || '') + (bienTxt ? ' · ' + bienTxt : '');
+  }
 
   // Líder grupal
   const gl = document.getElementById('g-leader-name');
@@ -3226,6 +3578,12 @@ function ensureMinRows() {
 //  EVENT LISTENERS
 // ══════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
+
+  // Cierre defensivo desde el arranque: ningún overlay debe verse al cargar la página
+  ['resumen-overlay', 'group-resumen-overlay', 'doc-pdf-overlay', 'mood-overlay'].forEach(overlayId => {
+    const el = document.getElementById(overlayId);
+    if (el) el.style.display = 'none';
+  });
 
   // ── ARRANQUE ──
   if (FROZEN) {
@@ -3647,53 +4005,225 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
       + '<pre style="font-size:12.5px;color:var(--muted);white-space:pre-wrap;line-height:1.55;max-height:420px;overflow-y:auto;background:rgba(0,0,0,.2);padding:10px 12px;border-radius:6px;margin:0">' + texto + '</pre>';
   }
 
-  // ── OPCIONES DEL MENÚ ──
+  // ── OPCIONES RESTANTES CON CLASE .opt (Fast-SPA y Líder SPA, dentro del panel Auto-Conocimiento) ──
   document.querySelectorAll('.opt').forEach(btn => {
     btn.addEventListener('click', async () => {
-      const opt = btn.dataset.opt;
-      // Sincronizar reto y modelo elegidos en la pantalla del cliente
-      const mr = document.getElementById('m-reto');
-      const mm = document.getElementById('m-model');
-      if (mr) state.profile.reto = mr.value.trim();
-      if (mm) state.profile.model = mm.value;
-
-      if (opt === 'group') {
-        document.getElementById('g-reto').value = state.profile.reto || '';
-        document.getElementById('g-participants').innerHTML = '';
-        ensureMinRows();
-        validateGroupSetup();
-        showScreen('group-setup');
-        return;
-      }
-      if (opt === 'history') {
-        renderHistory();
-        showScreen('history');
-        return;
-      }
-      if (opt === 'kids') {
-        state.messages = [];
-        clearSession();
-        showScreen('chat');
-        await sendMessage('OPCIÓN: AYUDA A TUS HIJOS (PAPÁ / MAMÁ ACOMPAÑANTE)');
-        return;
-      }
-      // "Resolver una situación" (Opción 1) necesita el reto
-      if (opt === '1' && !state.profile.reto) {
-        alert('Escribe primero el «Reto o problema a resolver» para personalizar la sesión.');
-        if (mr) mr.focus();
-        return;
-      }
       const msg = btn.dataset.msg;
       if (!msg) return;
-      // Opción 1: enriquecer el mensaje con el reto específico
-      const msgFinal = (opt === '1' && state.profile.reto)
-        ? msg + ' ' + state.profile.reto + '.'
-        : msg;
+      hideCtxRows();
       state.messages = [];
       clearSession();
       showScreen('chat');
-      await sendMessage(msgFinal);
+      await sendMessage(msg);
     });
+  });
+
+  // ══════════════════════════════════════════════════════
+  // CONSTRUCTOR.2 V1 — Mood Meter compacto + acciones + profundidad + CTA
+  // ══════════════════════════════════════════════════════
+  let c2MoodSels = [];
+  function buildC2MoodGrid(){
+    const grid = document.getElementById('c2-mood-grid');
+    if (!grid || grid.children.length) return;
+    for (let row=0; row<10; row++){
+      for (let col=0; col<10; col++){
+        const e=10-row, a=col+1, q=quadrantInfo(e,a);
+        const cell=document.createElement('div');
+        cell.className='cell';
+        cell.style.background=q.c; cell.style.opacity='.55';
+        cell.dataset.e=e; cell.dataset.a=a;
+        cell.addEventListener('mouseenter', ()=>{
+          cell.style.opacity='1';
+          setC2MoodPreview(emotionFor(e,a), q.c, 'Energía '+e+' · Agrado '+a);
+        });
+        cell.addEventListener('mouseleave', ()=>{ if(!c2MoodSels.includes(cell)) cell.style.opacity='.55'; });
+        cell.addEventListener('click', (ev)=>{
+          ev.stopPropagation();
+          const idx=c2MoodSels.indexOf(cell);
+          if (idx>=0){ c2MoodSels.splice(idx,1); cell.style.outline='none'; cell.style.opacity='.55'; }
+          else {
+            if (c2MoodSels.length>=3){ alert('Puedes marcar máximo 3 emociones.'); return; }
+            c2MoodSels.push(cell); cell.style.opacity='1'; cell.style.outline='2.5px solid #ECECEA';
+          }
+          setC2MoodPreview(emotionFor(e,a), q.c, 'Energía '+e+' · Agrado '+a);
+          refreshC2MoodTxt();
+        });
+        grid.appendChild(cell);
+      }
+    }
+  }
+  function setC2MoodPreview(txt,color,sub){
+    const p = document.getElementById('c2-mood-preview');
+    if (p) p.innerHTML = '<span style="color:'+color+';font-weight:700;font-size:14px">● '+txt+'</span><span style="opacity:.6;font-size:12px">'+sub+'</span>';
+  }
+  function refreshC2MoodTxt(){
+    const txt = document.getElementById('c2-mood-txt');
+    if (!c2MoodSels.length){
+      txt.innerHTML = '<b>Toca para ubicar tu emoción</b> en el Mood Meter';
+    } else {
+      const names = c2MoodSels.map(c=>emotionFor(+c.dataset.e,+c.dataset.a));
+      txt.innerHTML = '<b>'+names.join(', ')+'</b> marcada'+(names.length>1?'s':'')+' <span style="opacity:.6;font-weight:400">· toca la cuadrícula para cambiar</span>';
+    }
+    updateC2CTA();
+  }
+  function c2MoodPartes(){
+    if (!c2MoodSels.length) return '';
+    return c2MoodSels.map((c,i)=>{
+      const e=+c.dataset.e, a=+c.dataset.a, q=quadrantInfo(e,a);
+      return (i+1)+') energía '+e+', agrado '+a+' — '+emotionFor(e,a)+' (cuadrante '+q.n+')';
+    }).join('; ');
+  }
+  const c2MoodToggle = document.getElementById('c2-mood-toggle');
+  if (c2MoodToggle) c2MoodToggle.addEventListener('click', ()=>{
+    const c = document.getElementById('c2-mood-compact');
+    c.classList.toggle('c2-mood-open');
+    if (c.classList.contains('c2-mood-open')) buildC2MoodGrid();
+  });
+
+  // ── Reto: sincroniza con state.profile.reto en vivo ──
+  const c2Reto = document.getElementById('m-reto');
+  if (c2Reto) c2Reto.addEventListener('input', ()=>{ state.profile.reto = c2Reto.value.trim(); updateC2CTA(); });
+
+  // ── Botones de acción (selección, no lanzan directo) ──
+  let c2SelectedOpt = null;
+  document.querySelectorAll('.c2-action-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.c2-action-btn').forEach(b=>b.classList.remove('sel'));
+      btn.classList.add('sel');
+      c2SelectedOpt = btn.dataset.opt;
+      updateC2CTA();
+    });
+  });
+
+  // ── Profundidad → modelo interno (Rápido=Sonnet 5 · Normal=Opus 4.8 · Profundo=Fable 5) ──
+  const C2_DEPTH_INFO = {
+    rapido:   { label:'Claude Sonnet 5', tok:'menor uso de tokens',      note:'Ágil y directo, ideal para el momento caliente.' },
+    normal:   { label:'Claude Opus 4.8', tok:'uso medio-alto de tokens', note:'Máxima calidad, equilibrio recomendado.' },
+    profundo: { label:'Claude Fable 5',  tok:'mayor uso de tokens',      note:'Lo más avanzado, para trabajar a fondo.' }
+  };
+  function refreshC2DepthInfo(depth){
+    const d = C2_DEPTH_INFO[depth];
+    const box = document.getElementById('c2-depth-info');
+    if (box && d) box.innerHTML = '<b>'+d.label+'</b> · <span class="tok">'+d.tok+'</span> · '+d.note;
+  }
+  document.querySelectorAll('.c2-depth-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.c2-depth-btn').forEach(b=>b.classList.remove('sel'));
+      btn.classList.add('sel');
+      const mModelHidden = document.getElementById('m-model');
+      if (mModelHidden) { mModelHidden.value = btn.dataset.model; state.profile.model = btn.dataset.model; }
+      refreshC2DepthInfo(btn.dataset.depth);
+    });
+  });
+  refreshC2DepthInfo('normal'); // valor inicial
+
+  // ── Habilitar CTA ──
+  function updateC2CTA(){
+    const cta = document.getElementById('c2-cta');
+    if (!cta) return;
+    cta.disabled = !c2SelectedOpt;
+  }
+
+  // ── CTA: lanza la sesión con todo el contexto (emoción + reto + profundidad) ──
+  const c2Cta = document.getElementById('c2-cta');
+  if (c2Cta) c2Cta.addEventListener('click', async ()=>{
+    if (!c2SelectedOpt) return;
+    const opt = c2SelectedOpt;
+    if (c2Reto) state.profile.reto = c2Reto.value.trim();
+    const moodPartes = c2MoodPartes();
+    const moodPrefix = moodPartes ? 'Mi medición en el Mood Meter (puedo sentir varias emociones a la vez): ' + moodPartes + '.\n' : '';
+    const depthBtnSel = document.querySelector('.c2-depth-btn.sel');
+    const depthKey = depthBtnSel ? depthBtnSel.dataset.depth.toUpperCase() : 'NORMAL';
+    const depthMarker = '\n[PROFUNDIDAD: ' + depthKey + ']';
+
+    // Barra de contexto que viaja al chat
+    renderCtxBar();
+
+    if (opt === 'group') {
+      document.getElementById('g-reto').value = state.profile.reto || '';
+      document.getElementById('g-participants').innerHTML = '';
+      ensureMinRows();
+      validateGroupSetup();
+      showScreen('group-setup');
+      return;
+    }
+    if (opt === 'kids') {
+      state.messages = [];
+      clearSession();
+      showScreen('chat');
+      await sendMessage(moodPrefix + 'OPCIÓN: AYUDA A TUS HIJOS (PAPÁ / MAMÁ ACOMPAÑANTE)' + (state.profile.reto ? ' ' + state.profile.reto + '.' : '') + depthMarker);
+      return;
+    }
+    // "Resolver" (Opción 1) necesita el reto
+    if (opt === '1' && !state.profile.reto) {
+      alert('Cuéntame primero «¿Qué está sucediendo?» para personalizar la sesión.');
+      if (c2Reto) c2Reto.focus();
+      return;
+    }
+    const btnSel = document.querySelector('.c2-action-btn.sel');
+    const msg = btnSel ? btnSel.dataset.msg : null;
+    if (!msg) return;
+    const msgFinal = (opt === '1' && state.profile.reto) ? msg + ' ' + state.profile.reto + '.' : msg;
+    state.messages = [];
+    clearSession();
+    showScreen('chat');
+    await sendMessage(moodPrefix + msgFinal + depthMarker);
+  });
+
+  // ── Barra de contexto en el header del chat (lo que viaja de la pantalla 1) ──
+  function hideCtxRows(){
+    const retoRow = document.getElementById('ctx-reto-row');
+    const bottomRow = document.getElementById('ctx-bottom-row');
+    if (retoRow) { retoRow.style.display = 'none'; retoRow.innerHTML = ''; }
+    if (bottomRow) { bottomRow.style.display = 'none'; }
+  }
+
+  function renderCtxBar(){
+    const retoRow = document.getElementById('ctx-reto-row');
+    const bottomRow = document.getElementById('ctx-bottom-row');
+    const emoSide = document.getElementById('ctx-emo-side');
+    const modelSide = document.getElementById('ctx-model-side');
+    if (!retoRow || !bottomRow) return;
+
+    if (state.profile.reto) {
+      retoRow.innerHTML = '<span class="ctx-mini-chip reto"><span class="lbl">Reto:</span> '+escHtml(state.profile.reto)+'</span>';
+      retoRow.style.display = 'flex';
+    } else {
+      retoRow.innerHTML = ''; retoRow.style.display = 'none';
+    }
+
+    const emoChips = c2MoodSels.map(c=>{
+      const e=+c.dataset.e, a=+c.dataset.a, q=quadrantInfo(e,a);
+      return '<span class="ctx-mini-chip"><span class="dot" style="background:'+q.c+'"></span>'+emotionFor(e,a)+'</span>';
+    });
+    emoSide.innerHTML = emoChips.join('');
+
+    const depthBtn = document.querySelector('.c2-depth-btn.sel');
+    let modelHtml = '';
+    if (depthBtn) {
+      const depthName = depthBtn.querySelector('.t').textContent;
+      const modelShort = (C2_DEPTH_INFO[depthBtn.dataset.depth]||{}).label || '';
+      modelHtml = '<span class="ctx-mini-chip depth"><span class="lbl">Modelo:</span> '+depthName+(modelShort?'/'+modelShort.replace('Claude ',''):'')+'</span>';
+    }
+    modelSide.innerHTML = modelHtml;
+
+    bottomRow.style.display = (emoChips.length || modelHtml) ? 'flex' : 'none';
+  }
+
+  // ── Auto-Conocimiento: despliega Fast-SPA / Líder SPA ──
+  const c2AccessAuto = document.getElementById('c2-access-auto');
+  if (c2AccessAuto) c2AccessAuto.addEventListener('click', ()=>{
+    document.getElementById('c2-access-panel').classList.toggle('show');
+  });
+  const c2AccessHistory = document.getElementById('c2-access-history');
+  if (c2AccessHistory) c2AccessHistory.addEventListener('click', ()=>{ renderHistory(); showScreen('history'); });
+  const c2AccessDisclaimer = document.getElementById('c2-access-disclaimer');
+  if (c2AccessDisclaimer) c2AccessDisclaimer.addEventListener('click', async ()=>{
+    hideCtxRows();
+    state.messages = [];
+    clearSession();
+    showScreen('chat');
+    await sendMessage(c2AccessDisclaimer.dataset.msg);
   });
 
   const btnChangeKey = document.getElementById('btn-change-key');
@@ -3747,18 +4277,21 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     generarResumen();
   });
   document.getElementById('btn-close-resumen').addEventListener('click', () => {
-    document.getElementById('resumen-overlay').style.display = 'none';
+    document.getElementById('resumen-overlay').style.display = 'none'; document.getElementById('resumen-overlay').classList.remove('mostrar');
     document.body.style.overflow = '';
   });
-  document.getElementById('btn-download-resumen').addEventListener('click', descargarResumen);
-  document.getElementById('btn-download-word').addEventListener('click', descargarWordResumen);
-  document.getElementById('btn-download-html').addEventListener('click', descargarHTMLResumen);
   document.getElementById('btn-download-pdf').addEventListener('click', descargarPDFResumen);
+
+  // ── EXPORTAR DOCUMENTO ESPECÍFICO EN PDF (individual) ──
+  document.getElementById('btn-pdf-doc').addEventListener('click', abrirSelectorPDFDoc);
+  document.getElementById('btn-close-doc-pdf').addEventListener('click', () => {
+    document.getElementById('doc-pdf-overlay').style.display = 'none'; document.getElementById('doc-pdf-overlay').classList.remove('mostrar');
+  });
 
   // ── MOOD METER (individual) ──
   document.getElementById('btn-moodmeter').addEventListener('click', () => { openMood('individual'); });
   document.getElementById('btn-close-mood').addEventListener('click', () => {
-    document.getElementById('mood-overlay').style.display = 'none';
+    document.getElementById('mood-overlay').style.display = 'none'; document.getElementById('mood-overlay').classList.remove('mostrar');
     document.body.style.overflow = '';
     groupState.moodParticipantIdx = null;
   });
@@ -3769,14 +4302,14 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     if (state.messages.length < 2) { alert('Aún no hay conversación que guardar.'); return; }
     const fecha = new Date().toLocaleString('es-MX');
     let txt = '═══════════════════════════════════════\n';
-    txt += 'SPA EMOCIONAL AI — SESIÓN GUARDADA\n© Santiago Delgado\n';
+    txt += 'SPA EMOCIONAL AI — SESIÓN GUARDADA\n';
     txt += '═══════════════════════════════════════\n\n';
     txt += 'Líder: ' + (state.profile.name || '') + '\nReto: ' + (state.profile.reto || '') + '\n';
     if (state.profile.qop) txt += 'QoP: ' + state.profile.qop + '  ·  Focus: ' + (state.profile.focus||'') + '  ·  Bienestar: ' + (state.profile.bienestar||'') + '\n';
     txt += 'Fecha: ' + fecha + '\n\n───────────────────────────────────────\n\n';
     state.messages.forEach(m => {
       txt += (m.role === 'user' ? '👤 ' + (state.profile.name||'LÍDER') : '💆 SPA EMOCIONAL AI') + ':\n';
-      if (m.attach) txt += '   [📎 adjunto: ' + m.attach.name + ']\n';
+      if (m.attach && m.attach.length) txt += '   [📎 adjuntos: ' + m.attach.map(a => a.name).join(', ') + ']\n';
       txt += m.content + '\n\n';
     });
     txt += '───────────────────────────────────────\n✨ Hazlo con SPA Emocional y Disfruta ✨\n';
@@ -3786,21 +4319,33 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   // ── ADJUNTAR (individual) ──
   const chatFile = document.getElementById('chat-file');
   document.getElementById('attach-btn').addEventListener('click', () => chatFile.click());
+  document.getElementById('attach-btn-top').addEventListener('click', () => chatFile.click());
+  function actualizarVistaAdjuntos() {
+    const lista = state.pendingAttachments;
+    const strip = document.getElementById('attach-strip');
+    const nameEl = document.getElementById('attach-name');
+    if (!lista.length) { strip.style.display = 'none'; return; }
+    nameEl.textContent = lista.length === 1
+      ? lista[0].name + ' (se enviará con tu próximo mensaje)'
+      : lista.length + ' archivos adjuntos (se enviarán con tu próximo mensaje)';
+    strip.style.display = 'flex';
+  }
   chatFile.addEventListener('change', e => {
-    const f = e.target.files[0];
-    if (!f) return;
-    if (f.size > 8 * 1024 * 1024) { alert('El archivo es muy grande (máx 8 MB). Exporta solo las páginas clave a PDF o toma una captura.'); chatFile.value=''; return; }
-    const reader = new FileReader();
-    reader.onload = ev => {
-      state.pendingAttach = { kind: f.type === 'application/pdf' ? 'pdf' : 'image', media: f.type, data: ev.target.result.split(',')[1], name: f.name };
-      document.getElementById('attach-name').textContent = f.name + ' (se enviará con tu próximo mensaje)';
-      document.getElementById('attach-strip').style.display = 'flex';
-      chatFile.value = '';
-    };
-    reader.readAsDataURL(f);
+    const archivos = Array.from(e.target.files || []);
+    if (!archivos.length) return;
+    archivos.forEach(f => {
+      if (f.size > 8 * 1024 * 1024) { alert('"' + f.name + '" es muy grande (máx 8 MB). Se omitió.'); return; }
+      const reader = new FileReader();
+      reader.onload = ev => {
+        state.pendingAttachments.push({ kind: f.type === 'application/pdf' ? 'pdf' : 'image', media: f.type, data: ev.target.result.split(',')[1], name: f.name });
+        actualizarVistaAdjuntos();
+      };
+      reader.readAsDataURL(f);
+    });
+    chatFile.value = '';
   });
   document.getElementById('attach-remove').addEventListener('click', () => {
-    state.pendingAttach = null;
+    state.pendingAttachments = [];
     document.getElementById('attach-strip').style.display = 'none';
   });
 
@@ -3951,12 +4496,9 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
 
   // ── LISTENERS — RESUMEN GRUPAL (overlay) ──
   document.getElementById('btn-gr-close').addEventListener('click', () => {
-    document.getElementById('group-resumen-overlay').style.display = 'none';
+    document.getElementById('group-resumen-overlay').style.display = 'none'; document.getElementById('group-resumen-overlay').classList.remove('mostrar');
     document.body.style.overflow = '';
   });
-  document.getElementById('btn-gr-img').addEventListener('click', descargarGroupImg);
-  document.getElementById('btn-gr-word').addEventListener('click', descargarGroupWord);
-  document.getElementById('btn-gr-html').addEventListener('click', descargarGroupHTML);
   document.getElementById('btn-gr-pdf').addEventListener('click', descargarGroupPDF);
 
   // ── MICRÓFONO (ambos chats) ──
@@ -3984,7 +4526,7 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   if (instrClose) instrClose.addEventListener('click', closeInstr);
   if (instrOk)    instrOk.addEventListener('click', closeInstr);
 
-  initMic('mic-btn', 'msg-input');
+  initMic('mic-btn-top', 'msg-input');
   initMic('group-mic-btn', 'group-input-field');
 
   // ── AJUSTES DE VOZ ──
