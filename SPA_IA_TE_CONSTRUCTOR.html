@@ -199,8 +199,82 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 .c2-access-btn:hover{border-color:var(--navy-text);background:#1c2029}
 .c2-access-btn .ico{font-size:22px;line-height:1}
 .c2-access-btn .t{font-size:12px;font-weight:600;color:var(--text)}
+/* ══ Pestañas de modo del Constructor ══ */
+.setup-tabs{display:flex;gap:8px;max-width:660px;margin:0 auto 14px;padding:0 1rem}
+.setup-tab{flex:1;padding:12px 8px;border-radius:11px;border:1px solid var(--border);
+  background:#11141A;color:var(--muted);font-size:14px;font-weight:700;cursor:pointer;
+  font-family:inherit;transition:all .18s}
+.setup-tab:hover{border-color:var(--navy-text)}
+.setup-tab.sel{background:rgba(201,162,78,.12);border-color:#C9A24E;color:#C9A24E}
+.setup-mode{display:none}
+.setup-mode.show{display:block}
+
+/* ══ Panel de Feedback (Mi perfil / Mi equipo) ══ */
+.fb-tabs{display:flex;border-bottom:1px solid var(--border);border-radius:11px 11px 0 0;overflow:hidden}
+.fb-tab{flex:1;padding:12px 8px;text-align:center;cursor:pointer;font-size:14px;font-weight:700;
+  color:var(--muted);background:#11141A;transition:all .18s;border:none;font-family:inherit}
+.fb-tab.sel{color:#C9A24E;background:var(--white);box-shadow:inset 0 -2px 0 #C9A24E}
+.fb-body{padding:14px;background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 11px 11px}
+.fb-sect{display:none}
+.fb-sect.show{display:block}
+.fb-btn-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.fb-count-line{font-size:12px;color:var(--muted);margin-bottom:10px}
+.fb-count-line b{color:#C9A24E}
+.fb-filt-toggle{width:100%;background:#11141A;border:1px solid var(--border);border-radius:9px;padding:9px 12px;
+  cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;color:var(--text);
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.fb-filt-toggle .chev{color:#C9A24E;transition:transform .25s;font-size:12px}
+.fb-filt-toggle.open .chev{transform:rotate(180deg)}
+.fb-filt-toggle .badge{background:rgba(201,162,78,.15);border:1px solid rgba(201,162,78,.4);color:#C9A24E;
+  font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px;margin-left:auto;margin-right:8px}
+.fb-filt-panel{display:none;background:#11141A;border:1px solid var(--border);border-radius:9px;padding:12px;margin-bottom:11px}
+.fb-filt-panel.show{display:block}
+.fb-filt-group{margin-bottom:12px}
+.fb-filt-group:last-of-type{margin-bottom:0}
+.fb-filt-label{font-size:11px;font-weight:700;color:#C9A24E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.fb-chk-row{display:flex;flex-wrap:wrap;gap:6px}
+.fb-chk{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);
+  border:1px solid var(--border);border-radius:7px;padding:6px 10px;cursor:pointer;
+  font-size:12.5px;font-weight:600;color:var(--muted);transition:all .15s;user-select:none}
+.fb-chk.on{background:rgba(201,162,78,.12);border-color:#C9A24E;color:#C9A24E}
+.fb-chk .box{width:14px;height:14px;border-radius:3px;border:1.5px solid currentColor;
+  display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;line-height:1}
+.fb-chk.on .box::after{content:'✓'}
+.fb-filt-clear{background:none;border:none;color:var(--navy-text);font-size:12px;font-weight:600;
+  cursor:pointer;font-family:inherit;padding:0;margin-top:10px;text-decoration:underline}
+.fb-search{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:9px;background:#11141A;
+  color:var(--text);font-size:14px;font-family:inherit;outline:none;margin-bottom:10px}
+.fb-search:focus{border-color:var(--navy)}
+.fb-people-list{display:flex;flex-direction:column;gap:8px;max-height:440px;overflow-y:auto;padding-right:2px}
+.fb-person{background:#11141A;border:1px solid var(--border);border-radius:11px;padding:11px 12px;transition:all .18s}
+.fb-person:hover{border-color:rgba(201,162,78,.35)}
+.fb-person-top{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.fb-avatar{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:#fff}
+.fb-person-info{flex:1;min-width:0}
+.fb-person-name{font-size:15px;font-weight:700;color:var(--text);line-height:1.25}
+.fb-person-meta{font-size:11.5px;color:var(--muted);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fb-assess-dots{display:flex;gap:4px;flex-shrink:0}
+.fb-assess-dot{font-size:9.5px;color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--border);
+  border-radius:4px;padding:1px 5px;font-weight:600}
+.fb-sel-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:6px;margin-bottom:8px}
+.fb-mini-sel{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:7px;
+  padding:6px 8px;font-size:12px;font-family:inherit;color:var(--text);outline:none;cursor:pointer;
+  width:100%;appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C9A24E'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 8px center;padding-right:22px}
+.fb-mini-sel:focus{border-color:#C9A24E}
+.fb-mini-sel option{background:#181B21;color:var(--text)}
+.fb-person-btns{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.fb-p-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 6px;
+  cursor:pointer;font-size:12.5px;font-weight:700;font-family:inherit;transition:all .18s}
+.fb-p-btn.fast{color:#E8C879}
+.fb-p-btn.fast:hover{background:rgba(232,200,121,.1);border-color:rgba(232,200,121,.5)}
+.fb-p-btn.full{color:var(--navy-text)}
+.fb-p-btn.full:hover{background:rgba(143,180,232,.1);border-color:rgba(143,180,232,.5)}
+.fb-empty-note{text-align:center;color:var(--muted);font-size:13.5px;padding:26px 12px;line-height:1.6}
 .c2-access-panel{max-width:640px;margin:10px auto 0;padding:0 1rem;display:none}
-.c2-access-panel.show{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.c2-access-panel.show{display:block}
 
 /* Mejor práctica del día */
 .c2-practice{max-width:640px;margin:16px auto 0;width:calc(100% - 2rem);background:linear-gradient(135deg,#141821,#1A2233);
@@ -502,8 +576,15 @@ body.pres-mode .gm-row{max-width:80%}
       <button class="fb-dot-btn" id="btn-feedback-setup" title="Feedback / Soporte" style="position:absolute;right:0;top:50%;transform:translateY(-50%)"></button>
     </div>
     <h1 style="font-size:24px">Construye el SPA de tu cliente</h1>
-    <p style="font-size:16px;color:var(--muted);margin-top:2px">Carga los datos previos del cliente. El reto y el modelo se eligen después, ya en su SPA.</p>
+    <p style="font-size:16px;color:var(--muted);margin-top:2px">Crea el SPA de un líder nuevo, o integra a su equipo dentro de un SPA que ya entregaste.</p>
   </div>
+  <!-- ══ PESTAÑAS DE MODO ══ -->
+  <div class="setup-tabs">
+    <button class="setup-tab sel" data-mode="nuevo">🆕 Nuevo SPA de líder</button>
+    <button class="setup-tab" data-mode="persona">👥 Agregar persona</button>
+  </div>
+
+  <div class="setup-mode show" id="setup-mode-nuevo">
   <div class="card">
     <label>Nombre del SPA *</label>
     <input type="text" id="s-spaname" placeholder="Ej: SPA de María Fernanda">
@@ -581,6 +662,110 @@ body.pres-mode .gm-row{max-width:80%}
     <button class="btn" id="btn-setup" disabled="" style="margin-top:.6rem;background:#1A2233;color:var(--navy-text);border:1px solid var(--border)">Probar antes de generar →</button>
     <p style="font-size:14px;color:var(--muted);margin-top:10px;line-height:1.5;text-align:center">«Generar» descarga el SPA del cliente con sus datos congelados, listo para entregar. «Probar» abre su SPA aquí mismo sin descargar.</p>
   </div>
+  </div><!-- /setup-mode-nuevo -->
+
+  <!-- ══════════════════════════════════════════════════════
+       AGREGAR PERSONA AL SPA DE UN LÍDER (equipo / coachees / candidatos)
+       No crea un SPA nuevo: integra el perfil dentro del SPA del líder.
+       ══════════════════════════════════════════════════════ -->
+  <div class="setup-mode" id="setup-mode-persona">
+  <div class="card">
+    <div style="font-size:17px;font-weight:800;color:#C9A24E">👥 Agregar persona al SPA de un líder</div>
+    <p style="font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.5">
+      Integra el perfil de un colaborador, coachee o candidato <b>dentro del SPA de su líder</b> — no genera un SPA aparte.
+    </p>
+
+    <div id="tm-body" style="margin-top:16px">
+
+      <!-- Paso 1: cargar el SPA del líder -->
+      <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">1 · SPA del líder</div>
+      <div class="upload-zone" id="tm-leader-zone" style="padding:14px">
+        <input type="file" id="tm-leader-file" accept=".html,text/html" style="display:none">
+        <div id="tm-leader-prompt">📂 Toca para cargar el archivo SPA del líder<br>
+          <span style="font-size:13.5px;color:var(--muted)">Su archivo .html actual — de ahí se leen sus datos</span></div>
+        <div id="tm-leader-loaded" style="display:none"></div>
+      </div>
+
+      <!-- Paso 2: datos de la persona -->
+      <div id="tm-step2" style="display:none">
+        <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:18px 0 8px">2 · Datos de la persona</div>
+        <label>Nombre completo *</label>
+        <input type="text" id="tm-nombre" placeholder="Ej: Gabriel Ramírez">
+        <div class="grid2">
+          <div>
+            <label>Tipo de relación</label>
+            <select id="tm-tipo">
+              <option value="colab">Colaborador</option>
+              <option value="coachee">Coachee</option>
+              <option value="cand">Candidato</option>
+            </select>
+          </div>
+          <div>
+            <label>Sexo</label>
+            <select id="tm-gender">
+              <option value="">Selecciona...</option>
+              <option value="Hombre">Hombre</option>
+              <option value="Mujer">Mujer</option>
+            </select>
+          </div>
+        </div>
+        <label style="margin-top:12px">Puesto</label>
+        <input type="text" id="tm-puesto" placeholder="Ej: Gerente de Operaciones">
+        <div class="grid2">
+          <div>
+            <label>Departamento</label>
+            <input type="text" id="tm-depto" list="tm-depto-list" placeholder="Ej: Operaciones">
+            <datalist id="tm-depto-list"></datalist>
+          </div>
+          <div>
+            <label>Función</label>
+            <input type="text" id="tm-funcion" list="tm-funcion-list" placeholder="Ej: Liderazgo de equipo">
+            <datalist id="tm-funcion-list"></datalist>
+          </div>
+        </div>
+        <p style="font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.45">Departamento y función admiten valores nuevos — se agregan solos al catálogo del líder.</p>
+
+        <!-- Paso 3: gráficas -->
+        <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:18px 0 8px">3 · Resultados</div>
+        <label>Total Bienestar EQ-i <span style="text-transform:none;font-weight:400;color:var(--muted)">(percentil, opcional)</span></label>
+        <input type="text" id="tm-bienestar" placeholder="Ej: 90 o 105">
+        <label style="margin-top:12px">Gráfica EQ-i 2.0 <span style="text-transform:none;font-weight:400;color:var(--muted)">(opcional)</span></label>
+        <div class="upload-zone" id="tm-zone-eqi">
+          <input type="file" id="tm-graph-eqi" accept="image/*" style="display:none">
+          <div id="tm-prompt-eqi">📊 Toca para subir la gráfica EQ-i</div>
+          <div id="tm-preview-eqi" style="display:none"></div>
+        </div>
+        <div class="grid2" style="margin-top:12px">
+          <div>
+            <label>Total CPT — QOP <span style="text-transform:none;font-weight:400;color:var(--muted)">(opcional)</span></label>
+            <input type="text" id="tm-qop" placeholder="Ej: T52">
+          </div>
+          <div>
+            <label>Focus <span style="text-transform:none;font-weight:400;color:var(--muted)">(opcional)</span></label>
+            <input type="text" id="tm-focus" placeholder="Ej: T49">
+          </div>
+        </div>
+        <label style="margin-top:12px">Gráfica MMP / Performance <span style="text-transform:none;font-weight:400;color:var(--muted)">(opcional)</span></label>
+        <div class="upload-zone" id="tm-zone-mmp">
+          <input type="file" id="tm-graph-mmp" accept="image/*" style="display:none">
+          <div id="tm-prompt-mmp">📈 Toca para subir la gráfica MMP</div>
+          <div id="tm-preview-mmp" style="display:none"></div>
+        </div>
+
+        <!-- Personas ya integradas -->
+        <div id="tm-existing" style="display:none;margin-top:16px;background:#11141A;border:1px solid var(--border);border-radius:10px;padding:12px 14px">
+          <div style="font-size:12.5px;font-weight:700;color:#C9A24E;margin-bottom:7px">Personas ya integradas en este SPA</div>
+          <div id="tm-existing-list" style="font-size:13.5px;color:var(--muted);line-height:1.7"></div>
+        </div>
+
+        <button class="btn btn-navy" id="tm-generate" style="margin-top:1.25rem">⬇ Generar SPA actualizado del líder</button>
+        <p style="font-size:13px;color:var(--muted);margin-top:9px;line-height:1.5;text-align:center">
+          Descarga el SPA del líder con esta persona ya integrada. El líder reemplaza su archivo anterior y conserva todo su historial.
+        </p>
+      </div>
+    </div>
+  </div>
+  </div><!-- /setup-mode-persona -->
   <p class="copy">Talento Emocional by © Santiago Delgado · Todos los derechos reservados</p>
 </div>
 <div id="screen-menu" class="screen">
@@ -720,18 +905,55 @@ body.pres-mode .gm-row{max-width:80%}
     </button>
   </div>
 
-  <!-- Panel Feedback: Fast-SPA y Líder SPA (feedback de perfil) -->
+  <!-- Panel Feedback: pestañas «Mi perfil» y «Mi equipo» -->
   <div class="c2-access-panel" id="c2-access-panel">
-    <button class="opt opt-2" data-opt="fast" data-msg="Quiero un feedback Fast-SPA: la versión corta y ágil sobre mis resultados.">
-      <span class="opt-ico">⚡</span>
-      Fast-SPA
-      <span class="opt-sub">feedback ágil del perfil</span>
-    </button>
-    <button class="opt opt-3" data-opt="lider" data-msg="Quiero el feedback Líder SPA: la versión completa y profunda sobre mis resultados.">
-      <span class="opt-ico">📊</span>
-      Líder SPA
-      <span class="opt-sub">feedback completo</span>
-    </button>
+    <div class="fb-tabs">
+      <button class="fb-tab sel" data-fbtab="mio">Mi perfil</button>
+      <button class="fb-tab" data-fbtab="equipo">Mi equipo <span id="fb-tab-count" style="opacity:.7"></span></button>
+    </div>
+    <div class="fb-body">
+      <!-- Mi perfil -->
+      <div class="fb-sect show" id="fb-sect-mio">
+        <div class="fb-btn-row">
+          <button class="opt opt-2" data-opt="fast" data-msg="Quiero un feedback Fast-SPA: la versión corta y ágil sobre mis resultados.">
+            <span class="opt-ico">⚡</span>
+            Fast-SPA
+            <span class="opt-sub">feedback ágil del perfil</span>
+          </button>
+          <button class="opt opt-3" data-opt="lider" data-msg="Quiero el feedback Líder SPA: la versión completa y profunda sobre mis resultados.">
+            <span class="opt-ico">📊</span>
+            Líder SPA
+            <span class="opt-sub">feedback completo</span>
+          </button>
+        </div>
+      </div>
+      <!-- Mi equipo -->
+      <div class="fb-sect" id="fb-sect-equipo">
+        <div class="fb-count-line" id="fb-count-line"></div>
+        <button class="fb-filt-toggle" id="fb-filt-toggle">
+          <span>⚙️ Filtros</span>
+          <span class="badge" id="fb-filt-badge" style="display:none"></span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="fb-filt-panel" id="fb-filt-panel">
+          <div class="fb-filt-group">
+            <div class="fb-filt-label">Tipo de relación</div>
+            <div class="fb-chk-row" id="fb-chk-tipo"></div>
+          </div>
+          <div class="fb-filt-group">
+            <div class="fb-filt-label">Departamento</div>
+            <div class="fb-chk-row" id="fb-chk-depto"></div>
+          </div>
+          <div class="fb-filt-group">
+            <div class="fb-filt-label">Función</div>
+            <div class="fb-chk-row" id="fb-chk-funcion"></div>
+          </div>
+          <button class="fb-filt-clear" id="fb-filt-clear">Limpiar todos los filtros</button>
+        </div>
+        <input class="fb-search" id="fb-search" placeholder="Buscar por nombre o puesto...">
+        <div class="fb-people-list" id="fb-people-list"></div>
+      </div>
+    </div>
   </div>
 
   <!-- ══ Mejor práctica del día ══ -->
@@ -1556,9 +1778,43 @@ async function callAPI(messages, onChunk) {
     fortalezas,
     p.mmpAnalysis || ''
   ].filter(Boolean).join('\n');
+  // ── Perfiles del equipo del líder (colaboradores, coachees, candidatos) ──
+  // Solo se envían los mencionados en la conversación, para no cargar el contexto de más.
+  let contextoEquipo = '';
+  const equipoLider = Array.isArray(p.equipo) ? p.equipo : [];
+  if (equipoLider.length) {
+    const textoConv = messages.map(m => m.content || '').join(' ').toLowerCase();
+    const aIncluir = equipoLider.filter(per => {
+      if (!per.nombre) return false;
+      const primerNombre = per.nombre.trim().split(/\s+/)[0].toLowerCase();
+      return textoConv.includes(primerNombre);
+    });
+    if (aIncluir.length) {
+      const TIPO_L = { colab:'Colaborador', coachee:'Coachee', cand:'Candidato' };
+      contextoEquipo = '[PERFILES DEL EQUIPO DEL LÍDER]\n' + aIncluir.map(per => {
+        const datos = [
+          'Nombre: ' + (per.nombre || ''),
+          'Relación con el líder: ' + (TIPO_L[per.tipo] || per.tipo || ''),
+          per.gender    ? 'Género: ' + per.gender : '',
+          per.puesto    ? 'Puesto: ' + per.puesto : '',
+          per.depto     ? 'Departamento: ' + per.depto : '',
+          per.funcion   ? 'Función: ' + per.funcion : '',
+          per.bienestar ? 'Total Bienestar EQ-i: ' + per.bienestar : '',
+          per.eqiAnalysis || '',
+          per.qop   ? 'QOP — Cociente de Desempeño Total: ' + per.qop : '',
+          per.focus ? 'Focus — Capacidad de Concentración: ' + per.focus : '',
+          per.mmpAnalysis || ''
+        ].filter(Boolean).join('\n');
+        return '--- ' + (per.nombre || 'Persona') + ' ---\n' + datos;
+      }).join('\n\n') +
+      '\n[APLICA LA MISMA REGLA DE ORO CON ESTAS PERSONAS: NUNCA MUESTRES CIFRAS NI T-SCORES, SOLO DESCRIPCIONES CUALITATIVAS.]\n\n';
+    }
+  }
+
   const contextoPerfil =
     '[PERFIL DEL CLIENTE]\n' + lineasPerfil + '\n' +
     '[USA ESTOS DATOS PARA PERSONALIZAR CIENTÍFICAMENTE TUS RESPUESTAS SEGÚN LA METODOLOGÍA DE 7 FASES, EQ-i 2.0 Y MMP/PERFORMANCE. NUNCA MUESTRES CIFRAS NI T-SCORES AL LÍDER — SOLO DESCRIPCIONES CUALITATIVAS.]\n\n' +
+    contextoEquipo +
     '[CONVERSACIÓN]\n';
   const historiaTexto = contextoPerfil + messages.map(m => {
     const rol = m.role === 'user' ? 'Cliente' : 'SPA';
@@ -2968,7 +3224,10 @@ function buildConfigFromForm() {
     graphMedia: state.eqiGraphMedia || null,
     hasGraph:  !!(state.eqiGraphData || state.mmpGraphData),
     model:     (document.getElementById('s-model') || {}).value || 'claude-sonnet-5',
-    apiKey:    (document.getElementById('s-apikey') || {}).value?.trim() || ''
+    apiKey:    (document.getElementById('s-apikey') || {}).value?.trim() || '',
+    // Equipo del líder: se conserva si ya existía (aún no se captura desde este formulario)
+    equipo:    (FROZEN && Array.isArray(FROZEN.equipo)) ? FROZEN.equipo
+               : (Array.isArray(state.profile?.equipo) ? state.profile.equipo : [])
   };
 }
 function profileFromConfig(c) {
@@ -2988,7 +3247,9 @@ function profileFromConfig(c) {
     graphData: c.eqiGraph  || c.graphData || null,
     graphMedia:c.eqiMedia  || c.graphMedia|| null,
     hasGraph:  !!(c.eqiGraph || c.mmpGraph || c.graphData),
-    model:     c.model || 'claude-sonnet-5'
+    model:     c.model || 'claude-sonnet-5',
+    // Equipo del líder: colaboradores, coachees y candidatos con perfil integrado
+    equipo:    Array.isArray(c.equipo) ? c.equipo : []
   };
 }
 // ══════════════════════════════════════════════════════
@@ -3725,7 +3986,7 @@ document.addEventListener('DOMContentLoaded', () => {
           model: 'claude-sonnet-5',
           max_tokens: 10000,
           messages: [{ role: 'user', content: [
-            { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageB64 } },
+            { type: 'image', source: { type: 'base64', media_type: detectImageMediaType(imageB64), data: imageB64 } },
             { type: 'text', text: prompt }
           ]}]
         })
@@ -4210,10 +4471,203 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     bottomRow.style.display = (emoChips.length || modelHtml) ? 'flex' : 'none';
   }
 
-  // ── Auto-Conocimiento: despliega Fast-SPA / Líder SPA ──
+  // ══════════════════════════════════════════════════════
+  // FEEDBACK DE EQUIPO — colaboradores, coachees y candidatos
+  // Los perfiles viven dentro del SPA del líder (state.profile.equipo)
+  // ══════════════════════════════════════════════════════
+  const FB_TIPOS = [
+    { v:'colab',   l:'Colaborador' },
+    { v:'coachee', l:'Coachee' },
+    { v:'cand',    l:'Candidato' }
+  ];
+  // Catálogos DINÁMICOS: arrancan con sugerencias y crecen con lo que se agregue
+  let FB_DEPTOS = ['Dirección','Operaciones','Comercial','Recursos Humanos','Finanzas','Producción','Tecnología'];
+  let FB_FUNCIONES = ['Liderazgo de equipo','Ventas / Clientes','Operación / Procesos','Soporte / Staff','Proyectos','Técnica / Especialista'];
+  const FB_COLORS = ['#2A8A7A','#1B3A6B','#5A4880','#7A1525','#C8620A','#4A7C1F','#8FB4E8','#C9A24E','#2060B0','#C84040'];
+  const fbFiltros = { tipo:new Set(), depto:new Set(), funcion:new Set() };
+  let fbBusqueda = '';
+
+  function fbEquipo(){
+    if (!state.profile.equipo) state.profile.equipo = [];
+    return state.profile.equipo;
+  }
+  function fbTipoLabel(v){ const t = FB_TIPOS.find(x=>x.v===v); return t ? t.l : (v||'—'); }
+  function fbIniciales(nombre){
+    const p = (nombre||'?').trim().split(/\s+/);
+    return ((p[0]||'?')[0] + (p[1] ? p[1][0] : '')).toUpperCase();
+  }
+  function fbSincronizarCatalogos(){
+    fbEquipo().forEach(p=>{
+      if (p.depto   && !FB_DEPTOS.includes(p.depto))      FB_DEPTOS.push(p.depto);
+      if (p.funcion && !FB_FUNCIONES.includes(p.funcion)) FB_FUNCIONES.push(p.funcion);
+    });
+    FB_DEPTOS.sort((a,b)=>a.localeCompare(b,'es'));
+    FB_FUNCIONES.sort((a,b)=>a.localeCompare(b,'es'));
+  }
+  function fbChkHtml(grupo, valor, label){
+    const on = fbFiltros[grupo].has(valor);
+    return '<span class="fb-chk'+(on?' on':'')+'" data-g="'+grupo+'" data-v="'+escHtml(valor)+'">' +
+           '<span class="box"></span>'+escHtml(label)+'</span>';
+  }
+  function fbBuildFiltros(){
+    const cT = document.getElementById('fb-chk-tipo');
+    const cD = document.getElementById('fb-chk-depto');
+    const cF = document.getElementById('fb-chk-funcion');
+    if (!cT) return;
+    cT.innerHTML = FB_TIPOS.map(t=>fbChkHtml('tipo',t.v,t.l)).join('');
+    cD.innerHTML = FB_DEPTOS.map(d=>fbChkHtml('depto',d,d)).join('');
+    cF.innerHTML = FB_FUNCIONES.map(f=>fbChkHtml('funcion',f,f)).join('');
+    document.querySelectorAll('.fb-chk').forEach(c=>{
+      c.addEventListener('click', ()=>{
+        const g = c.dataset.g, v = c.dataset.v;
+        if (fbFiltros[g].has(v)) fbFiltros[g].delete(v); else fbFiltros[g].add(v);
+        fbBuildFiltros(); fbRenderLista();
+      });
+    });
+    const total = fbFiltros.tipo.size + fbFiltros.depto.size + fbFiltros.funcion.size;
+    const badge = document.getElementById('fb-filt-badge');
+    if (badge){
+      badge.textContent = total + ' activo' + (total!==1?'s':'');
+      badge.style.display = total ? 'inline-block' : 'none';
+    }
+  }
+  function fbRenderLista(){
+    const cont = document.getElementById('fb-people-list');
+    if (!cont) return;
+    const equipo = fbEquipo();
+    const countEl = document.getElementById('fb-count-line');
+    const tabCount = document.getElementById('fb-tab-count');
+    if (tabCount) tabCount.textContent = equipo.length ? '(' + equipo.length + ')' : '';
+
+    if (!equipo.length){
+      if (countEl) countEl.innerHTML = '';
+      cont.innerHTML = '<div class="fb-empty-note">Aún no hay personas con perfil cargado en tu SPA.<br><br>' +
+        'Tu Coach Certificado puede integrar aquí los resultados de tus colaboradores, coachees o candidatos.</div>';
+      return;
+    }
+
+    const lista = equipo.filter(p=>{
+      const okT = !fbFiltros.tipo.size    || fbFiltros.tipo.has(p.tipo);
+      const okD = !fbFiltros.depto.size   || fbFiltros.depto.has(p.depto);
+      const okF = !fbFiltros.funcion.size || fbFiltros.funcion.has(p.funcion);
+      const q = fbBusqueda.toLowerCase();
+      const okB = !q || (p.nombre||'').toLowerCase().includes(q) || (p.puesto||'').toLowerCase().includes(q);
+      return okT && okD && okF && okB;
+    });
+
+    if (countEl) countEl.innerHTML = 'Mostrando <b>' + lista.length + '</b> de ' + equipo.length + ' personas con perfil cargado.';
+
+    if (!lista.length){
+      cont.innerHTML = '<div class="fb-empty-note">Ninguna persona coincide con estos filtros.</div>';
+      return;
+    }
+
+    const NUEVA = '<option value="__nueva__">＋ Agregar nueva...</option>';
+    cont.innerHTML = lista.map(p=>{
+      const i = equipo.indexOf(p);
+      const color = FB_COLORS[i % FB_COLORS.length];
+      const assess = p.assess && p.assess.length ? p.assess : [];
+      const optTipo  = FB_TIPOS.map(t=>'<option value="'+t.v+'"'+(t.v===p.tipo?' selected':'')+'>'+t.l+'</option>').join('');
+      const optDepto = FB_DEPTOS.map(d=>'<option'+(d===p.depto?' selected':'')+'>'+escHtml(d)+'</option>').join('') + NUEVA;
+      const optFunc  = FB_FUNCIONES.map(f=>'<option'+(f===p.funcion?' selected':'')+'>'+escHtml(f)+'</option>').join('') + NUEVA;
+      return '<div class="fb-person">' +
+        '<div class="fb-person-top">' +
+          '<div class="fb-avatar" style="background:'+color+'">'+fbIniciales(p.nombre)+'</div>' +
+          '<div class="fb-person-info">' +
+            '<div class="fb-person-name">'+escHtml(p.nombre||'—')+'</div>' +
+            '<div class="fb-person-meta">'+escHtml(p.puesto||'Sin puesto registrado')+'</div>' +
+          '</div>' +
+          '<div class="fb-assess-dots">'+assess.map(a=>'<span class="fb-assess-dot">'+escHtml(a)+'</span>').join('')+'</div>' +
+        '</div>' +
+        '<div class="fb-sel-row">' +
+          '<select class="fb-mini-sel" onchange="fbCambiar('+i+',\'tipo\',this.value)">'+optTipo+'</select>' +
+          '<select class="fb-mini-sel" onchange="fbCambiar('+i+',\'depto\',this.value)">'+optDepto+'</select>' +
+          '<select class="fb-mini-sel" onchange="fbCambiar('+i+',\'funcion\',this.value)">'+optFunc+'</select>' +
+        '</div>' +
+        '<div class="fb-person-btns">' +
+          '<button class="fb-p-btn fast" onclick="fbPedirFeedback('+i+',\'fast\')">⚡ Fast</button>' +
+          '<button class="fb-p-btn full" onclick="fbPedirFeedback('+i+',\'full\')">📊 Completo</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // Cambiar tipo / depto / función (con opción de agregar valores nuevos al catálogo)
+  window.fbCambiar = function(idx, campo, valor){
+    const equipo = fbEquipo();
+    if (!equipo[idx]) return;
+    if (valor === '__nueva__'){
+      const etiqueta = campo === 'depto' ? 'departamento' : 'función';
+      const nuevo = (prompt('Escribe el nombre del nuevo ' + etiqueta + ':') || '').trim();
+      if (!nuevo){ fbRenderLista(); return; }
+      const cat = campo === 'depto' ? FB_DEPTOS : FB_FUNCIONES;
+      if (!cat.includes(nuevo)) cat.push(nuevo);
+      equipo[idx][campo] = nuevo;
+    } else {
+      equipo[idx][campo] = valor;
+    }
+    fbSincronizarCatalogos();
+    fbBuildFiltros();
+    fbRenderLista();
+  };
+
+  // Pedir feedback de una persona del equipo
+  window.fbPedirFeedback = async function(idx, modo){
+    const p = fbEquipo()[idx];
+    if (!p) return;
+    const tipo = modo === 'fast' ? 'Fast (ágil y breve)' : 'completo y profundo';
+    const datos = [
+      fbTipoLabel(p.tipo),
+      p.puesto ? 'puesto: ' + p.puesto : '',
+      p.depto ? 'departamento: ' + p.depto : '',
+      p.funcion ? 'función: ' + p.funcion : ''
+    ].filter(Boolean).join(', ');
+    const msg = 'FEEDBACK DE UNA PERSONA DE MI EQUIPO.\n' +
+      'Dame el feedback ' + tipo + ' de ' + (p.nombre||'esta persona') + ' (' + datos + '), ' +
+      'usando su perfil ' + ((p.assess||[]).join(' + ') || 'cargado') + ' que está guardado en este SPA. ' +
+      'Recuerda: descripción cualitativa, sin números ni T-scores.';
+    hideCtxRows();
+    state.messages = [];
+    clearSession();
+    showScreen('chat');
+    await sendMessage(msg);
+  };
+
+  // ── Feedback: despliega el panel con pestañas ──
   const c2AccessAuto = document.getElementById('c2-access-auto');
   if (c2AccessAuto) c2AccessAuto.addEventListener('click', ()=>{
-    document.getElementById('c2-access-panel').classList.toggle('show');
+    const panel = document.getElementById('c2-access-panel');
+    panel.classList.toggle('show');
+    if (panel.classList.contains('show')){
+      fbSincronizarCatalogos();
+      fbBuildFiltros();
+      fbRenderLista();
+    }
+  });
+
+  // Pestañas del panel de Feedback
+  document.querySelectorAll('.fb-tab').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      document.querySelectorAll('.fb-tab').forEach(x=>x.classList.remove('sel'));
+      t.classList.add('sel');
+      document.querySelectorAll('.fb-sect').forEach(s=>s.classList.remove('show'));
+      const sect = document.getElementById('fb-sect-' + t.dataset.fbtab);
+      if (sect) sect.classList.add('show');
+    });
+  });
+  const fbFiltToggle = document.getElementById('fb-filt-toggle');
+  if (fbFiltToggle) fbFiltToggle.addEventListener('click', function(){
+    this.classList.toggle('open');
+    document.getElementById('fb-filt-panel').classList.toggle('show');
+  });
+  const fbFiltClear = document.getElementById('fb-filt-clear');
+  if (fbFiltClear) fbFiltClear.addEventListener('click', ()=>{
+    fbFiltros.tipo.clear(); fbFiltros.depto.clear(); fbFiltros.funcion.clear();
+    fbBuildFiltros(); fbRenderLista();
+  });
+  const fbSearch = document.getElementById('fb-search');
+  if (fbSearch) fbSearch.addEventListener('input', e=>{
+    fbBusqueda = e.target.value.trim(); fbRenderLista();
   });
   const c2AccessHistory = document.getElementById('c2-access-history');
   if (c2AccessHistory) c2AccessHistory.addEventListener('click', ()=>{ renderHistory(); showScreen('history'); });
@@ -4224,6 +4678,224 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     clearSession();
     showScreen('chat');
     await sendMessage(c2AccessDisclaimer.dataset.msg);
+  });
+
+  // ══════════════════════════════════════════════════════
+  // AGREGAR PERSONA AL SPA DE UN LÍDER (Constructor · modo coach)
+  // ══════════════════════════════════════════════════════
+  const tmState = { leaderCfg:null, leaderFileName:'', eqiB64:null, eqiMedia:null, eqiAnalysis:'',
+                    mmpB64:null, mmpMedia:null, mmpAnalysis:'' };
+
+  // Pestañas de modo del Constructor: Nuevo SPA / Agregar persona
+  document.querySelectorAll('.setup-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.setup-tab').forEach(t=>t.classList.remove('sel'));
+      tab.classList.add('sel');
+      document.querySelectorAll('.setup-mode').forEach(m=>m.classList.remove('show'));
+      const modo = document.getElementById('setup-mode-' + tab.dataset.mode);
+      if (modo) modo.classList.add('show');
+      window.scrollTo({ top:0, behavior:'smooth' });
+    });
+  });
+
+  // ── Paso 1: cargar el SPA del líder y extraer su configuración ──
+  const tmLeaderZone = document.getElementById('tm-leader-zone');
+  const tmLeaderFile = document.getElementById('tm-leader-file');
+  if (tmLeaderZone && tmLeaderFile) {
+    tmLeaderZone.addEventListener('click', ()=> tmLeaderFile.click());
+    tmLeaderFile.addEventListener('change', async (e)=>{
+      const f = e.target.files[0];
+      if (!f) return;
+      try {
+        const texto = await f.text();
+        const cfg = tmExtraerConfig(texto);
+        if (!cfg) { alert('Ese archivo no parece ser un SPA de cliente ya generado.\n\nAsegúrate de usar el archivo .html que le entregaste al líder.'); return; }
+        tmState.leaderCfg = cfg;
+        tmState.leaderFileName = f.name;
+        if (!Array.isArray(cfg.equipo)) cfg.equipo = [];
+        document.getElementById('tm-leader-prompt').style.display = 'none';
+        const box = document.getElementById('tm-leader-loaded');
+        box.style.display = 'block';
+        box.innerHTML = '<div style="font-size:15px;font-weight:700;color:var(--green)">✅ ' + escHtml(cfg.name || 'Líder') + '</div>' +
+          '<div style="font-size:13px;color:var(--muted);margin-top:3px">' + escHtml(cfg.spaName || '') +
+          ' · ' + cfg.equipo.length + ' persona' + (cfg.equipo.length!==1?'s':'') + ' integrada' + (cfg.equipo.length!==1?'s':'') + '</div>';
+        document.getElementById('tm-step2').style.display = 'block';
+        tmRenderExisting();
+        tmLlenarCatalogos();
+      } catch(err) {
+        alert('No se pudo leer el archivo: ' + err.message);
+      }
+    });
+  }
+
+  // Extrae window.SPA_FROZEN={...}; del <script id="spa-cfg">
+  function tmExtraerConfig(html){
+    const m = html.match(/<script id="spa-cfg">([\s\S]*?)<\/script>/);
+    if (!m) return null;
+    const cuerpo = m[1].trim();
+    const eq = cuerpo.indexOf('=');
+    if (eq < 0) return null;
+    let json = cuerpo.slice(eq+1).trim().replace(/;$/, '');
+    if (json === 'null') return null;
+    try { return JSON.parse(json); } catch(e){ return null; }
+  }
+
+  function tmRenderExisting(){
+    const cfg = tmState.leaderCfg; if (!cfg) return;
+    const box = document.getElementById('tm-existing');
+    const lista = document.getElementById('tm-existing-list');
+    if (!cfg.equipo.length){ box.style.display='none'; return; }
+    box.style.display = 'block';
+    const LBL = { colab:'Colaborador', coachee:'Coachee', cand:'Candidato' };
+    lista.innerHTML = cfg.equipo.map(p=>
+      '• <b style="color:var(--text)">' + escHtml(p.nombre||'—') + '</b> — ' +
+      escHtml(LBL[p.tipo]||p.tipo||'') + (p.puesto ? ' · ' + escHtml(p.puesto) : '')
+    ).join('<br>');
+  }
+
+  function tmLlenarCatalogos(){
+    const cfg = tmState.leaderCfg; if (!cfg) return;
+    const deptos = new Set(['Dirección','Operaciones','Comercial','Recursos Humanos','Finanzas','Producción','Tecnología']);
+    const funcs  = new Set(['Liderazgo de equipo','Ventas / Clientes','Operación / Procesos','Soporte / Staff','Proyectos','Técnica / Especialista']);
+    cfg.equipo.forEach(p=>{ if(p.depto) deptos.add(p.depto); if(p.funcion) funcs.add(p.funcion); });
+    document.getElementById('tm-depto-list').innerHTML =
+      [...deptos].sort((a,b)=>a.localeCompare(b,'es')).map(d=>'<option value="'+escHtml(d)+'">').join('');
+    document.getElementById('tm-funcion-list').innerHTML =
+      [...funcs].sort((a,b)=>a.localeCompare(b,'es')).map(f=>'<option value="'+escHtml(f)+'">').join('');
+  }
+
+  // ── Gráficas de la persona (reutiliza el mismo análisis que el flujo normal) ──
+  function tmSetupUpload(zoneId, inputId, promptId, previewId, tipo){
+    const zone = document.getElementById(zoneId);
+    const input = document.getElementById(inputId);
+    if (!zone || !input) return;
+    zone.addEventListener('click', ()=> input.click());
+    input.addEventListener('change', (e)=>{
+      const f = e.target.files[0]; if (!f) return;
+      const reader = new FileReader();
+      reader.onload = ()=>{
+        const img = new Image();
+        img.onload = async ()=>{
+          // Mismo tratamiento que el flujo normal: redimensionar + FONDO BLANCO + JPEG.
+          // El fondo blanco evita que los PNG con transparencia salgan con zonas negras
+          // que taparían las etiquetas y dejarían a la IA sin poder leerlas.
+          const MAX = 1400;
+          let w = img.width, h = img.height;
+          if (w > MAX || h > MAX) {
+            if (w >= h) { h = Math.round(h * MAX / w); w = MAX; }
+            else        { w = Math.round(w * MAX / h); h = MAX; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
+          const compressed = canvas.toDataURL('image/jpeg', 0.82);
+          const b64 = compressed.split(',')[1];
+
+          if (tipo === 'eqi'){ tmState.eqiB64 = b64; tmState.eqiMedia = 'image/jpeg'; tmState.eqiAnalysis = ''; }
+          else               { tmState.mmpB64 = b64; tmState.mmpMedia = 'image/jpeg'; tmState.mmpAnalysis = ''; }
+
+          document.getElementById(promptId).style.display = 'none';
+          const pv = document.getElementById(previewId);
+          pv.style.display = 'block';
+          pv.innerHTML = '<img src="' + compressed + '" style="max-width:100%;max-height:150px;border-radius:8px">';
+
+          const analisis = await analyzeGraph(b64, tipo, previewId);
+          if (tipo === 'eqi') tmState.eqiAnalysis = analisis || '';
+          else                tmState.mmpAnalysis = analisis || '';
+        };
+        img.onerror = ()=> alert('No se pudo leer esa imagen. Intenta con otro archivo.');
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(f);
+    });
+  }
+  tmSetupUpload('tm-zone-eqi','tm-graph-eqi','tm-prompt-eqi','tm-preview-eqi','eqi');
+  tmSetupUpload('tm-zone-mmp','tm-graph-mmp','tm-prompt-mmp','tm-preview-mmp','mmp');
+
+  // ── Generar el SPA actualizado del líder con la persona integrada ──
+  const tmGenerate = document.getElementById('tm-generate');
+  if (tmGenerate) tmGenerate.addEventListener('click', async ()=>{
+    const cfg = tmState.leaderCfg;
+    if (!cfg) { alert('Primero carga el archivo SPA del líder.'); return; }
+    const nombre = (document.getElementById('tm-nombre').value || '').trim();
+    if (!nombre) { alert('Escribe el nombre de la persona.'); document.getElementById('tm-nombre').focus(); return; }
+    if (!tmState.eqiAnalysis && !tmState.mmpAnalysis) {
+      if (!confirm('Esta persona no tiene ninguna gráfica analizada.\n\n¿Deseas integrarla de todas formas (solo con sus datos básicos)?')) return;
+    }
+
+    const assess = [];
+    if (tmState.eqiAnalysis) assess.push('EQ-i');
+    if (tmState.mmpAnalysis) assess.push('MMP');
+
+    const persona = {
+      id: slugify(nombre) + '-' + Date.now().toString(36),
+      nombre: nombre,
+      tipo: document.getElementById('tm-tipo').value || 'colab',
+      gender: document.getElementById('tm-gender').value || '',
+      puesto: (document.getElementById('tm-puesto').value || '').trim(),
+      depto: (document.getElementById('tm-depto').value || '').trim(),
+      funcion: (document.getElementById('tm-funcion').value || '').trim(),
+      bienestar: (document.getElementById('tm-bienestar').value || '').trim(),
+      qop: (document.getElementById('tm-qop').value || '').trim(),
+      focus: (document.getElementById('tm-focus').value || '').trim(),
+      eqiAnalysis: tmState.eqiAnalysis || '',
+      mmpAnalysis: tmState.mmpAnalysis || '',
+      assess: assess,
+      fecha: new Date().toISOString().slice(0,10)
+    };
+
+    // ¿Ya existe alguien con ese nombre? — se reemplaza en vez de duplicar
+    const idxPrevio = cfg.equipo.findIndex(p => (p.nombre||'').toLowerCase() === nombre.toLowerCase());
+    if (idxPrevio >= 0) {
+      if (!confirm('«' + nombre + '» ya está integrada en este SPA.\n\n¿Deseas actualizar su perfil con estos datos nuevos?')) return;
+      cfg.equipo[idxPrevio] = persona;
+    } else {
+      cfg.equipo.push(persona);
+    }
+
+    // Generar el archivo con la plantilla actual (el líder también recibe la versión más reciente)
+    if (!/window\.SPA_FROZEN=null;/.test(PRISTINE_HTML)) {
+      alert('No se pudo preparar el archivo (marcador no encontrado). Recarga la página e intenta de nuevo.'); return;
+    }
+    const json = JSON.stringify(cfg).replace(/<\//g, '<\\/');
+    let out = PRISTINE_HTML.replace('window.SPA_FROZEN=null;', 'window.SPA_FROZEN=' + json + ';');
+    const clientCSS = '<style id="spa-client-mode">#screen-setup,#btn-admin{display:none!important}</style>';
+    if (!out.includes('spa-client-mode')) out = out.replace('</head>', clientCSS + '</head>');
+
+    const fname = 'SPA_' + slugify(cfg.spaName || cfg.name || 'lider') + '.html';
+    const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = fname;
+    a.click();
+    setTimeout(()=> URL.revokeObjectURL(a.href), 2000);
+
+    tmRenderExisting();
+    tmLlenarCatalogos();
+    alert('✅ Listo: ' + nombre + ' quedó integrada en el SPA de ' + (cfg.name||'el líder') + '.\n\n' +
+          'Archivo descargado: ' + fname + '\n' +
+          'Personas integradas: ' + cfg.equipo.length + '\n\n' +
+          'Entrega este archivo al líder para que reemplace el anterior.');
+
+    // Limpiar el formulario para capturar a la siguiente persona
+    ['tm-nombre','tm-puesto','tm-depto','tm-funcion','tm-bienestar','tm-qop','tm-focus'].forEach(id=>{
+      const el = document.getElementById(id); if (el) el.value = '';
+    });
+    tmState.eqiB64 = tmState.mmpB64 = null;
+    tmState.eqiAnalysis = tmState.mmpAnalysis = '';
+    ['eqi','mmp'].forEach(t=>{
+      const pv = document.getElementById('tm-preview-'+t);
+      const pr = document.getElementById('tm-prompt-'+t);
+      const inp = document.getElementById('tm-graph-'+t);
+      if (pv){ pv.style.display='none'; pv.innerHTML=''; }
+      if (pr) pr.style.display='';
+      if (inp) inp.value='';
+    });
   });
 
   const btnChangeKey = document.getElementById('btn-change-key');
