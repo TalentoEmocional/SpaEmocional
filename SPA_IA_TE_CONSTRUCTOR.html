@@ -2,7 +2,7 @@
 <html lang="es"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPA Emocional IA PREMIUM V4 · Santiago Delgado</title>
+<title>SPA Emocional IA PREMIUM V30 · Santiago Delgado</title>
 <script id="spa-cfg">window.SPA_FROZEN=null;</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <style>
@@ -199,6 +199,20 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 .c2-access-btn:hover{border-color:var(--navy-text);background:#1c2029}
 .c2-access-btn .ico{font-size:22px;line-height:1}
 .c2-access-btn .t{font-size:12px;font-weight:600;color:var(--text)}
+/* ══ Filas editables de personas integradas (Constructor) ══ */
+.tm-row{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:9px;padding:9px 11px;margin-bottom:7px}
+.tm-row:last-child{margin-bottom:0}
+.tm-row-view{display:flex;align-items:center;gap:8px}
+.tm-icon-btn{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:7px;
+  width:32px;height:32px;cursor:pointer;font-size:14px;flex-shrink:0;transition:all .15s;font-family:inherit}
+.tm-icon-btn:hover{border-color:#C9A24E;background:rgba(201,162,78,.1)}
+.tm-row-edit input,.tm-row-edit select{margin-top:6px;padding:8px 10px;font-size:14px}
+.tm-mini-btn{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:7px;
+  padding:8px;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit;transition:all .15s}
+.tm-mini-btn:hover{border-color:var(--navy-text)}
+.tm-mini-btn.ok{color:var(--green);border-color:rgba(74,124,31,.5)}
+.tm-mini-btn.ok:hover{background:rgba(74,124,31,.12)}
+
 /* ══ Pestañas de modo del Constructor ══ */
 .setup-tabs{display:flex;gap:8px;max-width:660px;margin:0 auto 14px;padding:0 1rem}
 .setup-tab{flex:1;padding:12px 8px;border-radius:11px;border:1px solid var(--border);
@@ -548,7 +562,7 @@ body.pres-mode .gm-row{max-width:80%}
 <!-- ── SCREEN: API KEY ── -->
 <div id="screen-key" class="screen">
   <div class="hdr">
-    <div class="badge">💆 SPA EMOCIONAL IA PREMIUM · V25</div>
+    <div class="badge">💆 SPA EMOCIONAL IA PREMIUM · V30</div>
     <h1 style="font-size:24px">Bienvenido a tu SPA</h1>
     <p>Ingresa tu API Key de Anthropic para comenzar</p>
   </div>
@@ -572,7 +586,7 @@ body.pres-mode .gm-row{max-width:80%}
 <div id="screen-setup" class="screen">
   <div class="hdr">
     <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:1rem;position:relative">
-      <div class="badge" style="margin-bottom:0">🛠️ CONSTRUCCIÓN · MODO COACH · V25</div>
+      <div class="badge" style="margin-bottom:0">🛠️ CONSTRUCCIÓN · MODO COACH · V30</div>
       <button class="fb-dot-btn" id="btn-feedback-setup" title="Feedback / Soporte" style="position:absolute;right:0;top:50%;transform:translateY(-50%)"></button>
     </div>
     <h1 style="font-size:24px">Construye el SPA de tu cliente</h1>
@@ -686,6 +700,21 @@ body.pres-mode .gm-row{max-width:80%}
         <div id="tm-leader-loaded" style="display:none"></div>
       </div>
 
+      <!-- Corregir datos del líder (nombre mal escrito, etc.) -->
+      <div id="tm-fix-leader" style="display:none;margin-top:14px;background:#11141A;border:1px solid var(--border);border-radius:10px;padding:14px">
+        <div style="font-size:12.5px;font-weight:700;color:#C9A24E;margin-bottom:10px">✏️ Corregir datos del líder</div>
+        <div class="grid2">
+          <div>
+            <label style="margin-top:0">Nombre del líder</label>
+            <input type="text" id="tm-fix-name" placeholder="Nombre completo">
+          </div>
+          <div>
+            <label style="margin-top:0">Nombre del SPA</label>
+            <input type="text" id="tm-fix-spaname" placeholder="Nombre del SPA">
+          </div>
+        </div>
+      </div>
+
       <!-- Paso 2: datos de la persona -->
       <div id="tm-step2" style="display:none">
         <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:18px 0 8px">2 · Datos de la persona</div>
@@ -752,13 +781,15 @@ body.pres-mode .gm-row{max-width:80%}
           <div id="tm-preview-mmp" style="display:none"></div>
         </div>
 
-        <!-- Personas ya integradas -->
+        <!-- Personas ya integradas (editables) -->
         <div id="tm-existing" style="display:none;margin-top:16px;background:#11141A;border:1px solid var(--border);border-radius:10px;padding:12px 14px">
-          <div style="font-size:12.5px;font-weight:700;color:#C9A24E;margin-bottom:7px">Personas ya integradas en este SPA</div>
-          <div id="tm-existing-list" style="font-size:13.5px;color:var(--muted);line-height:1.7"></div>
+          <div style="font-size:12.5px;font-weight:700;color:#C9A24E;margin-bottom:9px">Personas ya integradas en este SPA</div>
+          <div id="tm-existing-list"></div>
         </div>
 
-        <button class="btn btn-navy" id="tm-generate" style="margin-top:1.25rem">⬇ Generar SPA actualizado del líder</button>
+        <button class="btn" id="tm-save-fixes" style="margin-top:12px;display:none;background:#1A2233;color:var(--navy-text);border:1px solid var(--border)">💾 Guardar solo correcciones y descargar</button>
+
+        <button class="btn btn-navy" id="tm-generate" style="margin-top:12px">⬇ Agregar esta persona y descargar SPA</button>
         <p style="font-size:13px;color:var(--muted);margin-top:9px;line-height:1.5;text-align:center">
           Descarga el SPA del líder con esta persona ya integrada. El líder reemplaza su archivo anterior y conserva todo su historial.
         </p>
@@ -1966,6 +1997,7 @@ function displayUserContent(text) {
     .replace(/\n?\[PROFUNDIDAD:[^\]]*\]\s*$/, '')
     .replace(/^\[PROFUNDIDAD:[^\]]*\]\n?/, '')
     .replace(/^Mi medición en el Mood Meter[^\n]*\n?/, '')
+    .replace(/^FEEDBACK DE UNA PERSONA DE MI EQUIPO\.[\s\S]*$/, '')
     .trim();
 }
 
@@ -3257,7 +3289,7 @@ function profileFromConfig(c) {
 //  El SPA descarga la plantilla más reciente, le inyecta su
 //  propio perfil congelado y genera el archivo actualizado.
 // ══════════════════════════════════════════════════════
-const SPA_VERSION = 'V8';
+const SPA_VERSION = 'V30';
 const SPA_UPDATE_URL = 'https://raw.githubusercontent.com/TalentoEmocional/SpaEmocional/main/SPA_IA_TE_CONSTRUCTOR.html'; // ← URL fija, nombre sin versión — nunca cambia
 
 async function updateSpaFromTemplate() {
@@ -4720,6 +4752,13 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
           '<div style="font-size:13px;color:var(--muted);margin-top:3px">' + escHtml(cfg.spaName || '') +
           ' · ' + cfg.equipo.length + ' persona' + (cfg.equipo.length!==1?'s':'') + ' integrada' + (cfg.equipo.length!==1?'s':'') + '</div>';
         document.getElementById('tm-step2').style.display = 'block';
+        const fixBox = document.getElementById('tm-fix-leader');
+        if (fixBox) {
+          fixBox.style.display = 'block';
+          document.getElementById('tm-fix-name').value = cfg.name || '';
+          document.getElementById('tm-fix-spaname').value = cfg.spaName || '';
+        }
+        tmState.cambiosPendientes = false;
         tmRenderExisting();
         tmLlenarCatalogos();
       } catch(err) {
@@ -4744,14 +4783,115 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     const cfg = tmState.leaderCfg; if (!cfg) return;
     const box = document.getElementById('tm-existing');
     const lista = document.getElementById('tm-existing-list');
-    if (!cfg.equipo.length){ box.style.display='none'; return; }
+    const btnFix = document.getElementById('tm-save-fixes');
+    if (btnFix) btnFix.style.display = 'block';
+    if (!cfg.equipo.length){
+      box.style.display = 'block';
+      lista.innerHTML = '<div style="font-size:13.5px;color:var(--muted);font-style:italic">Aún no hay personas integradas.</div>';
+      return;
+    }
     box.style.display = 'block';
     const LBL = { colab:'Colaborador', coachee:'Coachee', cand:'Candidato' };
-    lista.innerHTML = cfg.equipo.map(p=>
-      '• <b style="color:var(--text)">' + escHtml(p.nombre||'—') + '</b> — ' +
-      escHtml(LBL[p.tipo]||p.tipo||'') + (p.puesto ? ' · ' + escHtml(p.puesto) : '')
-    ).join('<br>');
+    lista.innerHTML = cfg.equipo.map((p,i)=>
+      '<div class="tm-row" id="tm-row-'+i+'">' +
+        '<div class="tm-row-view">' +
+          '<div style="flex:1;min-width:0">' +
+            '<div style="font-size:14px;font-weight:700;color:var(--text)">'+escHtml(p.nombre||'—')+'</div>' +
+            '<div style="font-size:12px;color:var(--muted)">'+escHtml(LBL[p.tipo]||p.tipo||'') +
+              (p.puesto ? ' · ' + escHtml(p.puesto) : '') + (p.depto ? ' · ' + escHtml(p.depto) : '') + '</div>' +
+          '</div>' +
+          '<button class="tm-icon-btn" onclick="tmEditar('+i+')" title="Corregir datos">✏️</button>' +
+          '<button class="tm-icon-btn" onclick="tmEliminar('+i+')" title="Quitar del SPA">🗑️</button>' +
+        '</div>' +
+        '<div class="tm-row-edit" style="display:none">' +
+          '<input type="text" id="tm-e-nombre-'+i+'" value="'+escHtml(p.nombre||'')+'" placeholder="Nombre completo">' +
+          '<div class="grid2">' +
+            '<select id="tm-e-tipo-'+i+'">' +
+              ['colab','coachee','cand'].map(t=>'<option value="'+t+'"'+(t===p.tipo?' selected':'')+'>'+LBL[t]+'</option>').join('') +
+            '</select>' +
+            '<input type="text" id="tm-e-puesto-'+i+'" value="'+escHtml(p.puesto||'')+'" placeholder="Puesto">' +
+          '</div>' +
+          '<div class="grid2">' +
+            '<input type="text" id="tm-e-depto-'+i+'" value="'+escHtml(p.depto||'')+'" placeholder="Departamento">' +
+            '<input type="text" id="tm-e-funcion-'+i+'" value="'+escHtml(p.funcion||'')+'" placeholder="Función">' +
+          '</div>' +
+          '<div style="display:flex;gap:7px;margin-top:8px">' +
+            '<button class="tm-mini-btn ok" onclick="tmGuardarFila('+i+')">✓ Aplicar</button>' +
+            '<button class="tm-mini-btn" onclick="tmRenderExisting()">Cancelar</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    ).join('');
   }
+
+  window.tmEditar = function(i){
+    const row = document.getElementById('tm-row-'+i);
+    if (!row) return;
+    row.querySelector('.tm-row-view').style.display = 'none';
+    row.querySelector('.tm-row-edit').style.display = 'block';
+  };
+  window.tmGuardarFila = function(i){
+    const cfg = tmState.leaderCfg; if (!cfg || !cfg.equipo[i]) return;
+    const val = id => (document.getElementById(id) || {}).value || '';
+    const nombre = val('tm-e-nombre-'+i).trim();
+    if (!nombre){ alert('El nombre no puede quedar vacío.'); return; }
+    cfg.equipo[i].nombre  = nombre;
+    cfg.equipo[i].tipo    = val('tm-e-tipo-'+i);
+    cfg.equipo[i].puesto  = val('tm-e-puesto-'+i).trim();
+    cfg.equipo[i].depto   = val('tm-e-depto-'+i).trim();
+    cfg.equipo[i].funcion = val('tm-e-funcion-'+i).trim();
+    tmState.cambiosPendientes = true;
+    tmRenderExisting();
+    tmLlenarCatalogos();
+  };
+  window.tmEliminar = function(i){
+    const cfg = tmState.leaderCfg; if (!cfg || !cfg.equipo[i]) return;
+    if (!confirm('¿Quitar a «' + (cfg.equipo[i].nombre||'esta persona') + '» del SPA de ' + (cfg.name||'el líder') + '?\n\nSe borra su perfil de este SPA.')) return;
+    cfg.equipo.splice(i,1);
+    tmState.cambiosPendientes = true;
+    tmRenderExisting();
+  };
+
+  // Genera y descarga el archivo del líder a partir de su configuración
+  function tmGenerarArchivo(cfg){
+    if (!/window\.SPA_FROZEN=null;/.test(PRISTINE_HTML)) {
+      alert('No se pudo preparar el archivo (marcador no encontrado). Recarga la página e intenta de nuevo.');
+      return null;
+    }
+    const json = JSON.stringify(cfg).replace(/<\//g, '<\\/');
+    let out = PRISTINE_HTML.replace('window.SPA_FROZEN=null;', 'window.SPA_FROZEN=' + json + ';');
+    const clientCSS = '<style id="spa-client-mode">#screen-setup,#btn-admin{display:none!important}</style>';
+    if (!out.includes('spa-client-mode')) out = out.replace('</head>', clientCSS + '</head>');
+    const fname = 'SPA_' + slugify(cfg.spaName || cfg.name || 'lider') + '.html';
+    const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = fname;
+    a.click();
+    setTimeout(()=> URL.revokeObjectURL(a.href), 2000);
+    return fname;
+  }
+
+  // Aplica las correcciones escritas en los campos del líder
+  function tmAplicarDatosLider(){
+    const cfg = tmState.leaderCfg; if (!cfg) return;
+    const n = (document.getElementById('tm-fix-name') || {}).value;
+    const s = (document.getElementById('tm-fix-spaname') || {}).value;
+    if (typeof n === 'string' && n.trim()) cfg.name = n.trim();
+    if (typeof s === 'string' && s.trim()) cfg.spaName = s.trim();
+  }
+
+  // Botón: guardar solo correcciones (sin agregar persona nueva)
+  const tmSaveFixes = document.getElementById('tm-save-fixes');
+  if (tmSaveFixes) tmSaveFixes.addEventListener('click', ()=>{
+    const cfg = tmState.leaderCfg;
+    if (!cfg) { alert('Primero carga el archivo SPA del líder.'); return; }
+    tmAplicarDatosLider();
+    const fname = tmGenerarArchivo(cfg);
+    if (!fname) return;
+    tmState.cambiosPendientes = false;
+    alert('✅ Correcciones guardadas.\n\nArchivo descargado: ' + fname + '\n\nEntrega este archivo al líder para que reemplace el anterior.');
+  });
 
   function tmLlenarCatalogos(){
     const cfg = tmState.leaderCfg; if (!cfg) return;
@@ -4859,21 +4999,10 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     }
 
     // Generar el archivo con la plantilla actual (el líder también recibe la versión más reciente)
-    if (!/window\.SPA_FROZEN=null;/.test(PRISTINE_HTML)) {
-      alert('No se pudo preparar el archivo (marcador no encontrado). Recarga la página e intenta de nuevo.'); return;
-    }
-    const json = JSON.stringify(cfg).replace(/<\//g, '<\\/');
-    let out = PRISTINE_HTML.replace('window.SPA_FROZEN=null;', 'window.SPA_FROZEN=' + json + ';');
-    const clientCSS = '<style id="spa-client-mode">#screen-setup,#btn-admin{display:none!important}</style>';
-    if (!out.includes('spa-client-mode')) out = out.replace('</head>', clientCSS + '</head>');
-
-    const fname = 'SPA_' + slugify(cfg.spaName || cfg.name || 'lider') + '.html';
-    const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = fname;
-    a.click();
-    setTimeout(()=> URL.revokeObjectURL(a.href), 2000);
+    tmAplicarDatosLider();
+    const fname = tmGenerarArchivo(cfg);
+    if (!fname) return;
+    tmState.cambiosPendientes = false;
 
     tmRenderExisting();
     tmLlenarCatalogos();
