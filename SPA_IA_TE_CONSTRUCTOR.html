@@ -2,7 +2,7 @@
 <html lang="es"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPA Emocional IA PREMIUM V32 · Santiago Delgado</title>
+<title>SPA Emocional IA PREMIUM V33 · Santiago Delgado</title>
 <script id="spa-cfg">window.SPA_FROZEN=null;</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <style>
@@ -564,7 +564,7 @@ body.pres-mode .gm-row{max-width:80%}
 <!-- ── SCREEN: API KEY ── -->
 <div id="screen-key" class="screen">
   <div class="hdr">
-    <div class="badge">💆 SPA EMOCIONAL IA PREMIUM · V32</div>
+    <div class="badge">💆 SPA EMOCIONAL IA PREMIUM · V33</div>
     <h1 style="font-size:24px">Bienvenido a tu SPA</h1>
     <p>Ingresa tu API Key de Anthropic para comenzar</p>
   </div>
@@ -588,7 +588,7 @@ body.pres-mode .gm-row{max-width:80%}
 <div id="screen-setup" class="screen">
   <div class="hdr">
     <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:1rem;position:relative">
-      <div class="badge" style="margin-bottom:0">🛠️ CONSTRUCCIÓN · MODO COACH · V32</div>
+      <div class="badge" style="margin-bottom:0">🛠️ CONSTRUCCIÓN · MODO COACH · V33</div>
       <button class="fb-dot-btn" id="btn-feedback-setup" title="Feedback / Soporte" style="position:absolute;right:0;top:50%;transform:translateY(-50%)"></button>
     </div>
     <h1 style="font-size:24px">Construye el SPA de tu cliente</h1>
@@ -1098,6 +1098,12 @@ body.pres-mode .gm-row{max-width:80%}
     <label>Reto del equipo a resolver *</label>
     <input type="text" id="g-reto" placeholder="Ej: Bajaron las ventas del trimestre">
     <label style="margin-top:18px">Participantes <span style="text-transform:none;font-weight:400;color:var(--muted)">(mínimo 3 · el área es opcional)</span></label>
+    <!-- V31/A7 — Vincular personas ya registradas en el SPA del líder -->
+    <div id="g-equipo-box" style="display:none;margin-bottom:10px;background:#0E1A16;border:1px solid rgba(42,138,122,.3);border-radius:9px;padding:11px 13px">
+      <div style="font-size:13px;font-weight:700;color:#7FE0CE;margin-bottom:7px">Mi equipo — toca para sumarlos a la reunión</div>
+      <div id="g-equipo-chips" style="display:flex;flex-wrap:wrap;gap:7px"></div>
+      <div style="font-size:12.5px;color:#8FBFB4;margin-top:8px;line-height:1.45">El SPA usará su perfil para calibrar cómo facilitar — nunca lo comentará en voz alta frente al equipo.</div>
+    </div>
     <div id="g-participants" style="display:flex;flex-direction:column;gap:8px"></div>
     <button id="g-add" class="parts-add" style="margin-top:10px;width:100%">+ Agregar participante</button>
     <div style="background:#0E1A16;border:1px solid rgba(42,138,122,.3);border-radius:8px;padding:11px 13px;margin-top:16px;font-size:15px;color:#8FBFB4;line-height:1.6">
@@ -1439,10 +1445,18 @@ body.pres-mode .gm-row{max-width:80%}
     <div style="font-size:15px;color:var(--muted);line-height:1.6;margin-bottom:6px">Tu archivo está descargando:</div>
     <div id="spa-generated-name" style="font-size:15px;font-weight:700;color:#D4AF37;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);border-radius:8px;padding:7px 12px;margin-bottom:18px;word-break:break-all"></div>
     <div style="text-align:left;background:rgba(201,162,78,.10);border:1px solid rgba(201,162,78,.45);border-radius:12px;padding:14px;margin-bottom:18px">
-      <div style="font-size:14px;font-weight:800;color:#C9A24E;margin-bottom:6px">🔑 PASO OBLIGATORIO — Autoriza este SPA</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:9px">Copia este token y agrégalo, tras una coma, a la variable <strong style="color:#D9B96E">SPA_TOKENS</strong> en Cloudflare. Luego presiona <strong style="color:#D9B96E">Deploy</strong>. Sin esto, el SPA no responderá.</div>
+      <div style="font-size:14px;font-weight:800;color:#C9A24E;margin-bottom:8px">🔑 PASO OBLIGATORIO — Autoriza este SPA</div>
       <div id="spa-generated-token" style="font-family:monospace;font-size:14px;color:#fff;background:#12100C;border:1px solid rgba(201,162,78,.35);border-radius:8px;padding:9px 11px;word-break:break-all;margin-bottom:9px"></div>
-      <button id="btn-copiar-token" style="width:100%;padding:9px;border-radius:8px;border:1px solid #C9A24E;background:rgba(201,162,78,.18);color:#C9A24E;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">📋 Copiar token</button>
+      <button id="btn-copiar-token" style="width:100%;padding:9px;border-radius:8px;border:1px solid #C9A24E;background:rgba(201,162,78,.18);color:#C9A24E;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:11px">📋 Copiar token</button>
+      <ol style="margin:0;padding-left:19px;font-size:13px;color:var(--muted);line-height:1.65">
+        <li>Toca <strong style="color:#D9B96E">📋 Copiar token</strong> aquí arriba.</li>
+        <li>Entra a Cloudflare → Worker <strong style="color:#D9B96E">spa-ia-test</strong> → pestaña <strong style="color:#D9B96E">Settings</strong>.</li>
+        <li>En la fila <strong style="color:#D9B96E">SPA_TOKENS</strong>, toca el lápiz ✏️.</li>
+        <li>Ve al <strong style="color:#D9B96E">final</strong> del texto, escribe una <strong style="color:#D9B96E">coma sin espacios</strong> y pega el token.</li>
+        <li><strong style="color:#D9B96E">Save</strong> y luego <strong style="color:#D9B96E">Deploy</strong> — sin el Deploy no queda activo.</li>
+        <li>Listo: ya puedes abrir o enviar el archivo al cliente.</li>
+      </ol>
+      <div style="font-size:12.5px;color:#8A8578;margin-top:9px;line-height:1.45">El archivo que acabas de guardar ya lleva este token dentro. Si no lo autorizas, el SPA dirá «aún no está activado».</div>
     </div>
     <p style="font-size:15px;color:var(--muted);line-height:1.55;margin-bottom:20px">Entrega este archivo a tu cliente — su SPA Emocional IA está listo y personalizado con sus datos.</p>
     <button id="btn-nuevo-spa" class="btn btn-teal" style="margin-top:0;margin-bottom:10px">＋ Crear nuevo SPA</button>
@@ -1748,6 +1762,19 @@ function updateSessionBanner() {
 }
 
 // ══════════════════════════════════════════════════════
+//  V32 — MENSAJE AL LÍDER SEGÚN EL TIPO DE FALLO
+//  401 = el SPA no está autorizado en el Worker (falta su token)
+//  429 = alcanzó el uso previsto para hoy
+//  El resto se resuelve solo: mensaje neutro y a intentar de nuevo.
+// ══════════════════════════════════════════════════════
+function mensajeDeError(e) {
+  const st = e && e.httpStatus;
+  if (st === 401) return 'Este SPA aún no está activado. Contacta a Talento Emocional para habilitarlo.';
+  if (st === 429) return 'Has alcanzado el uso previsto para hoy. Tu SPA vuelve a estar disponible mañana.';
+  return 'El SPA está teniendo un momento de conexión. Intenta de nuevo en unos segundos.';
+}
+
+// ══════════════════════════════════════════════════════
 //  API — INDIVIDUAL
 // ══════════════════════════════════════════════════════
 // V31/A4 — Construye el arreglo `messages` nativo de Claude.
@@ -2012,22 +2039,24 @@ async function callAPI(messages, onChunk) {
           per.depto     ? 'Departamento: ' + per.depto : '',
           per.funcion   ? 'Función: ' + per.funcion : '',
           per.bienestar ? 'Total Bienestar EQ-i: ' + per.bienestar : '',
-          per.eqiAnalysis || '',
-          per.qop   ? 'QOP — Cociente de Desempeño Total: ' + per.qop : '',
-          per.focus ? 'Focus — Capacidad de Concentración: ' + per.focus : '',
+          per.eqiAnalysis ? 'Habilidades EQ-i: ' + per.eqiAnalysis : '',
+          per.qop   ? 'QOP — Cociente de Desempeño Total (MMP): ' + per.qop : '',
+          per.focus ? 'Focus — Capacidad de Concentración (MMP): ' + per.focus : '',
           (per.fortalezasMMP && per.fortalezasMMP.length)
             ? 'Fortalezas MMP destacadas: ' + per.fortalezasMMP.filter(Boolean).join(', ') : '',
-          per.mmpAnalysis || ''
+          per.mmpAnalysis ? 'Motivación y filosofía operante (MMP): ' + per.mmpAnalysis : ''
         ].filter(Boolean).join('\n');
         return '--- ' + (per.nombre || 'Persona') + ' ---\n' + datos;
       }).join('\n\n') +
-      '\n[APLICA LA MISMA REGLA DE ORO CON ESTAS PERSONAS: NUNCA MUESTRES CIFRAS NI T-SCORES, SOLO DESCRIPCIONES CUALITATIVAS.]\n\n';
+      '\n[APLICA LA MISMA REGLA DE ORO CON ESTAS PERSONAS: NUNCA MUESTRES CIFRAS NI T-SCORES, SOLO DESCRIPCIONES CUALITATIVAS.]\n' +
+      '[NUNCA NOMBRES EL INSTRUMENTO AL LÍDER: no digas "EQ-i", "MMP", "QOP", "Focus", "T-score" ni "percentil" en tus respuestas. Úsalos solo para interpretar; habla siempre de habilidades, fortalezas y motivadores en lenguaje natural.]\n\n';
     }
   }
 
   const contextoPerfil =
     '[PERFIL DEL CLIENTE]\n' + lineasPerfil + '\n' +
-    '[USA ESTOS DATOS PARA PERSONALIZAR CIENTÍFICAMENTE TUS RESPUESTAS SEGÚN LA METODOLOGÍA DE 7 FASES, EQ-i 2.0 Y MMP/PERFORMANCE. NUNCA MUESTRES CIFRAS NI T-SCORES AL LÍDER — SOLO DESCRIPCIONES CUALITATIVAS.]\n\n' +
+    '[USA ESTOS DATOS PARA PERSONALIZAR CIENTÍFICAMENTE TUS RESPUESTAS SEGÚN LA METODOLOGÍA DE 7 FASES, EQ-i 2.0 Y MMP/PERFORMANCE. NUNCA MUESTRES CIFRAS NI T-SCORES AL LÍDER — SOLO DESCRIPCIONES CUALITATIVAS.]\n' +
+    '[NUNCA NOMBRES EL INSTRUMENTO AL LÍDER: no digas "EQ-i", "MMP", "QOP", "Focus", "T-score" ni "percentil" en tus respuestas. Úsalos solo para interpretar; habla siempre de habilidades, fortalezas y motivadores en lenguaje natural.]\n\n' +
     contextoEquipo +
     '[CONVERSACIÓN]\n';
   const historiaTexto = contextoPerfil + messages.map(m => {
@@ -2076,6 +2105,8 @@ async function callAPI(messages, onChunk) {
           focus:     p.focus     || '',
           bienestar: p.bienestar || '',
           hasGraph:  !!(p.eqiGraph || p.mmpGraph || p.graphData),
+          // V31/A2-bis — `depth` manda; `model` queda como respaldo retrocompatible.
+          depth:     p.depth     || 'normal',
           model:     p.model     || 'claude-sonnet-5'
         }
       })
@@ -2085,7 +2116,10 @@ async function callAPI(messages, onChunk) {
   }
   if (!res.ok) {
     const errTxt = await res.text().catch(() => '');
-    throw new Error('HTTP ' + res.status + ' — ' + errTxt);
+    // V32 — Estados con mensaje propio: el líder entiende qué pasa sin jerga técnica.
+    const e = new Error('HTTP ' + res.status + ' — ' + errTxt);
+    e.httpStatus = res.status;
+    throw e;
   }
 
   // Streaming real: leemos el cuerpo poco a poco y avisamos con cada fragmento
@@ -2109,9 +2143,10 @@ async function callAPI(messages, onChunk) {
 // ══════════════════════════════════════════════════════
 //  API — GRUPAL
 // ══════════════════════════════════════════════════════
-function buildGroupApiMessages(messages) {
+function buildGroupApiMessages(messages, cabecera) {
   let injected = !state.profile.graphData;
-  return messages.map(m => {
+  let cabeceraPuesta = false;
+  const salida = messages.map(m => {
     const blocks = [];
     if (m.role === 'user' && !injected) {
       injected = true;
@@ -2130,9 +2165,12 @@ function buildGroupApiMessages(messages) {
     else if (m.who) txt = '[' + m.who + (m.area ? ' · ' + m.area : '') + ']: ' + m.content;
     else txt = m.content;
     if (blocks.length && blocks.some(b => b.type === 'document' || m.attach)) txt += '\n\n[Se subió un documento/reporte. Analízalo a fondo: extrae hechos y cifras, y sepáralos de las creencias del equipo.]';
+    // V31/A7 — La cabecera (reto, participantes y sus perfiles) se antepone al primer mensaje.
+    if (m.role === 'user' && !cabeceraPuesta && cabecera) { cabeceraPuesta = true; txt = cabecera + '\n' + txt; }
     if (blocks.length) { blocks.push({ type: 'text', text: txt }); return { role: m.role, content: blocks }; }
     return { role: m.role, content: txt };
   });
+  return normalizarMessages(salida);
 }
 
 async function callGroupAPI(messages) {
@@ -2147,12 +2185,45 @@ async function callGroupAPI(messages) {
     if (m.who) return m.who + ': ' + m.content;
     return (m.role === 'user' ? 'Equipo' : 'SPA') + ': ' + m.content;
   }).join('\n');
-  const historiaGrupal =
+  // V31/A7 — Perfiles de los participantes vinculados desde "Mi equipo".
+  // El facilitador los usa para calibrar a quién dar voz y cómo formular,
+  // NUNCA para describir a nadie en voz alta frente al equipo.
+  let perfilesParticipantes = '';
+  const equipoSPA = state.profile.equipo || [];
+  const vinculados = groupState.participants
+    .map(pt => (pt.equipoIdx !== null && pt.equipoIdx !== undefined) ? equipoSPA[pt.equipoIdx] : null)
+    .filter(Boolean);
+  if (vinculados.length) {
+    perfilesParticipantes =
+      '\n[PERFILES DE PARTICIPANTES — USO INTERNO DEL FACILITADOR]\n' +
+      vinculados.map(per => '• ' + [
+        per.nombre,
+        per.puesto ? 'puesto: ' + per.puesto : '',
+        per.funcion ? 'función: ' + per.funcion : '',
+        per.eqiAnalysis ? 'habilidades EQ-i: ' + per.eqiAnalysis : '',
+        per.qop ? 'QOP — Cociente de Desempeño Total (MMP): ' + per.qop : '',
+        per.focus ? 'Focus — Capacidad de Concentración (MMP): ' + per.focus : '',
+        (per.fortalezasMMP && per.fortalezasMMP.length)
+          ? 'fortalezas MMP destacadas: ' + per.fortalezasMMP.filter(Boolean).join(', ') : '',
+        per.mmpAnalysis ? 'motivación y filosofía operante (MMP): ' + per.mmpAnalysis : ''
+      ].filter(Boolean).join(' · ')).join('\n') +
+      '\n[ESTOS PERFILES SON SOLO PARA CALIBRAR TU FACILITACIÓN: a quién dar voz en cada momento, ' +
+      'cómo formular una pregunta, a quién sostener más tiempo. NUNCA describas el perfil de nadie ' +
+      'en voz alta, ni menciones que tienes esta información, ni compares a los participantes entre sí. ' +
+      'La sesión es en vivo y todos leen la pantalla. NUNCA MUESTRES CIFRAS NI T-SCORES.]\n' +
+      '[NUNCA NOMBRES EL INSTRUMENTO AL LÍDER: no digas "EQ-i", "MMP", "QOP", "Focus", "T-score" ni "percentil" en tus respuestas. Úsalos solo para interpretar; habla siempre de habilidades, fortalezas y motivadores en lenguaje natural.]\n';
+  }
+
+  // V31/A7 — La cabecera viaja en el primer mensaje del arreglo `messages`,
+  // que es la rama que el Worker realmente usa en modo grupal.
+  const cabeceraGrupal =
     '[SESIÓN GRUPAL — ALTO DESEMPEÑO]\n' +
     'Líder principal: ' + (p.name || '') + '\n' +
     'Reto del equipo: ' + (groupState.reto || p.reto || '') + '\n' +
-    'Participantes:\n' + participantesTexto + '\n\n' +
-    '[CONVERSACIÓN]\n' + conversacionTexto;
+    'Participantes:\n' + participantesTexto + '\n' +
+    perfilesParticipantes + '\n';
+
+  const historiaGrupal = cabeceraGrupal + '[CONVERSACIÓN]\n' + conversacionTexto;
 
   try {
     res = await fetch(MAKE_CHAT_WEBHOOK, {
@@ -2163,9 +2234,9 @@ async function callGroupAPI(messages) {
         mode: 'grupal',
         chatId: (p.clientId || 'grupo-preview'),
         historia: historiaGrupal,
-        profile: { name: p.name || '', reto: (groupState.reto || p.reto || ''), model: p.model || 'claude-sonnet-5' },
+        profile: { name: p.name || '', reto: (groupState.reto || p.reto || ''), depth: p.depth || 'normal', model: p.model || 'claude-sonnet-5' },
         participants: groupState.participants,
-        messages: buildGroupApiMessages(messages)
+        messages: buildGroupApiMessages(messages, cabeceraGrupal)
       })
     });
   } catch(netErr) {
@@ -2173,7 +2244,10 @@ async function callGroupAPI(messages) {
   }
   if (!res.ok) {
     const errTxt = await res.text().catch(() => '');
-    throw new Error('HTTP ' + res.status + ' — ' + errTxt);
+    // V32 — Estados con mensaje propio: el líder entiende qué pasa sin jerga técnica.
+    const e = new Error('HTTP ' + res.status + ' — ' + errTxt);
+    e.httpStatus = res.status;
+    throw e;
   }
   const reply = await res.text();
   return reply || '(respuesta vacía)';
@@ -2340,7 +2414,7 @@ async function sendMessage(text) {
   } catch(e) {
     // V31/A3 — Mensaje premium al líder; el detalle técnico solo en consola.
     console.log('[SPA] Error de conexión:', e && e.message);
-    const errMsg = 'El SPA está teniendo un momento de conexión. Intenta de nuevo en unos segundos.';
+    const errMsg = mensajeDeError(e);
     state.messages.push({ role: 'assistant', content: errMsg });
     saveSession();
     window.__suprimirScrollRender = false;
@@ -3115,7 +3189,7 @@ async function sendGroupMessage(text, who, area, isSystem) {
   } catch (err) {
     // V31/A3 — Mensaje premium; detalle técnico solo en consola.
     console.log('[SPA] Error de conexión (grupal):', err && err.message);
-    groupState.messages.push({ role:'assistant', content:'El SPA está teniendo un momento de conexión. Intenta de nuevo en unos segundos.' });
+    groupState.messages.push({ role:'assistant', content: mensajeDeError(err) });
   }
   setGroupLoading(false);
   renderGroupMessages();
@@ -3474,7 +3548,7 @@ function profileFromConfig(c) {
 //  El SPA descarga la plantilla más reciente, le inyecta su
 //  propio perfil congelado y genera el archivo actualizado.
 // ══════════════════════════════════════════════════════
-const SPA_VERSION = 'V32';
+const SPA_VERSION = 'V33';
 const SPA_UPDATE_URL = 'https://raw.githubusercontent.com/TalentoEmocional/SpaEmocional/main/SPA_IA_TE_CONSTRUCTOR.html'; // ← URL fija, nombre sin versión — nunca cambia
 
 async function updateSpaFromTemplate() {
@@ -4040,17 +4114,64 @@ function renderAdmin() {
 // ══════════════════════════════════════════════════════
 //  SETUP GRUPAL — filas de participantes + validación
 // ══════════════════════════════════════════════════════
-function addParticipantRow(name, area) {
+function addParticipantRow(name, area, equipoIdx) {
   const cont = document.getElementById('g-participants');
   const row = document.createElement('div');
   row.className = 'g-row';
+  // V31/A7 — Si la fila viene de "Mi equipo", queda ligada a su perfil congelado.
+  if (equipoIdx !== undefined && equipoIdx !== null) row.dataset.equipoIdx = String(equipoIdx);
   row.innerHTML = '<input class="g-name" type="text" placeholder="Nombre del integrante" value="' + (name ? escHtml(name) : '') + '">'
     + '<input class="g-area" type="text" placeholder="Área (opcional)" value="' + (area ? escHtml(area) : '') + '">'
     + '<button class="g-del" title="Quitar">✕</button>';
   cont.appendChild(row);
-  row.querySelector('.g-del').addEventListener('click', () => { row.remove(); validateGroupSetup(); });
+  row.querySelector('.g-del').addEventListener('click', () => {
+    row.remove();
+    renderEquipoChips();   // devuelve la persona a la lista de disponibles
+    validateGroupSetup();
+  });
   row.querySelectorAll('input').forEach(inp => inp.addEventListener('input', validateGroupSetup));
   validateGroupSetup();
+}
+
+// ══════════════════════════════════════════════════════
+//  V31/A7 — MI EQUIPO EN ALTO DESEMPEÑO
+//  Las personas ya registradas en el SPA se pueden sumar
+//  a la reunión con un toque; su perfil viaja al contexto
+//  del facilitador (uso interno, nunca verbalizado).
+// ══════════════════════════════════════════════════════
+function equipoYaEnLaReunion() {
+  return Array.from(document.querySelectorAll('#g-participants .g-row'))
+    .map(r => r.dataset.equipoIdx)
+    .filter(v => v !== undefined && v !== '')
+    .map(Number);
+}
+
+function renderEquipoChips() {
+  const box  = document.getElementById('g-equipo-box');
+  const cont = document.getElementById('g-equipo-chips');
+  if (!box || !cont) return;
+  const equipo = state.profile.equipo || [];
+  if (!equipo.length) { box.style.display = 'none'; return; }
+
+  const usados = equipoYaEnLaReunion();
+  cont.innerHTML = '';
+  let disponibles = 0;
+
+  equipo.forEach((per, idx) => {
+    if (!per || !per.nombre || usados.includes(idx)) return;
+    disponibles++;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.style.cssText = 'padding:6px 11px;border-radius:20px;border:1px solid rgba(63,208,181,.45);background:rgba(63,208,181,.10);color:#94DAD0;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit';
+    b.textContent = '＋ ' + per.nombre;
+    b.addEventListener('click', () => {
+      addParticipantRow(per.nombre, per.puesto || per.depto || '', idx);
+      renderEquipoChips();
+    });
+    cont.appendChild(b);
+  });
+
+  box.style.display = disponibles ? 'block' : 'none';
 }
 function readParticipantRows() {
   const rows = Array.from(document.querySelectorAll('#g-participants .g-row'));
@@ -4058,7 +4179,9 @@ function readParticipantRows() {
   rows.forEach((r, i) => {
     const name = r.querySelector('.g-name').value.trim();
     const area = r.querySelector('.g-area').value.trim();
-    if (name) out.push({ id: Date.now()+i, name: name, area: area, color: PART_COLORS[out.length % PART_COLORS.length], moodStart:null, moodEnd:null });
+    const eq = r.dataset.equipoIdx;
+    if (name) out.push({ id: Date.now()+i, name: name, area: area, color: PART_COLORS[out.length % PART_COLORS.length], moodStart:null, moodEnd:null,
+      equipoIdx: (eq !== undefined && eq !== '') ? Number(eq) : null });
   });
   return out;
 }
@@ -4072,6 +4195,7 @@ function ensureMinRows() {
   const cont = document.getElementById('g-participants');
   const have = cont.querySelectorAll('.g-row').length;
   for (let i = have; i < 3; i++) addParticipantRow('', '');
+  renderEquipoChips();   // V31/A7
 }
 
 // ══════════════════════════════════════════════════════
@@ -4647,7 +4771,10 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
       document.querySelectorAll('.c2-depth-btn').forEach(b=>b.classList.remove('sel'));
       btn.classList.add('sel');
       const mModelHidden = document.getElementById('m-model');
+      // V31/A2-bis — Se guarda también la profundidad: el Worker decide el modelo,
+      // así un cambio de modelo futuro no obliga a regenerar los SPAs entregados.
       if (mModelHidden) { mModelHidden.value = btn.dataset.model; state.profile.model = btn.dataset.model; }
+      state.profile.depth = btn.dataset.depth || 'normal';
       refreshC2DepthInfo(btn.dataset.depth);
     });
   });
