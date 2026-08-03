@@ -2,7 +2,7 @@
 <html lang="es"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPA Emocional IA PREMIUM V33 · Santiago Delgado</title>
+<title>SPA Emocional IA PREMIUM V34 · Santiago Delgado</title>
 <script id="spa-cfg">window.SPA_FROZEN=null;</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <style>
@@ -346,15 +346,26 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 .hist-clear{display:block;text-align:center;font-size:14px;color:var(--muted);margin:1.5rem auto 0;background:none;border:none;cursor:pointer;text-decoration:underline}
 
 /* ── CHAT SCREEN ── */
-.chat-wrap{display:flex;flex-direction:column;min-height:100vh}
-.chat-hdr-sticky-wrap{position:sticky;top:0;z-index:10;border-radius:0 0 20px 20px;overflow:hidden;border-bottom:2px solid rgba(201,162,78,.55)}
-.chat-hdr{background:#232220;padding:16px 14px 14px;display:flex;align-items:flex-start;justify-content:center;position:relative}
-.chat-hdr::after{content:"";position:absolute;left:36px;right:36px;bottom:0;height:2px;background:#C9A24E;border-radius:2px}
-.chat-hdr .back-btn{position:absolute;left:14px;top:16px}
-.chat-hdr-stack{display:flex;flex-direction:column;align-items:center;gap:5px;max-width:78%}
-.chat-title-center{color:#fff;font-size:17px;font-weight:700;letter-spacing:.03em;text-align:center}
-.chat-client-line{color:#fff;font-size:15px;font-weight:700;text-align:center;line-height:1.2}
-.chat-hdr .status{position:absolute;right:14px;top:20px}
+.chat-wrap{display:flex;flex-direction:column;min-height:100vh;padding-top:118px}
+/* V34 — El padding-top real lo fija ajustarAlturaHeaderChat() según el contenido del riel. */
+/* ── V34 — ENCABEZADO EDITORIAL ─────────────────────────────
+   Ceja dorada espaciada, nombre en serif, y riel FIJO con
+   reto + emociones + profundidad: nada se va con el scroll. */
+.chat-hdr-sticky-wrap{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:880px;z-index:30;overflow:hidden;border-radius:0 0 20px 20px;
+  background:linear-gradient(180deg,#1C1913 0%,#18160F 100%);
+  border-bottom:1px solid rgba(201,162,78,.22);
+  box-shadow:0 10px 30px rgba(0,0,0,.55), 0 1px 0 rgba(201,162,78,.12) inset}
+.chat-hdr{background:transparent;padding:12px 14px 0;display:flex;align-items:flex-start;justify-content:center;position:relative}
+.chat-hdr .back-btn{position:absolute;left:12px;top:12px}
+.chat-hdr-stack{display:flex;flex-direction:column;align-items:center;gap:2px;max-width:82%}
+.chat-eyebrow{font-size:10px;letter-spacing:.32em;color:#C9A24E;text-transform:uppercase;font-weight:700;text-align:center}
+.chat-client-line{color:#F1ECDF;font-size:21px;font-weight:700;text-align:center;line-height:1.2;
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif}
+.chat-client-line .bien-em{font-style:italic;font-weight:400;color:#D9B96E;font-size:16px}
+.chat-hdr .status{position:absolute;right:14px;top:16px}
+.hdr-rail-v34{width:100%;display:flex;align-items:center;gap:7px;flex-wrap:wrap;
+  padding:9px 14px 11px;margin-top:8px;border-top:1px solid rgba(201,162,78,.14);box-sizing:border-box}
+.hdr-rail-v34 .ctx-model-side{margin-left:auto}
 .chat-hinfo{display:none}
 .toolbar-row{background:#232220;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;flex-wrap:wrap;border-radius:20px 20px 0 0}
 .tool-btn{background:rgba(255,255,255,.08);border:1px solid rgba(201,162,78,.45);color:#fff;padding:9px 16px;border-radius:20px;font-size:14.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .2s}
@@ -368,27 +379,102 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 .ctx-bottom-row{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;background:linear-gradient(135deg,#141821,#1A2233);padding:9px 14px;box-sizing:border-box}
 .ctx-emo-side{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start}
 .ctx-model-side{display:flex;justify-content:flex-end;flex-shrink:0}
-.ctx-mini-chip{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--text);font-weight:600}
-.ctx-mini-chip .dot{width:6px;height:6px;border-radius:50%}
-.ctx-mini-chip.reto{background:rgba(143,180,232,.1);border-color:rgba(143,180,232,.3)}
-.ctx-mini-chip.depth{background:rgba(201,162,78,.1);border-color:rgba(201,162,78,.3)}
-.ctx-mini-chip .lbl{color:#C9A24E;font-weight:700}
+.ctx-mini-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.02);border:1px solid rgba(201,162,78,.22);border-radius:999px;padding:5px 12px;font-size:12.5px;color:#B9B3A4;font-weight:600;letter-spacing:.02em;white-space:nowrap;max-width:100%}
+.ctx-mini-chip .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ctx-mini-chip.reto{border-color:rgba(201,162,78,.45);color:#D9B96E;
+  background:linear-gradient(180deg,rgba(201,162,78,.14),rgba(201,162,78,.05))}
+.ctx-mini-chip.reto span:last-child{overflow:hidden;text-overflow:ellipsis}
+.ctx-mini-chip.depth{color:#C9A24E;border-color:rgba(201,162,78,.4)}
+.ctx-mini-chip .lbl{color:#C9A24E;font-weight:800}
 .status.loading{background:#F59E0B}
 .resumen-btn{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;font-weight:600;padding:7px 11px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:all .2s;font-family:inherit}
 .resumen-btn:hover{background:rgba(255,255,255,.28)}
 .resumen-btn:disabled{opacity:.4;cursor:not-allowed}
-.msgs{padding:1rem;display:flex;flex-direction:column;gap:10px;flex:1;background:var(--bg)}
+/* V34 — Columna de lectura acotada: el texto largo cansa a lo ancho. */
+.msgs{padding:1rem;display:flex;flex-direction:column;gap:14px;flex:1;background:var(--bg);
+  width:100%;max-width:880px;margin:0 auto;box-sizing:border-box}
+#screen-chat .chat-hdr-stack{max-width:820px}
+#screen-chat .hdr-rail-v34{max-width:880px;margin-left:auto;margin-right:auto}
+#screen-chat .toolbar-row,#screen-chat .input-row{max-width:880px;margin-left:auto;margin-right:auto;width:100%;box-sizing:border-box}
 .msg-row{display:flex;align-items:flex-end;gap:8px}
 .msg-row.user{justify-content:flex-end}
 .ai-icon{width:28px;height:28px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;flex-shrink:0;margin-bottom:2px}
-.bubble{max-width:90%;padding:14px 18px;border-radius:18px;font-size:23px;line-height:1.30;white-space:pre-wrap;word-break:break-word;letter-spacing:.01em;font-weight:400}
+/* V34 — 17.5px con interlínea generosa: se lee mejor que 23px apretado. */
+.bubble{max-width:90%;padding:14px 18px;border-radius:18px;font-size:17.5px;line-height:1.62;white-space:pre-wrap;word-break:break-word;letter-spacing:.005em;font-weight:400}
 .bubble.ai{background:transparent;border:none;color:var(--text);font-weight:400;padding:14px 0;max-width:100%}
-.bubble.user{background:rgba(255,255,255,.55);color:#000000;font-weight:700;border-bottom-right-radius:4px;max-width:72%;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(3px)}
+/* V34 — El líder estampa en marfil: papel sobre la mesa oscura, filo dorado. */
+.bubble.user{background:linear-gradient(180deg,#F7F3E8 0%,#EFE8D6 100%);color:#262114;font-weight:600;
+  border-bottom-right-radius:4px;max-width:76%;border:1px solid rgba(201,162,78,.55);
+  box-shadow:0 10px 26px rgba(0,0,0,.40), 0 1px 0 rgba(255,255,255,.6) inset;
+  font-size:17px;line-height:1.5}
+
+/* V34 — Jerarquía editorial dentro de la respuesta del SPA */
+.bubble.ai .md-h1,.bubble.ai .md-h2{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  color:#F1ECDF;letter-spacing:.005em}
+.bubble.ai .md-h1{font-size:21px;font-weight:700;margin:16px 0 6px;line-height:1.25}
+.bubble.ai .md-h2{font-size:19px;font-weight:700;margin:14px 0 5px;line-height:1.3}
+.bubble.ai .md-h3{font-size:13px;font-weight:800;margin:14px 0 6px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--fase,#C9A24E)}
+/* V34 — El primer título de la respuesta es el título de fase: serif grande. */
+.bubble.ai .md-h1:first-child,.bubble.ai .md-h2:first-child{margin-top:2px;font-size:22px}
+/* V34 — El énfasis que sigue al título hace de lema, en el color de la fase. */
+/* El texto no se envuelve en <p>: la cursiva es hermana directa del título. */
+.bubble.ai .md-h1 + em,.bubble.ai .md-h2 + em{
+  display:inline-block;color:var(--fase,#C9A24E);font-size:15.5px;margin-bottom:4px}
+/* V34 — Caja de pregunta: la cita (>) del markdown, con el color de la fase. */
+.bubble.ai .md-quote{margin:14px 0 4px;padding:13px 15px;border-radius:11px;
+  background:rgba(255,255,255,.03);border:1px solid rgba(var(--fase-rgb,201,162,78),.45);
+  color:#F1ECDF;font-size:17px;line-height:1.55}
+.bubble.ai .md-quote strong:first-child{display:block;font-size:11px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--fase,#C9A24E);margin-bottom:6px;font-weight:800}
+.bubble.ai strong{color:#F1ECDF;font-weight:700}
+.bubble.ai em{color:#D9B96E;font-style:italic}
+.bubble.ai hr{border:none;border-top:1px solid rgba(201,162,78,.18);margin:14px 0}
+.bubble.ai ul,.bubble.ai ol{margin:8px 0}
+.bubble.ai li{margin:5px 0}
+.bubble.ai li::marker{color:var(--fase,#C9A24E)}
+
+/* ── V34 — LOMO DE FASE ──────────────────────────────────────
+   Cada respuesta del SPA lleva el color de su fase: línea gruesa,
+   letras verticales y degradado que nace en el lomo. */
+:root{
+  --f1:#C9A24E; --f2:#4FC8B0; --f3:#6FA8DC; --f4:#A78BDB;
+  --f5:#E8965A; --f6:#D97A94; --f7:#7FC974;
+  /* V34 — Neutro en gris cálido: el dorado queda solo para IDENTIFICA (F1),
+     así una respuesta sin fase detectada se distingue a simple vista. */
+  --f0:#6E685C;
+}
+.msg-row.ai{align-items:stretch}
+.fase-wrap{--fase:var(--f0);--fase-rgb:110,104,92;display:grid;grid-template-columns:30px 1fr;flex:1;min-width:0;
+  border-radius:14px;overflow:hidden;background:rgba(255,255,255,.022)}
+/* V34 — El degradado nace en el lomo con el COLOR DE LA FASE y se desvanece. */
+.fase-wrap.tiene-fase{background:linear-gradient(90deg,
+  rgba(var(--fase-rgb),.16) 0%,
+  rgba(var(--fase-rgb),.07) 38%,
+  rgba(var(--fase-rgb),.02) 68%,
+  transparent 100%)}
+.fase-spine{border-left:4px solid var(--fase);display:flex;flex-direction:column;align-items:center;
+  padding:14px 0 10px;gap:7px;background:linear-gradient(180deg,rgba(255,255,255,.03),transparent)}
+.fase-spine .fnum{font-size:9px;font-weight:800;color:var(--fase);opacity:.7;letter-spacing:.1em}
+.fase-spine .letters{display:flex;flex-direction:column;align-items:center;gap:1px;
+  font-size:10px;font-weight:800;letter-spacing:.06em;color:var(--fase);line-height:1.05}
+.fase-wrap .bubble.ai{padding:14px 14px 14px 11px}
+.fw-f1{--fase:var(--f1);--fase-rgb:201,162,78}
+.fw-f2{--fase:var(--f2);--fase-rgb:79,200,176}
+.fw-f3{--fase:var(--f3);--fase-rgb:111,168,220}
+.fw-f4{--fase:var(--f4);--fase-rgb:167,139,219}
+.fw-f5{--fase:var(--f5);--fase-rgb:232,150,90}
+.fw-f6{--fase:var(--f6);--fase-rgb:217,122,148}
+.fw-f7{--fase:var(--f7);--fase-rgb:127,201,116}
 .typing{display:flex;gap:5px;padding:10px 14px;background:var(--white);border:1px solid var(--border);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
 .dot{width:6px;height:6px;border-radius:50%;background:#8FB4E8;animation:pulse 1.2s ease-in-out infinite}
 .dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
 @keyframes pulse{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
-.input-row{background:#232220;border-top:1px solid rgba(255,255,255,.08);padding:14px;display:flex;gap:10px;align-items:flex-end;position:sticky;bottom:0}
+.input-row{background:#232220;border-top:1px solid rgba(255,255,255,.08);padding:14px;display:flex;gap:10px;align-items:flex-end}
+/* V34 — Muelle inferior fijo: contiene adjunto + toolbar + escritura. */
+.bottom-dock{position:fixed;bottom:0;left:0;right:0;z-index:30;box-shadow:0 -8px 30px rgba(0,0,0,.45)}
+/* El colchón real lo fija ajustarAlturaHeaderChat() midiendo el muelle. */
+#screen-chat .msgs{padding-bottom:150px}
 .msg-inp{flex:1;padding:14px 18px;border:1px solid rgba(255,255,255,.14);border-radius:28px;font-size:19px;font-family:inherit;resize:none;outline:none;min-height:74px;max-height:160px;line-height:1.6;background:#2E2C28;color:#fff;transition:border-color .2s}
 .msg-inp:focus{border-color:#C9A24E}
 .send-btn{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:all .2s}
@@ -406,6 +492,45 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 </style>
 </head>
 <body>
+
+<!-- ══ V33 — RED DE SEGURIDAD ══
+     Si el JavaScript no arranca (Safari de iPhone al abrir el archivo
+     desde una vista previa, o un error temprano), el líder veía una
+     pantalla negra muda. Ahora ve esto, y el script lo retira al iniciar. -->
+<div id="aviso-arranque" style="position:fixed;inset:0;z-index:9999;background:#18160F;color:#F1ECDF;display:flex;align-items:center;justify-content:center;padding:26px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif">
+  <div style="max-width:420px;text-align:center">
+    <div style="font-size:44px;margin-bottom:14px">💆</div>
+    <div style="font-size:20px;font-weight:700;color:#C9A24E;margin-bottom:10px">SPA Emocional IA PREMIUM</div>
+    <div id="aviso-texto" style="font-size:15px;line-height:1.6;color:#B9B3A4">Preparando tu espacio…</div>
+    <div id="aviso-ayuda" style="display:none;margin-top:16px;font-size:14px;line-height:1.6;color:#8A8578;text-align:left;background:#12100C;border:1px solid rgba(201,162,78,.3);border-radius:10px;padding:14px 16px">
+      <strong style="color:#D9B96E">Si estás en iPhone o iPad:</strong><br>
+      Guarda el archivo en la app <strong>Archivos</strong>, ábrelo desde ahí, y si sigue sin cargar, tócalo con el dedo unos segundos y elige <strong>Compartir → Safari</strong>.<br><br>
+      Si el problema continúa, escribe a Talento Emocional y comparte esta pantalla.
+    </div>
+    <div id="aviso-detalle" style="display:none;margin-top:12px;font-family:monospace;font-size:12px;color:#7A7568;word-break:break-word;text-align:left"></div>
+  </div>
+</div>
+
+<script>
+// Si en 4 segundos el SPA no arrancó, se asume que el JavaScript no corre bien.
+window.__spaArranco = false;
+setTimeout(function () {
+  if (window.__spaArranco) return;
+  var t = document.getElementById('aviso-texto');
+  var a = document.getElementById('aviso-ayuda');
+  if (t) t.innerHTML = 'No se pudo abrir el SPA en este dispositivo.';
+  if (a) a.style.display = 'block';
+}, 4000);
+// Cualquier error temprano se muestra en pantalla: en un teléfono no hay consola.
+window.addEventListener('error', function (ev) {
+  var t = document.getElementById('aviso-texto');
+  var a = document.getElementById('aviso-ayuda');
+  var d = document.getElementById('aviso-detalle');
+  if (t) t.innerHTML = 'No se pudo abrir el SPA en este dispositivo.';
+  if (a) a.style.display = 'block';
+  if (d) { d.style.display = 'block'; d.textContent = (ev.message || 'Error') + (ev.lineno ? ' · línea ' + ev.lineno : ''); }
+});
+</script>
 <div class="app">
 
 <style>
@@ -564,7 +689,7 @@ body.pres-mode .gm-row{max-width:80%}
 <!-- ── SCREEN: API KEY ── -->
 <div id="screen-key" class="screen">
   <div class="hdr">
-    <div class="badge">💆 SPA EMOCIONAL IA PREMIUM · V33</div>
+    <div class="badge">💆 SPA EMOCIONAL IA PREMIUM · V34</div>
     <h1 style="font-size:24px">Bienvenido a tu SPA</h1>
     <p>Ingresa tu API Key de Anthropic para comenzar</p>
   </div>
@@ -588,7 +713,7 @@ body.pres-mode .gm-row{max-width:80%}
 <div id="screen-setup" class="screen">
   <div class="hdr">
     <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:1rem;position:relative">
-      <div class="badge" style="margin-bottom:0">🛠️ CONSTRUCCIÓN · MODO COACH · V33</div>
+      <div class="badge" style="margin-bottom:0">🛠️ CONSTRUCCIÓN · MODO COACH · V34</div>
       <button class="fb-dot-btn" id="btn-feedback-setup" title="Feedback / Soporte" style="position:absolute;right:0;top:50%;transform:translateY(-50%)"></button>
     </div>
     <h1 style="font-size:24px">Construye el SPA de tu cliente</h1>
@@ -669,7 +794,7 @@ body.pres-mode .gm-row{max-width:80%}
     <input type="text" id="s-constructor-token" placeholder="spa_..." autocomplete="off" spellcheck="false" style="font-family:monospace;letter-spacing:.05em">
     <button type="button" id="btn-test-worker" style="width:100%;margin-top:10px;padding:11px 14px;border-radius:9px;border:1px solid #C9A24E;background:rgba(201,162,78,.12);color:#C9A24E;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit">🔍 Probar conexión</button>
     <div id="worker-test-status" style="display:none;font-size:14px;padding:10px 12px;border-radius:8px;margin-top:8px;line-height:1.5"></div>
-    <p style="font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45">No necesitas ninguna clave de Anthropic: vive únicamente en el Worker. Cada SPA que generes recibe su propio token, y el cliente entra directo sin teclear nada.</p>
+    <p style="font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45">Es tu credencial para analizar gráficas y generar resúmenes. La clave de Anthropic ya no se usa aquí: vive únicamente en el Worker. Cada SPA que generes recibe su propio token, y el cliente entra directo sin teclear nada.</p>
 
     <!-- 🔧 Registro de diagnóstico: aparece solo si un análisis falla -->
     <div id="debug-log-box" style="display:none;margin-top:14px;background:#1A1208;border:1px solid #7A5A20;border-radius:10px;padding:12px 14px">
@@ -1032,23 +1157,25 @@ body.pres-mode .gm-row{max-width:80%}
       <div class="chat-hdr">
         <button class="back-btn" id="btn-back">‹</button>
         <div class="chat-hdr-stack">
-          <div class="chat-title-center">SPA Emocional IA <span class="gold-sm">PREMIUM</span></div>
+          <div class="chat-eyebrow" id="chat-eyebrow">SPA Emocional IA · Premium</div>
           <div class="chat-client-line" id="chat-subtitle">—</div>
-          <div class="ctx-reto-row" id="ctx-reto-row" style="display:none"></div>
         </div>
         <div class="chat-hinfo"><p>SPA Emocional IA <span class="gold-sm">PREMIUM</span></p></div>
         <div class="status" id="status-dot"></div>
       </div>
-    </div>
-    <!-- Emociones + Modelo: debajo de la línea dorada, NO fijo — se va con el scroll -->
-    <div class="ctx-bottom-row" id="ctx-bottom-row" style="display:none">
-      <div class="ctx-emo-side" id="ctx-emo-side"></div>
-      <div class="ctx-model-side" id="ctx-model-side"></div>
+      <!-- V34 — Riel fijo dentro del sticky: reto + emociones + profundidad. NO se va con el scroll. -->
+      <div class="hdr-rail-v34" id="ctx-bottom-row" style="display:none">
+        <span id="ctx-reto-row" style="display:none"></span>
+        <div class="ctx-emo-side" id="ctx-emo-side"></div>
+        <div class="ctx-model-side" id="ctx-model-side"></div>
+      </div>
     </div>
     <div class="msgs" id="msgs-area">
       <div class="empty-chat">Iniciando sesión...</div>
     </div>
-    <div id="attach-strip" style="display:none;background:var(--white);border-top:1px solid var(--border);padding:6px 14px;font-size:15px;color:var(--navy-text);font-weight:600;position:sticky;bottom:58px;align-items:center;gap:8px">📎 <span id="attach-name"></span> <button id="attach-remove" style="background:none;border:none;color:var(--wine);cursor:pointer;font-size:16px;font-weight:700">✕</button></div>
+    <!-- V34 — Muelle inferior fijo: toolbar + escritura siempre visibles -->
+    <div class="bottom-dock" id="bottom-dock">
+    <div id="attach-strip" style="display:none;background:var(--white);border-top:1px solid var(--border);padding:6px 14px;font-size:15px;color:var(--navy-text);font-weight:600;align-items:center;gap:8px">📎 <span id="attach-name"></span> <button id="attach-remove" style="background:none;border:none;color:var(--wine);cursor:pointer;font-size:16px;font-weight:700">✕</button></div>
     <div class="toolbar-row">
       <button class="tool-btn" id="attach-btn-top" title="Adjuntar documento o imagen" style="display:none">📎</button>
       <button class="tool-btn" id="btn-moodmeter" title="Mood Meter">🎯 Mood</button>
@@ -1067,6 +1194,7 @@ body.pres-mode .gm-row{max-width:80%}
       <textarea class="msg-inp" id="msg-input" placeholder="Escribe o dicta tu respuesta..." rows="1"></textarea>
       <button class="send-btn off" id="send-btn">↑</button>
     </div>
+    </div><!-- /bottom-dock -->
   </div>
 </div>
 
@@ -1449,16 +1577,15 @@ body.pres-mode .gm-row{max-width:80%}
       <div id="spa-generated-token" style="font-family:monospace;font-size:14px;color:#fff;background:#12100C;border:1px solid rgba(201,162,78,.35);border-radius:8px;padding:9px 11px;word-break:break-all;margin-bottom:9px"></div>
       <button id="btn-copiar-token" style="width:100%;padding:9px;border-radius:8px;border:1px solid #C9A24E;background:rgba(201,162,78,.18);color:#C9A24E;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:11px">📋 Copiar token</button>
       <ol style="margin:0;padding-left:19px;font-size:13px;color:var(--muted);line-height:1.65">
-        <li>Toca <strong style="color:#D9B96E">📋 Copiar token</strong> aquí arriba.</li>
-        <li>Entra a Cloudflare → Worker <strong style="color:#D9B96E">spa-ia-test</strong> → pestaña <strong style="color:#D9B96E">Settings</strong>.</li>
-        <li>En la fila <strong style="color:#D9B96E">SPA_TOKENS</strong>, toca el lápiz ✏️.</li>
-        <li>Ve al <strong style="color:#D9B96E">final</strong> del texto, escribe una <strong style="color:#D9B96E">coma sin espacios</strong> y pega el token.</li>
-        <li><strong style="color:#D9B96E">Save</strong> y luego <strong style="color:#D9B96E">Deploy</strong> — sin el Deploy no queda activo.</li>
-        <li>Listo: ya puedes abrir o enviar el archivo al cliente.</li>
+        <li>Toca <strong style="color:#D9B96E">📋 Copiar token</strong>.</li>
+        <li>Entra a Cloudflare → <strong style="color:#D9B96E">Storage &amp; Databases</strong> → <strong style="color:#D9B96E">KV</strong> → <strong style="color:#D9B96E">spa-uso</strong> → <strong style="color:#D9B96E">Add entry</strong>.</li>
+        <li>En <strong style="color:#D9B96E">Key</strong>: escribe <code style="color:#D9B96E">token:</code> y pega el token, sin espacios.</li>
+        <li>En <strong style="color:#D9B96E">Value</strong>: el nombre del cliente y la fecha.</li>
+        <li><strong style="color:#D9B96E">Add entry</strong>. No hace falta Deploy.</li>
       </ol>
-      <div style="font-size:12.5px;color:#8A8578;margin-top:9px;line-height:1.45">El archivo que acabas de guardar ya lleva este token dentro. Si no lo autorizas, el SPA dirá «aún no está activado».</div>
+      <div style="font-size:12.5px;color:#8A8578;margin-top:9px;line-height:1.45">Puede tardar un minuto en activarse. El archivo ya lleva el token dentro.</div>
     </div>
-    <p style="font-size:15px;color:var(--muted);line-height:1.55;margin-bottom:20px">Entrega este archivo a tu cliente — su SPA Emocional IA está listo y personalizado con sus datos.</p>
+    <p style="font-size:15px;color:var(--muted);line-height:1.55;margin-bottom:20px"><strong style="color:#D9B96E">Entregar</strong><br>Envía el archivo al líder y pídele abrirlo en su navegador, no en el visor de archivos.<br>Si ya tenía SPA, usa el mismo nombre de identidad para que conserve su historial.</p>
     <button id="btn-nuevo-spa" class="btn btn-teal" style="margin-top:0;margin-bottom:10px">＋ Crear nuevo SPA</button>
     <button id="btn-cerrar-generated" class="btn" style="margin-top:0;background:#1A2233;color:var(--navy-text);border:1px solid var(--border)">Cerrar</button>
   </div>
@@ -1471,7 +1598,7 @@ body.pres-mode .gm-row{max-width:80%}
 //  Si eso pasa, usamos memoria temporal en su lugar — la app sigue
 //  funcionando, solo que no recuerda entre visitas.
 // ══════════════════════════════════════════════════════
-const localStorage = (function () {
+const almacen = (function () {
   try {
     const testKey = '__spa_test__';
     window.localStorage.setItem(testKey, '1');
@@ -1515,6 +1642,12 @@ function slugify(s) {
     .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'cliente';
 }
 
+// V33 — El archivo se llama SPA_nombre.html. Si el nombre de identidad ya
+// empieza con "spa", se recorta para no obtener "SPA_spa-de-mine.html".
+function slugArchivo(s) {
+  return slugify(s).replace(/^spa[-_]?(de[-_]?)?/, '') || 'cliente';
+}
+
 // ══════════════════════════════════════════════════════
 //  SOPORTE / FEEDBACK — configuración
 // ══════════════════════════════════════════════════════
@@ -1528,7 +1661,7 @@ const FEEDBACK_WEBHOOK = '';
 // ══════════════════════════════════════════════════════
 let VOICES = [];
 let voiceSettings = (function(){
-  try { return JSON.parse(localStorage.getItem('spa_voice') || '{}'); } catch(e) { return {}; }
+  try { return JSON.parse(almacen.getItem('spa_voice') || '{}'); } catch(e) { return {}; }
 })();
 if (typeof voiceSettings.rate    !== 'number')  voiceSettings.rate     = 1.0;
 if (typeof voiceSettings.autoRead!== 'boolean') voiceSettings.autoRead = false;
@@ -1570,7 +1703,7 @@ function pickBrowserVoice() {
 function getOaiKey() {
   // Primero en memoria, luego en localStorage
   if (voiceSettings.oaiKey) return voiceSettings.oaiKey;
-  const stored = localStorage.getItem('spa_oai_key') || '';
+  const stored = almacen.getItem('spa_oai_key') || '';
   if (stored) voiceSettings.oaiKey = stored; // sincronizar a memoria
   return stored;
 }
@@ -1685,7 +1818,7 @@ function primeSpeech() {
 //  ESTADO
 // ══════════════════════════════════════════════════════
 let state = {
-  apiKey: localStorage.getItem('spa_api_key') || '',
+  apiKey: almacen.getItem('spa_api_key') || '',
   profile: {},
   messages: [],
   loading: false,
@@ -1747,6 +1880,8 @@ function showScreen(id) {
   document.getElementById('screen-' + id).classList.add('active');
   window.scrollTo(0,0);
   if (id === 'menu') updateSessionBanner();
+  // V34 — Al entrar al chat, el contenido se acomoda bajo el header fijo.
+  if (id === 'chat' && window.__ajustarHeaderChat) requestAnimationFrame(window.__ajustarHeaderChat);
 
   // Cierre defensivo: ningún overlay debe quedar visible al cambiar de pantalla
   ['resumen-overlay', 'group-resumen-overlay', 'doc-pdf-overlay', 'mood-overlay'].forEach(overlayId => {
@@ -1885,6 +2020,7 @@ function abrirSelectorCoachee(equipo, moodPrefix, depthMarker) {
     b.addEventListener('click', async () => {
       cerrarSelectorCoachee();
       const quien = per.nombre + (per.puesto ? ' (' + per.puesto + ')' : '');
+      state.modoChat = { tipo:'coach', quien: per.nombre };   // V34 — señal de modo
       await iniciarCoaching(
         'Opción 2: Estilo Coaching — quiero acompañar a ' + quien + ', de mi equipo, a resolver su reto.',
         moodPrefix, depthMarker
@@ -1896,6 +2032,7 @@ function abrirSelectorCoachee(equipo, moodPrefix, depthMarker) {
   const otra = document.getElementById('coachee-otra');
   if (otra) otra.onclick = async () => {
     cerrarSelectorCoachee();
+    state.modoChat = { tipo:'coach' };   // V34 — señal de modo, sin nombre
     await iniciarCoaching(
       'Opción 2: Estilo Coaching — quiero acompañar a alguien a resolver su reto. No está entre las personas registradas en mi SPA.',
       moodPrefix, depthMarker
@@ -1943,7 +2080,7 @@ function generarSpaToken() {
 // Token vigente: el congelado del cliente, o el del Constructor (guardado una sola vez).
 function getSpaToken() {
   if (typeof FROZEN !== 'undefined' && FROZEN && FROZEN.spaToken) return FROZEN.spaToken;
-  try { return localStorage.getItem('spa_constructor_token') || ''; } catch(e) { return ''; }
+  try { return almacen.getItem('spa_constructor_token') || ''; } catch(e) { return ''; }
 }
 
 // ══════════════════════════════════════════════════════
@@ -2268,6 +2405,48 @@ function displayUserContent(text) {
     .trim();
 }
 
+// ══════════════════════════════════════════════════════
+//  V34 — DETECCIÓN DE FASE
+//  Prioridad 1: marcador [[FASE:n]] al inicio (lo pondrá el
+//  system prompt; el Constructor lo retira antes de mostrar).
+//  Prioridad 2: el verbo de la fase escrito por Claude.
+//  Si no se detecta, la respuesta se pinta en dorado neutro.
+// ══════════════════════════════════════════════════════
+const FASES_V34 = [
+  { n:1, verbo:'IDENTIFICA' }, { n:2, verbo:'MANEJA' },  { n:3, verbo:'RAZONA' },
+  { n:4, verbo:'VISUALIZA' },  { n:5, verbo:'INNOVA' },  { n:6, verbo:'INFLUYE' },
+  { n:7, verbo:'LOGRA' }
+];
+
+function detectarFase(texto) {
+  if (!texto) return 0;
+  const marca = texto.match(/^\s*\[\[FASE:\s*([0-7])\s*\]\]/);
+  if (marca) return +marca[1];
+  // Sin marcador: se busca el verbo, o "Fase N", en el primer tramo de la respuesta.
+  const cabeza = texto.slice(0, 400)
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
+  const porNumero = cabeza.match(/\bFASE\s*([1-7])\b/);
+  if (porNumero) return +porNumero[1];
+  for (const f of FASES_V34) {
+    if (new RegExp('\\b' + f.verbo + '\\b').test(cabeza)) return f.n;
+  }
+  return 0;
+}
+
+// Retira el marcador para que el líder nunca lo vea.
+function limpiarMarcaFase(texto) {
+  return String(texto || '').replace(/^\s*\[\[FASE:\s*[0-7]\s*\]\]\s*/, '');
+}
+
+function lomoFaseHtml(n) {
+  if (!n) return '<div class="fase-spine"></div>';
+  const f = FASES_V34.find(x => x.n === n);
+  if (!f) return '<div class="fase-spine"></div>';
+  const letras = f.verbo.split('').map(c => '<span>' + c + '</span>').join('');
+  return '<div class="fase-spine"><div class="fnum">F' + n + '</div>' +
+         '<div class="letters">' + letras + '</div></div>';
+}
+
 function renderMessages() {
   let suprimirScrollRender = window.__suprimirScrollRender || false;
   const area = document.getElementById('msgs-area');
@@ -2275,6 +2454,7 @@ function renderMessages() {
     area.innerHTML = '<div class="empty-chat">Iniciando sesión...</div>';
     return;
   }
+  const primeraIA = state.messages.findIndex(m => m.role === 'assistant');
   area.innerHTML = state.messages.map((msg, i) => {
     if (msg.role === 'user') {
       const chip = (msg.attach && msg.attach.length) ? '<div style="font-size:14px;opacity:.85;margin-bottom:4px">📎 ' + msg.attach.map(a => escHtml(a.name)).join(', ') + '</div>' : '';
@@ -2282,7 +2462,11 @@ function renderMessages() {
       if (!visible) return ''; // mensaje puramente técnico (raro) — no se muestra burbuja vacía
       return `<div class="msg-row user"><div class="bubble user">${chip}${escHtml(visible)}</div></div>`;
     } else {
-      return `<div class="msg-row ai"><div class="ai-icon">💆</div><div class="bubble ai">${mdToHtml(msg.content)}</div><button class="tts-btn" onclick="speakMsg(${i})" title="Escuchar / detener">🔊</button></div>`;
+      // V34 — Lomo de fase: color, número y letras verticales según la fase detectada.
+      // La bienvenida (primera respuesta) va siempre en neutro: aún no hay recorrido.
+      const nf = (i === primeraIA) ? 0 : detectarFase(msg.content);
+      const cls = nf ? ' tiene-fase fw-f' + nf : '';
+      return `<div class="msg-row ai"><div class="ai-icon">💆</div><div class="fase-wrap${cls}">${lomoFaseHtml(nf)}<div class="bubble ai">${mdToHtml(limpiarMarcaFase(msg.content))}</div></div><button class="tts-btn" onclick="speakMsg(${i})" title="Escuchar / detener">🔊</button></div>`;
     }
   }).join('');
   if (state.loading) {
@@ -2318,9 +2502,17 @@ function mdToHtml(str) {
   h = h.replace(/`([^`\n]+)`/g, '<code style="background:rgba(0,0,0,.22);border-radius:4px;padding:1px 5px;font-size:13px;font-family:monospace">$1</code>');
 
   // 4. Encabezados como bloques reales
-  h = h.replace(/^### (.+)$/gm, '<div style="font-size:22px;font-weight:700;margin:12px 0 5px;line-height:1.3">$1</div>');
-  h = h.replace(/^## (.+)$/gm,  '<div style="font-size:26px;font-weight:700;margin:14px 0 6px;line-height:1.25">$1</div>');
-  h = h.replace(/^# (.+)$/gm,   '<div style="font-size:30px;font-weight:800;margin:16px 0 7px;line-height:1.2">$1</div>');
+  // V34 — Clases en vez de estilos fijos: la jerarquía vive en el CSS.
+  h = h.replace(/^### (.+)$/gm, '<div class="md-h3">$1</div>');
+  h = h.replace(/^## (.+)$/gm,  '<div class="md-h2">$1</div>');
+  h = h.replace(/^# (.+)$/gm,   '<div class="md-h1">$1</div>');
+
+  // 4-bis. V34 — Cita (>) = caja de pregunta destacada, con el color de la fase.
+  h = h.replace(/((?:^&gt;\s?.*\n?)+)/gm, (bloque) => {
+    const dentro = bloque.trim().split('\n')
+      .map(l => l.replace(/^&gt;\s?/, '')).join('<br>');
+    return '<div class="md-quote">' + dentro + '</div>';
+  });
 
   // 5. Separador horizontal
   h = h.replace(/^---+\s*$/gm, '<hr style="border:none;border-top:1px solid rgba(255,255,255,.18);margin:10px 0">');
@@ -2427,12 +2619,22 @@ function crearBurbujaIAStreaming() {
   const area = document.getElementById('msgs-area');
   const escribiendo = area.querySelector('.msg-row.ai:last-child .typing');
   if (escribiendo) escribiendo.closest('.msg-row').remove();
-  area.insertAdjacentHTML('beforeend', '<div class="msg-row ai"><div class="ai-icon">💆</div><div class="bubble ai"></div></div>');
+  area.insertAdjacentHTML('beforeend', '<div class="msg-row ai"><div class="ai-icon">💆</div><div class="fase-wrap"><div class="fase-spine"></div><div class="bubble ai"></div></div></div>');
 }
 function actualizarBurbujaIAStreaming(texto) {
   const area = document.getElementById('msgs-area');
   const fila = area.querySelector('.msg-row.ai:last-child .bubble.ai');
-  if (fila) fila.innerHTML = mdToHtml(texto);
+  if (fila) fila.innerHTML = mdToHtml(limpiarMarcaFase(texto));
+  // V34 — El color de la fase aparece en cuanto se puede detectar, mientras escribe.
+  const wrap = area.querySelector('.msg-row.ai:last-child .fase-wrap');
+  if (wrap) {
+    const nf = detectarFase(texto);
+    if (nf && !wrap.classList.contains('fw-f' + nf)) {
+      wrap.className = 'fase-wrap tiene-fase fw-f' + nf;
+      const spine = wrap.querySelector('.fase-spine');
+      if (spine) spine.outerHTML = lomoFaseHtml(nf);
+    }
+  }
   // Seguimiento inteligente: solo sigue el crecimiento si ya estabas cerca del final.
   // Si subiste a leer algo de arriba, no te interrumpe ni te regresa abajo.
   const cercaDelFondo = (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 200);
@@ -2475,12 +2677,12 @@ function sessionKey() {
 }
 function saveSession() {
   try {
-    localStorage.setItem(sessionKey(), JSON.stringify(state.messages));
+    almacen.setItem(sessionKey(), JSON.stringify(state.messages));
   } catch(e) {}
 }
 function loadSession() {
   try {
-    const raw = localStorage.getItem(sessionKey());
+    const raw = almacen.getItem(sessionKey());
     if (raw) {
       const msgs = JSON.parse(raw);
       if (Array.isArray(msgs) && msgs.length) return msgs;
@@ -2489,7 +2691,7 @@ function loadSession() {
   return null;
 }
 function clearSession() {
-  try { localStorage.removeItem(sessionKey()); } catch(e) {}
+  try { almacen.removeItem(sessionKey()); } catch(e) {}
 }
 
 // ══════════════════════════════════════════════════════
@@ -3548,7 +3750,7 @@ function profileFromConfig(c) {
 //  El SPA descarga la plantilla más reciente, le inyecta su
 //  propio perfil congelado y genera el archivo actualizado.
 // ══════════════════════════════════════════════════════
-const SPA_VERSION = 'V33';
+const SPA_VERSION = 'V34';
 const SPA_UPDATE_URL = 'https://raw.githubusercontent.com/TalentoEmocional/SpaEmocional/main/SPA_IA_TE_CONSTRUCTOR.html'; // ← URL fija, nombre sin versión — nunca cambia
 
 async function updateSpaFromTemplate() {
@@ -3577,7 +3779,7 @@ async function updateSpaFromTemplate() {
     let out = tpl.replace('window.SPA_FROZEN=null;', 'window.SPA_FROZEN=' + json + ';');
     const clientCSS = '<style id="spa-client-mode">#screen-setup,#btn-admin{display:none!important}</style>';
     if (!out.includes('spa-client-mode')) out = out.replace('</head>', clientCSS + '</head>');
-    const fname = 'SPA_' + slugify(FROZEN.spaName || FROZEN.name || 'actualizado') + '.html';
+    const fname = 'SPA_' + slugArchivo(FROZEN.spaName || FROZEN.name || 'actualizado') + '.html';
     const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -3606,7 +3808,7 @@ async function generateClientFile() {
   // Inyectar CSS que oculta permanentemente el constructor en el archivo del cliente
   const clientCSS = '<style id="spa-client-mode">#screen-setup,#btn-admin{display:none!important}</style>';
   out = out.replace('</head>', clientCSS + '</head>');
-  const fname = 'SPA_' + slugify(cfg.spaName) + '.html';
+  const fname = 'SPA_' + slugArchivo(cfg.spaName) + '.html';
   const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
 
   // Si el navegador soporta elegir carpeta de destino (Chrome/Brave/Edge en escritorio), úsalo.
@@ -3683,7 +3885,7 @@ function historyKey() {
   return 'spa_v3_history_' + id;
 }
 function loadHistory() {
-  try { return JSON.parse(localStorage.getItem(historyKey()) || '[]'); }
+  try { return JSON.parse(almacen.getItem(historyKey()) || '[]'); }
   catch (e) { return []; }
 }
 function persistHistory(hist) {
@@ -3691,14 +3893,14 @@ function persistHistory(hist) {
   hist.forEach((h, i) => { if (i >= 4 && h.img) h.img = null; });
   const key = historyKey();
   try {
-    localStorage.setItem(key, JSON.stringify(hist));
+    almacen.setItem(key, JSON.stringify(hist));
   } catch (e) {
     // Cuota excedida: ir soltando imágenes desde la más antigua
     for (let i = hist.length - 1; i >= 0; i--) {
       if (hist[i].img) hist[i].img = null;
-      try { localStorage.setItem(key, JSON.stringify(hist)); return; } catch (e2) {}
+      try { almacen.setItem(key, JSON.stringify(hist)); return; } catch (e2) {}
     }
-    try { localStorage.setItem(key, JSON.stringify(hist.slice(0, 5))); } catch (e3) {}
+    try { almacen.setItem(key, JSON.stringify(hist.slice(0, 5))); } catch (e3) {}
   }
 }
 function saveToHistory(type, reto, extra, resumen) {
@@ -3904,16 +4106,16 @@ function updateMenuProfile() {
   const sub = document.getElementById('chat-subtitle');
   if (sub) {
     const bienNum = parseFloat(p.bienestar);
-    const B = '<span style="color:#C9A24E">Bienestar</span>';
     let bienTxt = '';
     if (!isNaN(bienNum)) {
-      if (bienNum > 119) bienTxt = B + ' sobresaliente';
-      else if (bienNum >= 111) bienTxt = B + ': fortaleza';
-      else if (bienNum >= 90) bienTxt = B + ': promedio';
-      else if (bienNum >= 80) bienTxt = B + ': área por desarrollar';
-      else bienTxt = B + ': área prioritaria';
+      if (bienNum > 119) bienTxt = 'bienestar sobresaliente';
+      else if (bienNum >= 111) bienTxt = 'bienestar: fortaleza';
+      else if (bienNum >= 90) bienTxt = 'bienestar: promedio';
+      else if (bienNum >= 80) bienTxt = 'bienestar: área por desarrollar';
+      else bienTxt = 'bienestar: área prioritaria';
     }
-    sub.innerHTML = escHtml(p.name || '') + (bienTxt ? ' · ' + bienTxt : '');
+    // V34 — El bienestar completo en cursiva dorada, como el prototipo.
+    sub.innerHTML = escHtml(p.name || '') + (bienTxt ? ' <span class="bien-em">· ' + bienTxt + '</span>' : '');
   }
 
   // Líder grupal
@@ -3928,7 +4130,7 @@ function openVoiceSettings() {
   loadVoices();
   // Sincronizar desde localStorage por si acaso
   try {
-    const saved = JSON.parse(localStorage.getItem('spa_voice') || '{}');
+    const saved = JSON.parse(almacen.getItem('spa_voice') || '{}');
     if (saved.oaiVoice) voiceSettings.oaiVoice = saved.oaiVoice;
     if (saved.oaiModel) voiceSettings.oaiModel = saved.oaiModel;
     if (saved.voiceURI) voiceSettings.voiceURI = saved.voiceURI;
@@ -3976,11 +4178,11 @@ function saveVoiceSettings() {
   const rawKey    = oaiKeyEl ? oaiKeyEl.value.trim() : '';
   if (rawKey && !rawKey.startsWith('••')) {
     voiceSettings.oaiKey = rawKey;
-    try { localStorage.setItem('spa_oai_key', rawKey); } catch(e) {}
+    try { almacen.setItem('spa_oai_key', rawKey); } catch(e) {}
   } else if (!rawKey) {
     // Campo vacío = borrar la key
     voiceSettings.oaiKey = '';
-    try { localStorage.removeItem('spa_oai_key'); } catch(e) {}
+    try { almacen.removeItem('spa_oai_key'); } catch(e) {}
   }
   const oaiVoiceEl = document.getElementById('oai-voice');
   if (oaiVoiceEl) voiceSettings.oaiVoice = oaiVoiceEl.value;
@@ -3990,7 +4192,7 @@ function saveVoiceSettings() {
   if (sel) voiceSettings.voiceURI = sel.value || null;
   voiceSettings.rate      = parseFloat(document.getElementById('voice-rate').value) || 1.0;
   voiceSettings.autoRead  = document.getElementById('voice-autoread').checked;
-  try { localStorage.setItem('spa_voice', JSON.stringify(voiceSettings)); } catch(e) {}
+  try { almacen.setItem('spa_voice', JSON.stringify(voiceSettings)); } catch(e) {}
   // Sincronizar el toggle de auto-lectura en el header
   if (typeof updateAutoReadBtn === 'function') updateAutoReadBtn();
   document.getElementById('voice-overlay').style.display = 'none';
@@ -4001,11 +4203,11 @@ function saveVoiceSettings() {
 //  FEEDBACK / SOPORTE
 // ══════════════════════════════════════════════════════
 function loadFeedback() {
-  try { return JSON.parse(localStorage.getItem('spa_v3_feedback') || '[]'); }
+  try { return JSON.parse(almacen.getItem('spa_v3_feedback') || '[]'); }
   catch(e) { return []; }
 }
 function persistFeedback(arr) {
-  try { localStorage.setItem('spa_v3_feedback', JSON.stringify(arr.slice(0, 100))); } catch(e) {}
+  try { almacen.setItem('spa_v3_feedback', JSON.stringify(arr.slice(0, 100))); } catch(e) {}
 }
 function openFeedback() {
   document.getElementById('fb-message').value = '';
@@ -4203,6 +4405,11 @@ function ensureMinRows() {
 // ══════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
 
+  // V33 — El SPA arrancó: se retira la red de seguridad.
+  window.__spaArranco = true;
+  const avisoArranque = document.getElementById('aviso-arranque');
+  if (avisoArranque) avisoArranque.remove();
+
   // Cierre defensivo desde el arranque: ningún overlay debe verse al cargar la página
   ['resumen-overlay', 'group-resumen-overlay', 'doc-pdf-overlay', 'mood-overlay'].forEach(overlayId => {
     const el = document.getElementById(overlayId);
@@ -4285,7 +4492,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSaveKey.addEventListener('click', () => {
       if (keyInput) {
         state.apiKey = keyInput.value.trim();
-        localStorage.setItem('spa_api_key', state.apiKey);
+        almacen.setItem('spa_api_key', state.apiKey);
       }
       showScreen(firstScreen());
     });
@@ -4559,9 +4766,9 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   // V31/A3 — Token del Constructor: se teclea una vez y queda en este navegador.
   const inpCtorToken = document.getElementById('s-constructor-token');
   if (inpCtorToken) {
-    try { inpCtorToken.value = localStorage.getItem('spa_constructor_token') || ''; } catch(e) {}
+    try { inpCtorToken.value = almacen.getItem('spa_constructor_token') || ''; } catch(e) {}
     inpCtorToken.addEventListener('input', () => {
-      try { localStorage.setItem('spa_constructor_token', inpCtorToken.value.trim()); } catch(e) {}
+      try { almacen.setItem('spa_constructor_token', inpCtorToken.value.trim()); } catch(e) {}
     });
   }
   const btnTestWorker = document.getElementById('btn-test-worker');
@@ -4605,14 +4812,14 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   const sApiKeyStatus = document.getElementById('s-apikey-status');
   if (sApiKey) {
     // Cargar key guardada si existe
-    const savedKey = localStorage.getItem('spa_api_key') || '';
+    const savedKey = almacen.getItem('spa_api_key') || '';
     if (savedKey) sApiKey.value = savedKey;
     let reanalizeTimer = null;
     sApiKey.addEventListener('input', () => {
       const key = sApiKey.value.trim();
       if (key.length < 20) return;
       state.apiKey = key;
-      localStorage.setItem('spa_api_key', key);
+      almacen.setItem('spa_api_key', key);
       // Re-analizar gráficas ya cargadas sin análisis
       clearTimeout(reanalizeTimer);
       reanalizeTimer = setTimeout(async () => {
@@ -4819,6 +5026,8 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
       return;
     }
     // ── V31/A7 — Coachear: elegir a la persona del equipo antes de arrancar ──
+    // V34 — El encabezado señala en qué modo entra la sesión.
+    state.modoChat = (opt === 'coach') ? { tipo:'coach' } : { tipo:'resolver' };
     if (opt === 'coach') {
       const equipo = (state.profile.equipo || []).filter(p =>
         p && p.nombre && (p.tipo === 'coachee' || p.tipo === 'colab'));
@@ -4845,12 +5054,27 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   });
 
   // ── Barra de contexto en el header del chat (lo que viaja de la pantalla 1) ──
+  window.__ajustarHeaderChat = () => { try { ajustarAlturaHeaderChat(); } catch(e){} };
+
   function hideCtxRows(){
     const retoRow = document.getElementById('ctx-reto-row');
     const bottomRow = document.getElementById('ctx-bottom-row');
     if (retoRow) { retoRow.style.display = 'none'; retoRow.innerHTML = ''; }
     if (bottomRow) { bottomRow.style.display = 'none'; }
   }
+
+  // V34 — El header es fixed: el contenido debe arrancar justo debajo de su alto real,
+  // que varía según cuántos chips quepan en el riel (reto largo, varias emociones).
+  function ajustarAlturaHeaderChat(){
+    const wrap = document.querySelector('#screen-chat .chat-hdr-sticky-wrap');
+    const cw   = document.querySelector('#screen-chat .chat-wrap');
+    if (wrap && cw) cw.style.paddingTop = wrap.offsetHeight + 'px';
+    // V34 — También el muelle inferior: el chat termina justo encima de él.
+    const dock = document.getElementById('bottom-dock');
+    const msgs = document.querySelector('#screen-chat .msgs');
+    if (dock && msgs) msgs.style.paddingBottom = (dock.offsetHeight + 14) + 'px';
+  }
+  window.addEventListener('resize', ajustarAlturaHeaderChat);
 
   function renderCtxBar(){
     const retoRow = document.getElementById('ctx-reto-row');
@@ -4859,9 +5083,10 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     const modelSide = document.getElementById('ctx-model-side');
     if (!retoRow || !bottomRow) return;
 
+    // V34 — El reto es un chip más dentro del riel fijo del encabezado.
     if (state.profile.reto) {
-      retoRow.innerHTML = '<span class="ctx-mini-chip reto"><span class="lbl">Reto:</span> '+escHtml(state.profile.reto)+'</span>';
-      retoRow.style.display = 'flex';
+      retoRow.innerHTML = '<span class="ctx-mini-chip reto">🎯 <span><span class="lbl">Reto:</span> '+escHtml(state.profile.reto)+'</span></span>';
+      retoRow.style.display = 'inline-flex';
     } else {
       retoRow.innerHTML = ''; retoRow.style.display = 'none';
     }
@@ -4881,7 +5106,17 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     }
     modelSide.innerHTML = modelHtml;
 
-    bottomRow.style.display = (emoChips.length || modelHtml) ? 'flex' : 'none';
+    // V34 — Ceja del encabezado según el modo de la sesión.
+    const ceja = document.getElementById('chat-eyebrow');
+    if (ceja) {
+      const m = state.modoChat || {};
+      ceja.textContent = (m.tipo === 'coach')
+        ? (m.quien ? 'Acompañando a ' + m.quien : 'Sesión de acompañamiento')
+        : 'SPA Emocional IA · Premium';
+    }
+
+    bottomRow.style.display = (state.profile.reto || emoChips.length || modelHtml) ? 'flex' : 'none';
+    requestAnimationFrame(ajustarAlturaHeaderChat);
   }
 
   // ══════════════════════════════════════════════════════
@@ -5246,7 +5481,7 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     let out = PRISTINE_HTML.replace('window.SPA_FROZEN=null;', 'window.SPA_FROZEN=' + json + ';');
     const clientCSS = '<style id="spa-client-mode">#screen-setup,#btn-admin{display:none!important}</style>';
     if (!out.includes('spa-client-mode')) out = out.replace('</head>', clientCSS + '</head>');
-    const fname = 'SPA_' + slugify(cfg.spaName || cfg.name || 'lider') + '.html';
+    const fname = 'SPA_' + slugArchivo(cfg.spaName || cfg.name || 'lider') + '.html';
     const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -5441,7 +5676,7 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   const btnChangeKey = document.getElementById('btn-change-key');
   if (btnChangeKey) btnChangeKey.addEventListener('click', () => {
     state.apiKey = '';
-    localStorage.removeItem('spa_api_key');
+    almacen.removeItem('spa_api_key');
     showScreen(firstScreen());
   });
 
@@ -5591,7 +5826,7 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   document.getElementById('hist-back').addEventListener('click', () => showScreen('menu'));
   document.getElementById('hist-clear').addEventListener('click', () => {
     if (confirm('¿Borrar todo el historial de sesiones? Esta acción no se puede deshacer.')) {
-      localStorage.removeItem('spa_v3_history');
+      almacen.removeItem('spa_v3_history');
       renderHistory();
     }
   });
@@ -5761,7 +5996,7 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   const autoReadToggle = document.getElementById('btn-autoread-toggle');
   if (autoReadToggle) autoReadToggle.addEventListener('click', () => {
     voiceSettings.autoRead = !voiceSettings.autoRead;
-    try { localStorage.setItem('spa_voice', JSON.stringify(voiceSettings)); } catch(e) {}
+    try { almacen.setItem('spa_voice', JSON.stringify(voiceSettings)); } catch(e) {}
     updateAutoReadBtn();
     if (!voiceSettings.autoRead) stopSpeech();
   });
