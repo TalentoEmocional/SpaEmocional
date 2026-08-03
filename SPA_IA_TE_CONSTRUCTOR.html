@@ -502,10 +502,15 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
     <div style="font-size:44px;margin-bottom:14px">💆</div>
     <div style="font-size:20px;font-weight:700;color:#C9A24E;margin-bottom:10px">SPA Emocional IA PREMIUM</div>
     <div id="aviso-texto" style="font-size:15px;line-height:1.6;color:#B9B3A4">Preparando tu espacio…</div>
-    <div id="aviso-ayuda" style="display:none;margin-top:16px;font-size:14px;line-height:1.6;color:#8A8578;text-align:left;background:#12100C;border:1px solid rgba(201,162,78,.3);border-radius:10px;padding:14px 16px">
-      <strong style="color:#D9B96E">Si estás en iPhone o iPad:</strong><br>
-      Guarda el archivo en la app <strong>Archivos</strong>, ábrelo desde ahí, y si sigue sin cargar, tócalo con el dedo unos segundos y elige <strong>Compartir → Safari</strong>.<br><br>
-      Si el problema continúa, escribe a Talento Emocional y comparte esta pantalla.
+    <!-- V34 — La ayuda se muestra DESDE EL INICIO. Si el JavaScript corre bien,
+         el SPA retira todo este aviso en menos de un segundo y nunca se lee.
+         Si NO corre (visores de Telegram, WhatsApp, Mail), el líder ve esto. -->
+    <div id="aviso-ayuda" style="margin-top:16px;font-size:14px;line-height:1.6;color:#8A8578;text-align:left;background:#12100C;border:1px solid rgba(201,162,78,.3);border-radius:10px;padding:14px 16px">
+      <strong style="color:#D9B96E">¿Se quedó en esta pantalla?</strong><br>
+      Tu SPA necesita abrirse en un navegador, no en el visor de la app de mensajes.<br><br>
+      <strong style="color:#D9B96E">En Mac, PC o Android:</strong> guarda el archivo y ábrelo con <strong>Chrome</strong> (o Safari en Mac). Ahí funciona completo.<br><br>
+      <strong style="color:#D9B96E">En iPhone o iPad:</strong> por una restricción de Apple, estos archivos no abren en el teléfono. Ábrelo por ahora en una computadora o en Android.<br><br>
+      <strong style="color:#D9B96E">¿Solo tienes iPhone?</strong> Escribe a Talento Emocional: ya estamos preparando el acceso por enlace para iPhone y te avisaremos en cuanto esté.
     </div>
     <div id="aviso-detalle" style="display:none;margin-top:12px;font-family:monospace;font-size:12px;color:#7A7568;word-break:break-word;text-align:left"></div>
   </div>
@@ -517,17 +522,13 @@ window.__spaArranco = false;
 setTimeout(function () {
   if (window.__spaArranco) return;
   var t = document.getElementById('aviso-texto');
-  var a = document.getElementById('aviso-ayuda');
   if (t) t.innerHTML = 'No se pudo abrir el SPA en este dispositivo.';
-  if (a) a.style.display = 'block';
 }, 4000);
 // Cualquier error temprano se muestra en pantalla: en un teléfono no hay consola.
 window.addEventListener('error', function (ev) {
   var t = document.getElementById('aviso-texto');
-  var a = document.getElementById('aviso-ayuda');
   var d = document.getElementById('aviso-detalle');
   if (t) t.innerHTML = 'No se pudo abrir el SPA en este dispositivo.';
-  if (a) a.style.display = 'block';
   if (d) { d.style.display = 'block'; d.textContent = (ev.message || 'Error') + (ev.lineno ? ' · línea ' + ev.lineno : ''); }
 });
 </script>
