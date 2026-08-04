@@ -170,6 +170,16 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 .c2-action-btn .s{font-size:13px;color:var(--muted);line-height:1.3}
 
 /* Profundidad */
+/* V34 — Dos ejes en desplegables: cabe más texto y ocupa menos alto. */
+.c2-dos-ejes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.c2-sel{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--border);
+  background:#11141A;color:var(--text);font-family:inherit;font-size:14px;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,#C9A24E 50%),linear-gradient(135deg,#C9A24E 50%,transparent 50%);
+  background-position:calc(100% - 17px) 50%, calc(100% - 12px) 50%;
+  background-size:5px 5px, 5px 5px; background-repeat:no-repeat; padding-right:32px}
+.c2-sel:focus{outline:none;border-color:#C9A24E}
+@media(max-width:520px){ .c2-dos-ejes{grid-template-columns:1fr} }
 .c2-depth-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .c2-depth-btn{background:#11141A;border:1px solid var(--border);border-radius:10px;padding:10px 6px;cursor:pointer;
   transition:all .18s;text-align:center}
@@ -1101,18 +1111,25 @@ body.pres-mode .gm-row{max-width:80%}
     </div>
   </div>
 
-  <!-- ══ ¿Con qué profundidad? ══ -->
+  <!-- ══ V34 — Dos ejes independientes: qué tipo de solución busca el líder,
+       y con cuánta potencia trabajará el motor. Uno no condiciona al otro. ══ -->
   <div class="c2-block">
-    <label style="margin-top:0">⚙️ ¿Con qué profundidad?</label>
-    <div class="c2-depth-grid" id="c2-depth-grid">
-      <div class="c2-depth-btn" data-depth="rapido" data-model="claude-sonnet-5">
-        <div class="t">Rápido</div><div class="s">al grano</div>
+    <div class="c2-dos-ejes">
+      <div>
+        <label style="margin-top:0">🧭 Tipo</label>
+        <select id="m-solucion" class="c2-sel">
+          <option value="PRAGMATICA">Pragmática · resolver rápido, con logros concretos</option>
+          <option value="ESTRATEGICA" selected>Estratégica · resolver de manera objetiva y creativa</option>
+          <option value="HUMANISTA">Humanista · resolver con mayor aprendizaje emocional</option>
+        </select>
       </div>
-      <div class="c2-depth-btn sel" data-depth="normal" data-model="claude-opus-5">
-        <div class="t">Normal</div><div class="s">equilibrado</div>
-      </div>
-      <div class="c2-depth-btn" data-depth="profundo" data-model="claude-fable-5">
-        <div class="t">Profundo</div><div class="s">a fondo</div>
+      <div>
+        <label style="margin-top:0">⚙️ Profundidad</label>
+        <select id="m-depth" class="c2-sel">
+          <option value="profundo">Máximo potencial · Fable 5 · máximo consumo</option>
+          <option value="normal" selected>Poderoso equilibrio · Opus 5 · recomendada</option>
+          <option value="rapido">Rápido · Sonnet 5</option>
+        </select>
       </div>
     </div>
     <div class="c2-depth-info" id="c2-depth-info"></div>
@@ -2299,8 +2316,10 @@ function copiarMensajeAlta() {
   const nombre = d.name ? ' ' + d.name : '';
 
   const texto =
-    saludo + nombre + ' a tu Programa de Liderazgo con Inteligencia Emocional vía el SPA Emocional IA, ' +
-    'tu herramienta para resolver situaciones y al mismo tiempo desarrollar tus habilidades de liderazgo.\n\n' +
+    'Programa de Liderazgo con Inteligencia Emocional\n\n' +
+    saludo + nombre + ' a tu\n\n' +
+    'SPA EMOCIONAL IA\n\n' +
+    'Resuelve retos, situaciones y problemas mientras desarrollas tus habilidades de liderazgo con Inteligencia Emocional.\n\n' +
     'Para ingresar, entra al siguiente enlace:\n' + enlace + '\n\n' +
     'Tu código de acceso es:\n' + codigo + '\n\n' +
     'Tu SPA Emocional IA funciona en todo tipo de celulares y exploradores de computadora.\n\n' +
@@ -2653,8 +2672,8 @@ async function callGroupAPI(messages) {
 // ya que esa información ya vive de forma limpia en los chips del encabezado.
 function displayUserContent(text) {
   return text
-    .replace(/\n?\[PROFUNDIDAD:[^\]]*\]\s*$/, '')
-    .replace(/^\[PROFUNDIDAD:[^\]]*\]\n?/, '')
+    .replace(/\n?\[PROFUNDIDAD:[^\]]*\]\s*/g, '')
+    .replace(/\n?\[SOLUCION:[^\]]*\]\s*/g, '')
     .replace(/^Mi medición en el Mood Meter[^\n]*\n?/, '')
     .replace(/^FEEDBACK DE UNA PERSONA DE MI EQUIPO\.[\s\S]*$/, '')
     .trim();
@@ -2743,9 +2762,35 @@ function speakMsg(i) {
 }
 window.speakMsg = speakMsg;
 
+// V34 — Si el modelo escribe una entidad HTML («&nbsp;», «&amp;», «&mdash;»),
+// el escapado posterior la convertiría en texto literal en pantalla. Se
+// decodifica antes para que llegue como el carácter que representa.
+const ENTIDADES_HTML = {
+  '&nbsp;': '\u00A0', '&amp;': '&',   '&lt;': '<',    '&gt;': '>',
+  '&quot;': '"',      '&#39;': "'",   '&apos;': "'",
+  '&mdash;': '—',     '&ndash;': '–', '&hellip;': '…',
+  '&laquo;': '«',     '&raquo;': '»', '&aacute;': 'á', '&eacute;': 'é',
+  '&iacute;': 'í',    '&oacute;': 'ó', '&uacute;': 'ú', '&ntilde;': 'ñ',
+  '&Aacute;': 'Á',    '&Eacute;': 'É', '&Iacute;': 'Í', '&Oacute;': 'Ó',
+  '&Uacute;': 'Ú',    '&Ntilde;': 'Ñ', '&iquest;': '¿', '&iexcl;': '¡'
+};
+
+function decodificarEntidades(texto) {
+  return String(texto || '')
+    .replace(/&[a-zA-Z]+;|&#\d+;/g, e => {
+      if (ENTIDADES_HTML[e]) return ENTIDADES_HTML[e];
+      const num = e.match(/^&#(\d+);$/);
+      if (num) { try { return String.fromCodePoint(+num[1]); } catch (x) { return e; } }
+      return e;   // desconocida: se deja tal cual y el escapado la protege
+    });
+}
+
 function mdToHtml(str) {
+  // 0. V34 — Entidades a su carácter real, antes de escapar.
+  let h = decodificarEntidades(str);
+
   // 1. Escapar HTML base
-  let h = String(str)
+  h = String(h)
     .replace(/&/g,'&amp;')
     .replace(/</g,'&lt;')
     .replace(/>/g,'&gt;');
@@ -3997,6 +4042,7 @@ function profileFromConfig(c) {
     hasGraph:  !!(c.eqiGraph || c.mmpGraph || c.graphData),
     model:     c.model || 'claude-sonnet-5',
     // Equipo del líder: colaboradores, coachees y candidatos con perfil integrado
+    solucion:  c.solucion || 'ESTRATEGICA',
     equipo:    Array.isArray(c.equipo) ? c.equipo : []
   };
 }
@@ -4691,6 +4737,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Todas las llamadas (chat, resumen, visión) pasan por el Worker,
     // que es el único lugar donde vive ANTHROPIC_API_KEY.
     state.apiKey = '';
+    // V34 — Los dos desplegables reflejan lo congelado en el SPA.
+    const selD0 = document.getElementById('m-depth');
+    if (selD0 && state.profile.depth) selD0.value = state.profile.depth;
+    const selS0 = document.getElementById('m-solucion');
+    if (selS0 && state.profile.solucion) selS0.value = state.profile.solucion;
     const mModel0 = document.getElementById('m-model');
     const mReto0  = document.getElementById('m-reto');
     if (mModel0) mModel0.value = state.profile.model || 'claude-sonnet-5';
@@ -5237,13 +5288,33 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     const box = document.getElementById('c2-depth-info');
     if (box && d) box.innerHTML = '<b>'+d.label+'</b> · <span class="tok">'+d.tok+'</span> · '+d.note;
   }
+  // V34 — El desplegable de profundidad fija el motor. El Worker traduce
+  // la profundidad a modelo, así que aquí solo se guarda la elección.
+  const MODELO_POR_DEPTH = {
+    rapido:   'claude-sonnet-5',
+    normal:   'claude-opus-5',
+    profundo: 'claude-fable-5'
+  };
+  const selDepth = document.getElementById('m-depth');
+  if (selDepth) selDepth.addEventListener('change', () => {
+    const d = selDepth.value || 'normal';
+    const mModelHidden = document.getElementById('m-model');
+    if (mModelHidden) { mModelHidden.value = MODELO_POR_DEPTH[d]; state.profile.model = MODELO_POR_DEPTH[d]; }
+    state.profile.depth = d;
+    refreshC2DepthInfo(d);
+  });
+
+  // V34 — El tipo de solución es un eje aparte: no toca el modelo.
+  const selSolucion = document.getElementById('m-solucion');
+  if (selSolucion) selSolucion.addEventListener('change', () => {
+    state.profile.solucion = selSolucion.value || 'ESTRATEGICA';
+  });
+
   document.querySelectorAll('.c2-depth-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       document.querySelectorAll('.c2-depth-btn').forEach(b=>b.classList.remove('sel'));
       btn.classList.add('sel');
       const mModelHidden = document.getElementById('m-model');
-      // V31/A2-bis — Se guarda también la profundidad: el Worker decide el modelo,
-      // así un cambio de modelo futuro no obliga a regenerar los SPAs entregados.
       if (mModelHidden) { mModelHidden.value = btn.dataset.model; state.profile.model = btn.dataset.model; }
       state.profile.depth = btn.dataset.depth || 'normal';
       refreshC2DepthInfo(btn.dataset.depth);
@@ -5266,9 +5337,17 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     if (c2Reto) state.profile.reto = c2Reto.value.trim();
     const moodPartes = c2MoodPartes();
     const moodPrefix = moodPartes ? 'Mi medición en el Mood Meter (puedo sentir varias emociones a la vez): ' + moodPartes + '.\n' : '';
+    // V34 — La profundidad sale del desplegable; los botones quedan como
+    // respaldo por si algún SPA antiguo aún los tuviera.
+    const selD = document.getElementById('m-depth');
     const depthBtnSel = document.querySelector('.c2-depth-btn.sel');
-    const depthKey = depthBtnSel ? depthBtnSel.dataset.depth.toUpperCase() : 'NORMAL';
-    const depthMarker = '\n[PROFUNDIDAD: ' + depthKey + ']';
+    const depthKey = (selD && selD.value)
+      ? selD.value.toUpperCase()
+      : (depthBtnSel ? depthBtnSel.dataset.depth.toUpperCase() : 'NORMAL');
+    // V34 — Tipo de Solución: eje aparte, marca propia que el prompt lee.
+    const selS = document.getElementById('m-solucion');
+    const solucionKey = (selS && selS.value) ? selS.value.toUpperCase() : 'ESTRATEGICA';
+    const depthMarker = '\n[PROFUNDIDAD: ' + depthKey + ']\n[SOLUCION: ' + solucionKey + ']';
 
     // Barra de contexto que viaja al chat
     renderCtxBar();
@@ -5361,12 +5440,19 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     });
     emoSide.innerHTML = emoChips.join('');
 
-    const depthBtn = document.querySelector('.c2-depth-btn.sel');
-    let modelHtml = '';
-    if (depthBtn) {
-      const depthName = depthBtn.querySelector('.t').textContent;
-      const modelShort = (C2_DEPTH_INFO[depthBtn.dataset.depth]||{}).label || '';
-      modelHtml = '<span class="ctx-mini-chip depth"><span class="lbl">Modelo:</span> '+depthName+(modelShort?'/'+modelShort.replace('Claude ',''):'')+'</span>';
+    // V34 — Dos insignias: el tipo de solución y el motor en uso.
+    const SOL_NOMBRE = { PRAGMATICA:'Pragmática', ESTRATEGICA:'Estratégica', HUMANISTA:'Humanista' };
+    const selSol = document.getElementById('m-solucion');
+    const solActual = (state.profile.solucion) || (selSol && selSol.value) || 'ESTRATEGICA';
+    let modelHtml = '<span class="ctx-mini-chip"><span class="lbl">Tipo:</span> ' +
+                    (SOL_NOMBRE[solActual] || 'Estratégica') + '</span>';
+
+    const selDep = document.getElementById('m-depth');
+    const depActual = (state.profile.depth) || (selDep && selDep.value) || 'normal';
+    const infoDep = C2_DEPTH_INFO[depActual];
+    if (infoDep) {
+      modelHtml += '<span class="ctx-mini-chip depth"><span class="lbl">Motor:</span> ' +
+                   infoDep.label.replace('Claude ','') + '</span>';
     }
     modelSide.innerHTML = modelHtml;
 
