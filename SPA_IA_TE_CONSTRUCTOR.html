@@ -630,6 +630,62 @@ body.pres-mode .gm-row{max-width:80%}
   .part-area{font-size:9px}
 }
 
+/* ══════════════════════════════════════════════════════════════
+   V34 — PANTALLA ANGOSTA (celular)
+   Este bloque SOLO se aplica por debajo de 560px de ancho.
+   En Mac y PC el navegador ni siquiera lo lee: la vista de
+   escritorio queda exactamente igual.
+   ══════════════════════════════════════════════════════════════ */
+@media(max-width:560px){
+
+  /* — Encabezado: de tres renglones a uno — */
+  #screen-chat .chat-hdr{padding:9px 10px 0}
+  #screen-chat .chat-eyebrow{font-size:8.5px;letter-spacing:.24em}
+  #screen-chat .chat-client-line{font-size:17px}
+  #screen-chat .chat-client-line .bien-em{font-size:13px}
+  #screen-chat .chat-hdr .back-btn{left:8px;top:8px;transform:scale(.86)}
+
+  /* Los chips no se apilan: se deslizan en horizontal. */
+  #screen-chat .hdr-rail-v34{
+    flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    padding:7px 10px 8px;margin-top:6px;gap:6px;scroll-padding-right:10px}
+  #screen-chat .hdr-rail-v34::-webkit-scrollbar{display:none}
+  #screen-chat .hdr-rail-v34 .ctx-mini-chip{font-size:11.5px;padding:4px 10px;flex-shrink:0}
+  #screen-chat .hdr-rail-v34 .ctx-mini-chip.reto{max-width:none}
+  #screen-chat .hdr-rail-v34 .ctx-mini-chip.reto span:last-child{max-width:190px}
+  #screen-chat .ctx-emo-side{display:contents}   /* los chips entran al mismo carril */
+  #screen-chat .ctx-model-side{margin-left:0;flex-shrink:0}
+
+  /* — Muelle inferior: un renglón, sin deslizar.
+       Se ocultan las palabras y quedan los iconos: los ocho caben. — */
+  #screen-chat .toolbar-row{
+    flex-wrap:nowrap;overflow:visible;
+    padding:8px 8px;gap:5px;justify-content:space-between}
+  #screen-chat .toolbar-row .btn-txt{display:none}
+  #screen-chat .toolbar-row .tool-btn{
+    padding:8px 0;font-size:17px;flex:1 1 0;min-width:0;text-align:center}
+  #screen-chat .toolbar-row #btn-autoread-toggle{font-size:10.5px;font-weight:800;letter-spacing:.04em}
+  #screen-chat .toolbar-row .fb-dot-btn{flex:0 0 26px}
+  #screen-chat .input-row{padding:9px 10px 11px;gap:8px}
+
+  /* — Lomo de fase: más aire para las letras verticales — */
+  #screen-chat .fase-wrap{grid-template-columns:26px 1fr}
+  #screen-chat .fase-spine{padding:12px 0 8px;gap:6px}
+  #screen-chat .fase-spine .letters{font-size:9px;letter-spacing:.04em}
+  #screen-chat .fase-spine .fnum{font-size:8px}
+  #screen-chat .fase-wrap .bubble.ai{padding:12px 12px 12px 9px}
+
+  /* — Conversación: aprovechar el ancho recuperado — */
+  #screen-chat .msgs{padding:12px 8px;gap:12px}
+  #screen-chat .bubble{font-size:16px;line-height:1.55;padding:12px 14px}
+  #screen-chat .bubble.user{max-width:86%}
+  #screen-chat .ai-icon{width:24px;height:24px;font-size:13px}
+  .bubble.ai .md-h1,.bubble.ai .md-h1:first-child{font-size:19px}
+  .bubble.ai .md-h2,.bubble.ai .md-h2:first-child{font-size:17.5px}
+  .bubble.ai .md-quote{font-size:15.5px;padding:11px 13px}
+}
+
 /* ── Filas de participante (setup grupal) ── */
 .g-row{display:flex;gap:8px;align-items:center}
 .g-name{flex:1.3}
@@ -805,8 +861,10 @@ body.pres-mode .gm-row{max-width:80%}
     </div>
 
     <button class="btn btn-navy" id="btn-generate" disabled="" style="margin-top:1.25rem">⬇ Generar archivo del cliente</button>
+    <!-- V34/Paso D — Alta en línea: el perfil viaja al servidor, no al archivo. -->
+    <button class="btn" id="btn-alta-online" disabled="" style="margin-top:.6rem;background:linear-gradient(135deg,#D9B96E,#B08A3C);color:#211B0E;border:none;font-weight:800">☁️ Dar de alta en línea (recomendado)</button>
     <button class="btn" id="btn-setup" disabled="" style="margin-top:.6rem;background:#1A2233;color:var(--navy-text);border:1px solid var(--border)">Probar antes de generar →</button>
-    <p style="font-size:14px;color:var(--muted);margin-top:10px;line-height:1.5;text-align:center">«Generar» descarga el SPA del cliente con sus datos congelados, listo para entregar. «Probar» abre su SPA aquí mismo sin descargar.</p>
+    <p style="font-size:14px;color:var(--muted);margin-top:10px;line-height:1.5;text-align:center">«Dar de alta en línea» guarda el perfil en el servidor y te devuelve un enlace y un código — funciona en iPhone y los datos no viajan en ningún archivo. «Generar» descarga el SPA con los datos dentro. «Probar» abre su SPA aquí mismo.</p>
   </div>
   </div><!-- /setup-mode-nuevo -->
 
@@ -1143,7 +1201,10 @@ body.pres-mode .gm-row{max-width:80%}
     <div class="c2-practice-sub" id="c2-practice-sub">Pequeño gesto de autoconciencia que abre tu día con presencia de líder.</div>
   </div>
 
-  <div style="max-width:660px;margin:16px auto 0;padding:0 1rem;text-align:center">
+  <!-- V34/Paso E — En modo en línea el SPA ya llega siempre actualizado:
+       este bloque se oculta al arrancar. Sigue visible para quienes
+       tienen el SPA como archivo, que sí dependen de este botón. -->
+  <div id="bloque-actualizar" style="max-width:660px;margin:16px auto 0;padding:0 1rem;text-align:center">
     <button id="btn-update-spa" onclick="updateSpaFromTemplate()" style="background:var(--navy);border:1px solid var(--navy);color:#fff;border-radius:999px;padding:9px 20px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit">🔄 Actualizar mi SPA a la última versión</button>
     <p style="font-size:12px;color:var(--muted);margin-top:6px">Versión actual: <span id="spa-current-version"></span></p>
   </div>
@@ -1179,12 +1240,12 @@ body.pres-mode .gm-row{max-width:80%}
     <div id="attach-strip" style="display:none;background:var(--white);border-top:1px solid var(--border);padding:6px 14px;font-size:15px;color:var(--navy-text);font-weight:600;align-items:center;gap:8px">📎 <span id="attach-name"></span> <button id="attach-remove" style="background:none;border:none;color:var(--wine);cursor:pointer;font-size:16px;font-weight:700">✕</button></div>
     <div class="toolbar-row">
       <button class="tool-btn" id="attach-btn-top" title="Adjuntar documento o imagen" style="display:none">📎</button>
-      <button class="tool-btn" id="btn-moodmeter" title="Mood Meter">🎯 Mood</button>
+      <button class="tool-btn" id="btn-moodmeter" title="Mood Meter">🎯<span class="btn-txt"> Mood</span></button>
       <button class="tool-btn" id="btn-voice" title="Ajustes de voz">🔊</button>
       <button class="tool-btn" id="btn-autoread-toggle" title="Voz automática ON/OFF" style="opacity:.7">AUTO</button>
-      <button class="tool-btn" id="btn-guardar" title="Descargar conversación completa en texto" style="color:#7EB2FF;border-color:rgba(126,178,255,.55)">💾 Txt</button>
-      <button class="tool-btn" id="btn-resumen" title="Generar Hoja Resumen" style="color:#E8C879;border-color:#C9A24E;font-weight:800">📄 Resumen</button>
-      <button class="tool-btn" id="btn-pdf-doc" title="Exportar un documento de la charla en PDF" style="color:#E5342A;border-color:rgba(229,52,42,.65)">📑 PDF</button>
+      <button class="tool-btn" id="btn-guardar" title="Descargar conversación completa en texto" style="color:#7EB2FF;border-color:rgba(126,178,255,.55)">💾<span class="btn-txt"> Txt</span></button>
+      <button class="tool-btn" id="btn-resumen" title="Generar Hoja Resumen" style="color:#E8C879;border-color:#C9A24E;font-weight:800">📄<span class="btn-txt"> Resumen</span></button>
+      <button class="tool-btn" id="btn-pdf-doc" title="Exportar un documento de la charla en PDF" style="color:#E5342A;border-color:rgba(229,52,42,.65)">📑<span class="btn-txt"> PDF</span></button>
       <button class="fb-dot-btn" id="btn-feedback-chat" title="Feedback / Soporte" style="width:28px;height:28px;flex-shrink:0"></button>
       <button class="tool-btn mic-btn" id="mic-btn-top" title="Dictar por voz">🎤</button>
     </div>
@@ -1563,6 +1624,53 @@ body.pres-mode .gm-row{max-width:80%}
       <a href="https://talentoemocional.com" target="_blank" rel="noopener" style="display:inline-block;background:var(--navy);color:#fff;text-decoration:none;font-size:16px;font-weight:600;padding:11px 22px;border-radius:10px">🌐 Visitar talentoemocional.com</a>
       <p style="font-size:14px;color:var(--muted);margin-top:8px">Se abrirá en una pestaña nueva, sin salir de tu SPA</p>
     </div>
+  </div>
+</div>
+
+<!-- ── V34/PASO D · MODAL: LÍDER DADO DE ALTA EN LÍNEA ── -->
+<div id="alta-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:201;align-items:center;justify-content:center;padding:20px;overflow-y:auto">
+  <div style="max-width:430px;width:100%;background:var(--white);border-radius:18px;padding:26px 24px;border:1px solid rgba(212,175,55,.35);box-shadow:0 16px 48px rgba(0,0,0,.5)">
+
+    <!-- Paso 1: datos del alta -->
+    <div id="alta-form">
+      <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;text-align:center">☁️ Dar de alta en línea</div>
+      <div style="font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:18px;text-align:center">El perfil se guarda en el servidor. El líder entra con un código, desde cualquier dispositivo.</div>
+
+      <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Código del líder</label>
+      <input id="alta-codigo" type="text" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#12100C;color:#fff;font-size:17px;font-family:monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:14px">Corto y fácil de dictar por teléfono.</div>
+
+      <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Vence el</label>
+      <input id="alta-vence" type="date" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#12100C;color:#fff;font-size:16px;font-family:inherit;margin-bottom:4px">
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:14px">Déjalo vacío para acceso permanente.</div>
+
+      <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Clave de administrador</label>
+      <input id="alta-adminkey" type="password" placeholder="Se guarda en este navegador" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#12100C;color:#fff;font-size:15px;font-family:inherit;margin-bottom:16px">
+
+      <button id="alta-enviar" class="btn" style="width:100%;background:linear-gradient(135deg,#D9B96E,#B08A3C);color:#211B0E;border:none;font-weight:800">Dar de alta</button>
+      <button id="alta-cancelar" class="btn" style="width:100%;margin-top:8px;background:transparent;color:var(--muted);border:none">Cancelar</button>
+      <div id="alta-aviso" style="margin-top:12px;font-size:14px;line-height:1.5;text-align:center;min-height:20px"></div>
+    </div>
+
+    <!-- Paso 2: resultado listo para enviar -->
+    <div id="alta-listo" style="display:none">
+      <div style="font-size:44px;margin-bottom:10px;text-align:center">✅</div>
+      <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;text-align:center" id="alta-listo-titulo">Líder dado de alta</div>
+      <div style="font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:18px;text-align:center">Envíale estos dos datos. Funciona en iPhone, Android y computadora.</div>
+
+      <div style="background:#12100C;border:1px solid rgba(201,162,78,.35);border-radius:11px;padding:13px 15px;margin-bottom:9px">
+        <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#C9A24E;font-weight:800;margin-bottom:5px">Enlace</div>
+        <div id="alta-enlace" style="font-family:monospace;font-size:13px;color:#fff;word-break:break-all"></div>
+      </div>
+      <div style="background:#12100C;border:1px solid rgba(201,162,78,.35);border-radius:11px;padding:13px 15px;margin-bottom:14px">
+        <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#C9A24E;font-weight:800;margin-bottom:5px">Código</div>
+        <div id="alta-cod-final" style="font-family:monospace;font-size:19px;color:#fff;letter-spacing:.1em;font-weight:700"></div>
+      </div>
+
+      <button id="alta-copiar" class="btn" style="width:100%;background:rgba(201,162,78,.18);color:#C9A24E;border:1px solid #C9A24E;font-weight:700">📋 Copiar mensaje listo para enviar</button>
+      <button id="alta-cerrar" class="btn" style="width:100%;margin-top:8px;background:transparent;color:var(--muted);border:none">Cerrar</button>
+    </div>
+
   </div>
 </div>
 
@@ -2060,6 +2168,149 @@ async function iniciarCoaching(mensaje, moodPrefix, depthMarker) {
 }
 
 // ══════════════════════════════════════════════════════
+//  V34/PASO D — ALTA EN LÍNEA
+//  El perfil se guarda en el servidor, no en un archivo.
+//  El líder recibe un enlace y un código: funciona en
+//  iPhone, y sus datos psicométricos nunca viajan al
+//  dispositivo de nadie.
+// ══════════════════════════════════════════════════════
+
+// Copiar al portapapeles, con respaldo para file:// donde puede estar restringido.
+async function copiarAlPortapapeles(texto, boton, etiquetaOriginal) {
+  try {
+    await navigator.clipboard.writeText(texto);
+  } catch (e) {
+    const tmp = document.createElement('textarea');
+    tmp.value = texto;
+    document.body.appendChild(tmp);
+    tmp.select();
+    try { document.execCommand('copy'); } catch (e2) {}
+    document.body.removeChild(tmp);
+  }
+  if (boton) {
+    boton.textContent = '✅ Copiado';
+    setTimeout(() => { boton.textContent = etiquetaOriginal; }, 1800);
+  }
+}
+
+// Propone un código legible a partir del nombre: MARIA-2026
+function codigoSugerido(nombre) {
+  // Se descarta el prefijo "SPA de", igual que en el nombre de archivo.
+  const limpio = String(nombre || 'lider')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toUpperCase().replace(/[^A-Z0-9]+/g, ' ').trim()
+    .replace(/^SPA\s+(DE\s+)?/, '').trim();
+  const base = (limpio.split(/\s+/)[0] || 'LIDER');
+  return base.slice(0, 12) + '-' + new Date().getFullYear();
+}
+
+function abrirAltaOnline() {
+  const cfg = buildConfigFromForm();
+  if (!cfg.name) { alert('Falta el nombre del líder.'); return; }
+
+  document.getElementById('alta-form').style.display = 'block';
+  document.getElementById('alta-listo').style.display = 'none';
+  document.getElementById('alta-aviso').textContent = '';
+  document.getElementById('alta-codigo').value = codigoSugerido(cfg.spaName || cfg.name);
+  document.getElementById('alta-adminkey').value = almacen.getItem('spa_admin_key') || '';
+
+  // Vencimiento por defecto: un año.
+  const enUnAno = new Date();
+  enUnAno.setFullYear(enUnAno.getFullYear() + 1);
+  document.getElementById('alta-vence').value = enUnAno.toISOString().slice(0, 10);
+
+  const ov = document.getElementById('alta-overlay');
+  ov.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarAltaOnline() {
+  document.getElementById('alta-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+async function enviarAltaOnline() {
+  const aviso  = document.getElementById('alta-aviso');
+  const btn    = document.getElementById('alta-enviar');
+  const codigo = document.getElementById('alta-codigo').value.trim().toUpperCase();
+  const vence  = document.getElementById('alta-vence').value;
+  const clave  = document.getElementById('alta-adminkey').value;
+
+  if (codigo.length < 4) { aviso.style.color = '#E58FA0'; aviso.textContent = 'El código debe tener al menos 4 caracteres.'; return; }
+  if (!clave)            { aviso.style.color = '#E58FA0'; aviso.textContent = 'Falta la clave de administrador.'; return; }
+
+  const cfg = buildConfigFromForm();
+  btn.disabled = true;
+  aviso.style.color = 'var(--muted)';
+  aviso.textContent = 'Guardando en el servidor…';
+
+  // El perfil que vivirá en el KV. Sin gráficas: pesan mucho y el análisis
+  // en texto ya contiene lo que Claude necesita para interpretar.
+  const perfil = {
+    name: cfg.name, gender: cfg.gender,
+    bienestar: cfg.bienestar, qop: cfg.qop, focus: cfg.focus,
+    fortalezasMMP: cfg.fortalezasMMP,
+    eqiAnalysis: cfg.eqiAnalysis, mmpAnalysis: cfg.mmpAnalysis,
+    equipo: cfg.equipo || []
+  };
+
+  try {
+    const res = await fetch(MAKE_CHAT_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        mode: 'alta', adminKey: clave,
+        codigo: codigo, cliente: cfg.spaName || cfg.name,
+        vence: vence || '', perfil: perfil
+      })
+    });
+    const d = await res.json();
+    btn.disabled = false;
+
+    if (!d || !d.ok) {
+      aviso.style.color = '#E58FA0';
+      aviso.textContent = (d && d.motivo) || 'No se pudo dar de alta.';
+      return;
+    }
+
+    // La clave funcionó: se recuerda en este navegador.
+    try { almacen.setItem('spa_admin_key', clave); } catch (e) {}
+
+    document.getElementById('alta-form').style.display = 'none';
+    document.getElementById('alta-listo').style.display = 'block';
+    document.getElementById('alta-listo-titulo').textContent =
+      d.actualizado ? 'Líder actualizado' : 'Líder dado de alta';
+    document.getElementById('alta-enlace').textContent = MAKE_CHAT_WEBHOOK;
+    document.getElementById('alta-cod-final').textContent = d.codigo;
+    // Para armar el mensaje de bienvenida con el nombre y el saludo correcto.
+    window.__altaDatos = { name: cfg.name || '', gender: cfg.gender || '' };
+  } catch (e) {
+    btn.disabled = false;
+    aviso.style.color = '#E58FA0';
+    aviso.textContent = 'Sin conexión con el servidor. Intenta de nuevo.';
+  }
+}
+
+function copiarMensajeAlta() {
+  const enlace = document.getElementById('alta-enlace').textContent;
+  const codigo = document.getElementById('alta-cod-final').textContent;
+  const d = window.__altaDatos || {};
+  const saludo = (d.gender === 'Mujer') ? 'Bienvenida' : 'Bienvenido';
+  const nombre = d.name ? ' ' + d.name : '';
+
+  const texto =
+    saludo + nombre + ' a tu Programa de Liderazgo con Inteligencia Emocional vía el SPA Emocional IA, ' +
+    'tu herramienta para resolver situaciones y al mismo tiempo desarrollar tus habilidades de liderazgo.\n\n' +
+    'Para ingresar, entra al siguiente enlace:\n' + enlace + '\n\n' +
+    'Tu código de acceso es:\n' + codigo + '\n\n' +
+    'Tu SPA Emocional IA funciona en todo tipo de celulares y exploradores de computadora.\n\n' +
+    'Si tienes alguna duda puedes escribir a hola@talentoemocional.com\n\n' +
+    '¡Lo Mejor de lo Mejor en tu Liderazgo!';
+
+  copiarAlPortapapeles(texto, document.getElementById('alta-copiar'), '📋 Copiar mensaje listo para enviar');
+}
+
+// ══════════════════════════════════════════════════════
 //  V31/A9 — MÓDULO APOYO HIJOS (desactivado en la v1 comercial)
 //  Retirado por decisión estratégica: atiende a menores sin protocolo
 //  de crisis y su riesgo ético/legal excede su aporte al caso B2B.
@@ -2226,6 +2477,7 @@ async function callAPI(messages, onChunk) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         spaToken: getSpaToken(),
+        codigo: (typeof FROZEN !== 'undefined' && FROZEN && FROZEN.codigo) ? FROZEN.codigo : undefined,
         mode: 'individual',
         chatId: chatIdVal,
         messages: apiMessages,
@@ -2369,10 +2621,12 @@ async function callGroupAPI(messages) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         spaToken: getSpaToken(),
+        codigo: (typeof FROZEN !== 'undefined' && FROZEN && FROZEN.codigo) ? FROZEN.codigo : undefined,
         mode: 'grupal',
         chatId: (p.clientId || 'grupo-preview'),
         historia: historiaGrupal,
         profile: { name: p.name || '', reto: (groupState.reto || p.reto || ''), depth: p.depth || 'normal', model: p.model || 'claude-sonnet-5' },
+        codigo: (typeof FROZEN !== 'undefined' && FROZEN && FROZEN.codigo) ? FROZEN.codigo : undefined,
         participants: groupState.participants,
         messages: buildGroupApiMessages(messages, cabeceraGrupal)
       })
@@ -4426,6 +4680,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (gridAcc) gridAcc.classList.add('tres-acciones');
   }
   if (FROZEN) {
+    // V34/Paso E — Modo en línea: la interfaz llega fresca en cada sesión,
+    // así que el botón de actualizar ya no tiene función.
+    if (FROZEN.modo === 'hosted') {
+      const blq = document.getElementById('bloque-actualizar');
+      if (blq) blq.style.display = 'none';
+    }
     state.profile = profileFromConfig(FROZEN);
     // V31/A1 — Ya no se carga ninguna API key desde el FROZEN.
     // Todas las llamadas (chat, resumen, visión) pasan por el Worker,
@@ -4509,6 +4769,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const ok = !!(spaNameInp.value.trim() && nameInp.value.trim());
       btnSetup.disabled = !ok;
       if (btnGenerate) btnGenerate.disabled = !ok;
+      const btnAlta = document.getElementById('btn-alta-online');   // V34/Paso D
+      if (btnAlta) btnAlta.disabled = !ok;
     };
     spaNameInp.addEventListener('input', checkSetup);
     nameInp.addEventListener('input', checkSetup);
@@ -4553,6 +4815,7 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           spaToken: getSpaToken(),
+        codigo: (typeof FROZEN !== 'undefined' && FROZEN && FROZEN.codigo) ? FROZEN.codigo : undefined,
           mode: 'vision',
           image: imageB64,
           mediaType: detectImageMediaType(imageB64),
@@ -6079,10 +6342,24 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     // Deshabilitar botones hasta que se llene el formulario
     const bg = document.getElementById('btn-generate');
     const bs = document.getElementById('btn-setup');
+    const ba = document.getElementById('btn-alta-online');   // V34/Paso D
     if (bg) bg.disabled = true;
     if (bs) bs.disabled = true;
+    if (ba) ba.disabled = true;
     window.scrollTo(0, 0);
   });
+  // ── V34/Paso D — Alta en línea ──
+  const btnAltaOnline = document.getElementById('btn-alta-online');
+  if (btnAltaOnline) btnAltaOnline.addEventListener('click', abrirAltaOnline);
+  const altaEnviar = document.getElementById('alta-enviar');
+  if (altaEnviar) altaEnviar.addEventListener('click', enviarAltaOnline);
+  const altaCancelar = document.getElementById('alta-cancelar');
+  if (altaCancelar) altaCancelar.addEventListener('click', cerrarAltaOnline);
+  const altaCerrar = document.getElementById('alta-cerrar');
+  if (altaCerrar) altaCerrar.addEventListener('click', cerrarAltaOnline);
+  const altaCopiar = document.getElementById('alta-copiar');
+  if (altaCopiar) altaCopiar.addEventListener('click', copiarMensajeAlta);
+
   document.getElementById('btn-cerrar-generated').addEventListener('click', () => {
     document.getElementById('spa-generated-overlay').style.display = 'none';
     document.body.style.overflow = '';
