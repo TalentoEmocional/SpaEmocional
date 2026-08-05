@@ -873,6 +873,7 @@ body.pres-mode .gm-row{max-width:80%}
     <button class="btn btn-navy" id="btn-generate" disabled="" style="margin-top:1.25rem">⬇ Generar archivo del cliente</button>
     <!-- V34/Paso D — Alta en línea: el perfil viaja al servidor, no al archivo. -->
     <button class="btn" id="btn-alta-online" disabled="" style="margin-top:.6rem;background:linear-gradient(135deg,#D9B96E,#B08A3C);color:#211B0E;border:none;font-weight:800">☁️ Dar de alta en línea (recomendado)</button>
+    <button class="btn" id="btn-recarga" style="margin-top:.6rem;background:#1A2233;color:#D9B96E;border:1px solid rgba(201,162,78,.45)">🔋 Recargar SPA-Tokens de un líder</button>
     <button class="btn" id="btn-setup" disabled="" style="margin-top:.6rem;background:#1A2233;color:var(--navy-text);border:1px solid var(--border)">Probar antes de generar →</button>
     <p style="font-size:14px;color:var(--muted);margin-top:10px;line-height:1.5;text-align:center">«Dar de alta en línea» guarda el perfil en el servidor y te devuelve un enlace y un código — funciona en iPhone y los datos no viajan en ningún archivo. «Generar» descarga el SPA con los datos dentro. «Probar» abre su SPA aquí mismo.</p>
   </div>
@@ -1645,6 +1646,45 @@ body.pres-mode .gm-row{max-width:80%}
   </div>
 </div>
 
+<!-- ── V35 · MODAL: RECARGA DE SPA-TOKENS ── -->
+<div id="recarga-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:201;align-items:center;justify-content:center;padding:20px;overflow-y:auto">
+  <div style="max-width:420px;width:100%;background:var(--white);border-radius:18px;padding:26px 24px;border:1px solid rgba(212,175,55,.35);box-shadow:0 16px 48px rgba(0,0,0,.5)">
+    <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;text-align:center">🔋 Recargar SPA-Tokens</div>
+    <div style="font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:18px;text-align:center">El paquete se suma a lo que ya tiene y no se pierde al cambiar de mes.</div>
+
+    <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Código del líder</label>
+    <input id="rec-codigo" type="text" placeholder="SAM-2026" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#12100C;color:#fff;font-size:17px;font-family:monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px">
+
+    <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Paquete extra</label>
+    <select id="rec-paquete" class="c2-sel" style="margin-bottom:4px">
+      <option value="0">Ninguno · solo renovar contrato</option>
+      <option value="5" selected>5 SPA-Tokens · $700</option>
+      <option value="10">10 SPA-Tokens · $1,400</option>
+      <option value="20">20 SPA-Tokens · $2,800</option>
+    </select>
+    <div style="font-size:12.5px;color:var(--muted);margin-bottom:14px">Los paquetes no caducan al cambiar de mes.</div>
+
+    <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Renovar contrato</label>
+    <select id="rec-meses" class="c2-sel" style="margin-bottom:4px">
+      <option value="0" selected>No renovar · solo agregar el paquete</option>
+      <option value="1">1 mes más</option>
+      <option value="3">3 meses más</option>
+      <option value="6">6 meses más</option>
+      <option value="12">12 meses más</option>
+    </select>
+    <div style="font-size:12.5px;color:var(--muted);margin-bottom:14px">Al renovar, los SPA-Tokens incluidos vuelven a correr cada mes y la vigencia se amplía sola.</div>
+
+    <input id="rec-vence" type="hidden">
+
+    <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Clave de administrador</label>
+    <input id="rec-adminkey" type="password" placeholder="Se guarda en este navegador" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#12100C;color:#fff;font-size:15px;font-family:inherit;margin-bottom:16px">
+
+    <button id="rec-enviar" class="btn" style="width:100%;background:linear-gradient(135deg,#D9B96E,#B08A3C);color:#211B0E;border:none;font-weight:800">Recargar</button>
+    <button id="rec-cerrar" class="btn" style="width:100%;margin-top:8px;background:transparent;color:var(--muted);border:none">Cerrar</button>
+    <div id="rec-aviso" style="margin-top:12px;font-size:14px;line-height:1.5;text-align:center;min-height:20px"></div>
+  </div>
+</div>
+
 <!-- ── V34/PASO D · MODAL: LÍDER DADO DE ALTA EN LÍNEA ── -->
 <div id="alta-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:201;align-items:center;justify-content:center;padding:20px;overflow-y:auto">
   <div style="max-width:430px;width:100%;background:var(--white);border-radius:18px;padding:26px 24px;border:1px solid rgba(212,175,55,.35);box-shadow:0 16px 48px rgba(0,0,0,.5)">
@@ -1658,9 +1698,19 @@ body.pres-mode .gm-row{max-width:80%}
       <input id="alta-codigo" type="text" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#12100C;color:#fff;font-size:17px;font-family:monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">
       <div style="font-size:12.5px;color:var(--muted);margin-bottom:14px">Corto y fácil de dictar por teléfono.</div>
 
-      <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Vence el</label>
-      <input id="alta-vence" type="date" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#12100C;color:#fff;font-size:16px;font-family:inherit;margin-bottom:4px">
-      <div style="font-size:12.5px;color:var(--muted);margin-bottom:14px">Déjalo vacío para acceso permanente.</div>
+      <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Contrato</label>
+      <select id="alta-meses" class="c2-sel" style="margin-bottom:4px">
+        <option value="1">1 mes · prueba o coaching mensual</option>
+        <option value="3">3 meses</option>
+        <option value="6" selected>6 meses</option>
+        <option value="12">12 meses</option>
+      </select>
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:14px">Los SPA-Tokens incluidos se renuevan cada mes durante el contrato y se detienen solos al terminar.</div>
+
+      <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">SPA-Tokens incluidos al mes</label>
+      <input id="alta-incluidos" type="number" min="1" step="1" value="10" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#12100C;color:#fff;font-size:16px;font-family:inherit;margin-bottom:14px">
+
+      <input id="alta-vence" type="hidden">
 
       <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Clave de administrador</label>
       <input id="alta-adminkey" type="password" placeholder="Se guarda en este navegador" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#12100C;color:#fff;font-size:15px;font-family:inherit;margin-bottom:16px">
@@ -2232,10 +2282,16 @@ function abrirAltaOnline() {
   document.getElementById('alta-codigo').value = codigoSugerido(cfg.spaName || cfg.name);
   document.getElementById('alta-adminkey').value = almacen.getItem('spa_admin_key') || '';
 
-  // Vencimiento por defecto: un año.
-  const enUnAno = new Date();
-  enUnAno.setFullYear(enUnAno.getFullYear() + 1);
-  document.getElementById('alta-vence').value = enUnAno.toISOString().slice(0, 10);
+  // V35 — La vigencia sale de la duración del contrato, con un mes de gracia
+  // para que el líder pueda gastar los paquetes que haya comprado.
+  const selMeses = document.getElementById('alta-meses');
+  const recalcularVigencia = () => {
+    const m = Number(selMeses.value) || 1;
+    const f = new Date();
+    f.setMonth(f.getMonth() + m);
+    document.getElementById('alta-vence').value = f.toISOString().slice(0, 10);
+  };
+  if (selMeses) { selMeses.onchange = recalcularVigencia; recalcularVigencia(); }
 
   const ov = document.getElementById('alta-overlay');
   ov.style.display = 'flex';
@@ -2279,7 +2335,9 @@ async function enviarAltaOnline() {
       body: JSON.stringify({
         mode: 'alta', adminKey: clave,
         codigo: codigo, cliente: cfg.spaName || cfg.name,
-        vence: vence || '', perfil: perfil
+        vence: vence || '', perfil: perfil,
+        meses: Number((document.getElementById('alta-meses')||{}).value) || 1,
+        incluidos: Number((document.getElementById('alta-incluidos')||{}).value) || 10
       })
     });
     const d = await res.json();
@@ -2302,6 +2360,84 @@ async function enviarAltaOnline() {
     document.getElementById('alta-cod-final').textContent = d.codigo;
     // Para armar el mensaje de bienvenida con el nombre y el saludo correcto.
     window.__altaDatos = { name: cfg.name || '', gender: cfg.gender || '' };
+  } catch (e) {
+    btn.disabled = false;
+    aviso.style.color = '#E58FA0';
+    aviso.textContent = 'Sin conexión con el servidor. Intenta de nuevo.';
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  V35 — RECARGA DE SPA-TOKENS
+//  Suma un paquete al saldo del líder y, si se indica,
+//  amplía su fecha de vencimiento. El paquete se conserva
+//  al cambiar de mes; lo incluido en la membresía no.
+// ══════════════════════════════════════════════════════
+function abrirRecarga() {
+  document.getElementById('rec-aviso').textContent = '';
+  document.getElementById('rec-codigo').value = '';
+  document.getElementById('rec-adminkey').value = almacen.getItem('spa_admin_key') || '';
+  // V35 — La vigencia se calcula de los meses de renovación, con un mes de gracia.
+  const selRecMeses = document.getElementById('rec-meses');
+  const recalcRec = () => {
+    const m = Number(selRecMeses.value) || 0;
+    if (!m) { document.getElementById('rec-vence').value = ''; return; }
+    const f = new Date();
+    f.setMonth(f.getMonth() + m);
+    document.getElementById('rec-vence').value = f.toISOString().slice(0, 10);
+  };
+  if (selRecMeses) { selRecMeses.value = '0'; selRecMeses.onchange = recalcRec; recalcRec(); }
+  const ov = document.getElementById('recarga-overlay');
+  ov.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarRecarga() {
+  document.getElementById('recarga-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+async function enviarRecarga() {
+  const aviso  = document.getElementById('rec-aviso');
+  const btn    = document.getElementById('rec-enviar');
+  const codigo = document.getElementById('rec-codigo').value.trim().toUpperCase();
+  const paq    = Number(document.getElementById('rec-paquete').value) || 5;
+  const vence  = document.getElementById('rec-vence').value;
+  const clave  = document.getElementById('rec-adminkey').value;
+
+  const mesesRec = Number((document.getElementById('rec-meses')||{}).value) || 0;
+  if (codigo.length < 4) { aviso.style.color = '#E58FA0'; aviso.textContent = 'Escribe el código del líder.'; return; }
+  if (!clave)            { aviso.style.color = '#E58FA0'; aviso.textContent = 'Falta la clave de administrador.'; return; }
+  if (!paq && !mesesRec) { aviso.style.color = '#E58FA0'; aviso.textContent = 'Elige un paquete o una renovación.'; return; }
+
+  btn.disabled = true;
+  aviso.style.color = 'var(--muted)';
+  aviso.textContent = 'Recargando…';
+
+  try {
+    const res = await fetch(MAKE_CHAT_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        mode:'recarga', adminKey: clave, codigo: codigo, creditos: paq,
+        vence: vence || '',
+        meses: Number((document.getElementById('rec-meses')||{}).value) || 0
+      })
+    });
+    const d = await res.json();
+    btn.disabled = false;
+
+    if (!d || !d.ok) {
+      aviso.style.color = '#E58FA0';
+      aviso.textContent = (d && d.motivo) || 'No se pudo recargar.';
+      return;
+    }
+    try { almacen.setItem('spa_admin_key', clave); } catch (e) {}
+    aviso.style.color = '#7FC974';
+    aviso.innerHTML = (d.agregados ? '✅ +' + d.agregados + ' SPA-Tokens.<br>' : '✅ Listo.<br>') +
+                      'Disponible ahora: <b>' + d.disponible + '</b>' +
+                      (d.incluidosHasta ? '<br>Contrato hasta ' + d.incluidosHasta : '') +
+                      (d.vence ? '<br>Acceso vigente hasta ' + d.vence : '');
   } catch (e) {
     btn.disabled = false;
     aviso.style.color = '#E58FA0';
@@ -6446,6 +6582,14 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   if (altaCerrar) altaCerrar.addEventListener('click', cerrarAltaOnline);
   const altaCopiar = document.getElementById('alta-copiar');
   if (altaCopiar) altaCopiar.addEventListener('click', copiarMensajeAlta);
+
+  // ── V35 — Recarga de SPA-Tokens ──
+  const btnRec = document.getElementById('btn-recarga');
+  if (btnRec) btnRec.addEventListener('click', abrirRecarga);
+  const recEnviar = document.getElementById('rec-enviar');
+  if (recEnviar) recEnviar.addEventListener('click', enviarRecarga);
+  const recCerrar = document.getElementById('rec-cerrar');
+  if (recCerrar) recCerrar.addEventListener('click', cerrarRecarga);
 
   document.getElementById('btn-cerrar-generated').addEventListener('click', () => {
     document.getElementById('spa-generated-overlay').style.display = 'none';
