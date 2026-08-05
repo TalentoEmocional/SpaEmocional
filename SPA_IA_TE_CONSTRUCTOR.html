@@ -1114,9 +1114,10 @@ body.pres-mode .gm-row{max-width:80%}
   <!-- ══ V34 — Dos ejes independientes: qué tipo de solución busca el líder,
        y con cuánta potencia trabajará el motor. Uno no condiciona al otro. ══ -->
   <div class="c2-block">
+    <label style="margin-top:0">⚙️ Motores a utilizar</label>
     <div class="c2-dos-ejes">
       <div>
-        <label style="margin-top:0">🧭 Tipo</label>
+        <label style="margin-top:0;font-size:11px">🧭 Tipo de Solución</label>
         <select id="m-solucion" class="c2-sel">
           <option value="PRAGMATICA">Pragmática · resolver rápido, con logros concretos</option>
           <option value="ESTRATEGICA" selected>Estratégica · resolver de manera objetiva y creativa</option>
@@ -1124,7 +1125,7 @@ body.pres-mode .gm-row{max-width:80%}
         </select>
       </div>
       <div>
-        <label style="margin-top:0">⚙️ Profundidad</label>
+        <label style="margin-top:0;font-size:11px">🤖 Modelo IA</label>
         <select id="m-depth" class="c2-sel">
           <option value="profundo">Máximo potencial · Fable 5 · máximo consumo</option>
           <option value="normal" selected>Poderoso equilibrio · Opus 5 · recomendada</option>
@@ -5337,17 +5338,17 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     if (c2Reto) state.profile.reto = c2Reto.value.trim();
     const moodPartes = c2MoodPartes();
     const moodPrefix = moodPartes ? 'Mi medición en el Mood Meter (puedo sentir varias emociones a la vez): ' + moodPartes + '.\n' : '';
-    // V34 — La profundidad sale del desplegable; los botones quedan como
-    // respaldo por si algún SPA antiguo aún los tuviera.
+    // V34 — El modelo elegido se guarda en el perfil, que es lo que el Worker
+    // lee para decidir. No viaja como marca en el mensaje.
     const selD = document.getElementById('m-depth');
-    const depthBtnSel = document.querySelector('.c2-depth-btn.sel');
-    const depthKey = (selD && selD.value)
-      ? selD.value.toUpperCase()
-      : (depthBtnSel ? depthBtnSel.dataset.depth.toUpperCase() : 'NORMAL');
+    if (selD && selD.value) state.profile.depth = selD.value;
     // V34 — Tipo de Solución: eje aparte, marca propia que el prompt lee.
     const selS = document.getElementById('m-solucion');
     const solucionKey = (selS && selS.value) ? selS.value.toUpperCase() : 'ESTRATEGICA';
-    const depthMarker = '\n[PROFUNDIDAD: ' + depthKey + ']\n[SOLUCION: ' + solucionKey + ']';
+    // V34 — Solo viaja el Tipo de Solución. El modelo lo resuelve el Worker
+    // antes de llamar a la API, así que el prompt ya corre dentro del elegido.
+    // Enviar [PROFUNDIDAD: ...] chocaría: para el prompt significa otra cosa.
+    const depthMarker = '\n[SOLUCION: ' + solucionKey + ']';
 
     // Barra de contexto que viaja al chat
     renderCtxBar();
@@ -5451,7 +5452,7 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     const depActual = (state.profile.depth) || (selDep && selDep.value) || 'normal';
     const infoDep = C2_DEPTH_INFO[depActual];
     if (infoDep) {
-      modelHtml += '<span class="ctx-mini-chip depth"><span class="lbl">Motor:</span> ' +
+      modelHtml += '<span class="ctx-mini-chip depth"><span class="lbl">Modelo:</span> ' +
                    infoDep.label.replace('Claude ','') + '</span>';
     }
     modelSide.innerHTML = modelHtml;
