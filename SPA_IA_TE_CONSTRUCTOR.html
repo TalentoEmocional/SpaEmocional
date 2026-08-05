@@ -123,7 +123,12 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 .c2-block{margin:14px auto 0;max-width:640px;width:calc(100% - 2rem);background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
 .c2-motto-line{font-size:14px;color:rgba(255,255,255,.48);text-align:center;line-height:1.4;
   margin-bottom:12px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,.07);font-weight:500}
+/* V35 — Títulos de la pantalla del líder en dorado intenso, como el resto
+   del sistema. Antes salían en gris y se perdían contra el fondo. */
+.c2-block > label{color:#C9A24E;font-weight:800;letter-spacing:.14em;font-size:12.5px}
+.c2-block .c2-dos-ejes label{color:#C9A24E;font-weight:700;letter-spacing:.1em}
 .c2-greeting{font-size:16px;color:var(--text);line-height:1.5;margin-bottom:14px;text-align:center}
+.c2-greeting b{color:#C9A24E;font-weight:800}
 .c2-greeting b{color:#fff;font-weight:700}
 .c2-greeting .bienestar{color:#C9A24E;font-weight:700}
 
@@ -1652,8 +1657,12 @@ body.pres-mode .gm-row{max-width:80%}
     <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;text-align:center">🔋 Recargar SPA-Tokens</div>
     <div style="font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:18px;text-align:center">El paquete se suma a lo que ya tiene y no se pierde al cambiar de mes.</div>
 
-    <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Código del líder</label>
-    <input id="rec-codigo" type="text" placeholder="SAM-2026" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#12100C;color:#fff;font-size:17px;font-family:monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px">
+    <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Líder</label>
+    <select id="rec-lista" class="c2-sel" style="margin-bottom:6px">
+      <option value="">— Teclea la clave y toca «Cargar líderes» —</option>
+    </select>
+    <button id="rec-cargar" class="btn" style="width:100%;margin-bottom:10px;padding:9px;background:transparent;color:#D9B96E;border:1px solid rgba(201,162,78,.4);font-size:13.5px;font-weight:700">↻ Cargar líderes</button>
+    <input id="rec-codigo" type="text" placeholder="o escribe el código" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#12100C;color:#fff;font-size:17px;font-family:monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px">
 
     <label style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9A24E;font-weight:700;margin-bottom:5px">Paquete extra</label>
     <select id="rec-paquete" class="c2-sel" style="margin-bottom:4px">
@@ -2395,6 +2404,43 @@ function abrirRecarga() {
 function cerrarRecarga() {
   document.getElementById('recarga-overlay').style.display = 'none';
   document.body.style.overflow = '';
+}
+
+async function cargarListaLideres() {
+  const aviso = document.getElementById('rec-aviso');
+  const clave = document.getElementById('rec-adminkey').value;
+  const sel   = document.getElementById('rec-lista');
+  if (!clave) { aviso.style.color = '#E58FA0'; aviso.textContent = 'Teclea primero la clave de administrador.'; return; }
+
+  aviso.style.color = 'var(--muted)';
+  aviso.textContent = 'Consultando…';
+  try {
+    const res = await fetch(MAKE_CHAT_WEBHOOK, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mode: 'lista', adminKey: clave })
+    });
+    const d = await res.json();
+    if (!d || !d.ok) {
+      aviso.style.color = '#E58FA0';
+      aviso.textContent = (d && d.motivo) || 'No se pudo obtener el listado.';
+      return;
+    }
+    try { almacen.setItem('spa_admin_key', clave); } catch (e) {}
+
+    sel.innerHTML = '<option value="">— Elige un líder —</option>';
+    d.lideres.forEach(l => {
+      const o = document.createElement('option');
+      o.value = l.codigo;
+      const saldo = (l.disponible === null || l.disponible === undefined) ? 'sin saldo' : l.disponible + ' SPA-T';
+      o.textContent = (l.cliente || l.codigo) + '  ·  ' + saldo;
+      sel.appendChild(o);
+    });
+    aviso.style.color = '#7FC974';
+    aviso.textContent = d.lideres.length + ' líderes cargados.';
+  } catch (e) {
+    aviso.style.color = '#E58FA0';
+    aviso.textContent = 'Sin conexión con el servidor.';
+  }
 }
 
 async function enviarRecarga() {
@@ -6586,6 +6632,13 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   // ── V35 — Recarga de SPA-Tokens ──
   const btnRec = document.getElementById('btn-recarga');
   if (btnRec) btnRec.addEventListener('click', abrirRecarga);
+  const recCargar = document.getElementById('rec-cargar');
+  if (recCargar) recCargar.addEventListener('click', cargarListaLideres);
+  const recLista = document.getElementById('rec-lista');
+  if (recLista) recLista.addEventListener('change', () => {
+    const c = document.getElementById('rec-codigo');
+    if (c && recLista.value) c.value = recLista.value;
+  });
   const recEnviar = document.getElementById('rec-enviar');
   if (recEnviar) recEnviar.addEventListener('click', enviarRecarga);
   const recCerrar = document.getElementById('rec-cerrar');
