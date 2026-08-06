@@ -2,7 +2,7 @@
 <html lang="es"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPA Emocional IA PREMIUM V34 · Santiago Delgado</title>
+<title>SPA Emocional IA PREMIUM V35 · Santiago Delgado</title>
 <script id="spa-cfg">window.SPA_FROZEN=null;</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <style>
@@ -126,7 +126,7 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 /* V35 — Títulos de la pantalla del líder en dorado intenso, como el resto
    del sistema. Antes salían en gris y se perdían contra el fondo. */
 .c2-block > label{color:#C9A24E;font-weight:800;letter-spacing:.14em;font-size:12.5px}
-.c2-block .c2-dos-ejes label{color:#C9A24E;font-weight:700;letter-spacing:.1em}
+.c2-block .c2-dos-ejes label{color:#FFFFFF;font-weight:800;letter-spacing:.1em}
 .c2-greeting{font-size:16px;color:var(--text);line-height:1.5;margin-bottom:14px;text-align:center}
 .c2-greeting b{color:#C9A24E;font-weight:800}
 .c2-greeting b{color:#fff;font-weight:700}
@@ -366,17 +366,22 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 /* ── V34 — ENCABEZADO EDITORIAL ─────────────────────────────
    Ceja dorada espaciada, nombre en serif, y riel FIJO con
    reto + emociones + profundidad: nada se va con el scroll. */
+/* V35 — Mismo fondo que el muelle inferior: antes el encabezado tiraba a café
+   y abajo era neutro; los dos marcos ahora coinciden. */
 .chat-hdr-sticky-wrap{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:880px;z-index:30;overflow:hidden;border-radius:0 0 20px 20px;
-  background:linear-gradient(180deg,#1C1913 0%,#18160F 100%);
-  border-bottom:1px solid rgba(201,162,78,.22);
-  box-shadow:0 10px 30px rgba(0,0,0,.55), 0 1px 0 rgba(201,162,78,.12) inset}
+  background:#232220;
+  border-bottom:1px solid rgba(201,162,78,.28);
+  box-shadow:0 10px 30px rgba(0,0,0,.55), 0 1px 0 rgba(201,162,78,.10) inset}
 .chat-hdr{background:transparent;padding:12px 14px 0;display:flex;align-items:flex-start;justify-content:center;position:relative}
 .chat-hdr .back-btn{position:absolute;left:12px;top:12px}
+/* V35 — Sello de marca junto a la flecha de regreso, sin estorbarla. */
+.hdr-nudo{position:absolute;left:58px;top:14px;width:26px;height:auto;opacity:.92}
+@media(max-width:560px){ .hdr-nudo{left:46px;top:11px;width:21px} }
 .chat-hdr-stack{display:flex;flex-direction:column;align-items:center;gap:2px;max-width:82%}
-.chat-eyebrow{font-size:10px;letter-spacing:.32em;color:#C9A24E;text-transform:uppercase;font-weight:700;text-align:center}
+.chat-eyebrow{font-size:10px;letter-spacing:.32em;color:#E8C879;text-transform:uppercase;font-weight:800;text-align:center}
 .chat-client-line{color:#F1ECDF;font-size:21px;font-weight:700;text-align:center;line-height:1.2;
   font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif}
-.chat-client-line .bien-em{font-style:italic;font-weight:400;color:#D9B96E;font-size:16px}
+.chat-client-line .bien-em{font-style:italic;font-weight:400;color:#E8C879;font-size:16px}
 .chat-hdr .status{position:absolute;right:14px;top:16px}
 .hdr-rail-v34{width:100%;display:flex;align-items:center;gap:7px;flex-wrap:wrap;
   padding:9px 14px 11px;margin-top:8px;border-top:1px solid rgba(201,162,78,.14);box-sizing:border-box}
@@ -398,7 +403,10 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 .ctx-mini-chip .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .ctx-mini-chip.reto{border-color:rgba(201,162,78,.45);color:#D9B96E;
   background:linear-gradient(180deg,rgba(201,162,78,.14),rgba(201,162,78,.05))}
-.ctx-mini-chip.reto span:last-child{overflow:hidden;text-overflow:ellipsis}
+/* V35 — El reto se acorta para que Tipo y Modelo quepan en el mismo renglón. */
+.ctx-mini-chip.reto{max-width:46%;min-width:0}
+.ctx-mini-chip.reto span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+@media(max-width:560px){ .ctx-mini-chip.reto{max-width:none} }
 .ctx-mini-chip.depth{color:#C9A24E;border-color:rgba(201,162,78,.4)}
 .ctx-mini-chip .lbl{color:#C9A24E;font-weight:800}
 .status.loading{background:#F59E0B}
@@ -413,7 +421,21 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 #screen-chat .toolbar-row,#screen-chat .input-row{max-width:880px;margin-left:auto;margin-right:auto;width:100%;box-sizing:border-box}
 .msg-row{display:flex;align-items:flex-end;gap:8px}
 .msg-row.user{justify-content:flex-end}
-.ai-icon{width:28px;height:28px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;flex-shrink:0;margin-bottom:2px}
+/* V35 — Lápiz de corrección: discreto, junto a la burbuja del líder. */
+.edit-btn{background:transparent;border:1px solid rgba(201,162,78,.35);border-radius:50%;width:26px;height:26px;
+  cursor:pointer;font-size:12px;opacity:.55;flex-shrink:0;padding:0;align-self:flex-end;transition:opacity .2s}
+.edit-btn:hover{opacity:1;border-color:#C9A24E}
+/* V35 — Interruptor de seguimiento */
+.sw-hist{position:relative;display:inline-block;width:46px;height:26px;flex-shrink:0;cursor:pointer}
+.sw-hist input{opacity:0;width:0;height:0;position:absolute}
+.sw-pista{position:absolute;inset:0;background:rgba(255,255,255,.12);border:1px solid var(--border);border-radius:26px;transition:.25s}
+.sw-pista::before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#8A8578;border-radius:50%;transition:.25s}
+.sw-hist input:checked + .sw-pista{background:rgba(201,162,78,.28);border-color:#C9A24E}
+.sw-hist input:checked + .sw-pista::before{transform:translateX(20px);background:#E8C879}
+/* V35 — El avatar del SPA es el nudo de Talento Emocional: quien responde
+   es la metodología, no un asistente genérico. */
+.ai-icon{width:28px;height:28px;border-radius:50%;background:rgba(201,162,78,.10);border:1px solid rgba(201,162,78,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:2px;overflow:hidden}
+.ai-icon img{width:18px;height:auto;display:block}
 /* V34 — 17.5px con interlínea generosa: se lee mejor que 23px apretado. */
 .bubble{max-width:90%;padding:14px 18px;border-radius:18px;font-size:17.5px;line-height:1.62;white-space:pre-wrap;word-break:break-word;letter-spacing:.005em;font-weight:400}
 .bubble.ai{background:transparent;border:none;color:var(--text);font-weight:400;padding:14px 0;max-width:100%}
@@ -488,6 +510,12 @@ textarea{min-height:72px;resize:vertical;line-height:1.55}
 .input-row{background:#232220;border-top:1px solid rgba(255,255,255,.08);padding:14px;display:flex;gap:10px;align-items:flex-end}
 /* V34 — Muelle inferior fijo: contiene adjunto + toolbar + escritura. */
 .bottom-dock{position:fixed;bottom:0;left:0;right:0;z-index:30;box-shadow:0 -8px 30px rgba(0,0,0,.45)}
+/* V35 — Botón de contacto siempre a la vista, en dorado y blanco. */
+.sos-fab{position:fixed;right:18px;z-index:31;width:46px;height:46px;border-radius:50%;cursor:pointer;
+  background:linear-gradient(135deg,#E8C879,#B08A3C);color:#211B0E;border:2px solid rgba(255,255,255,.35);
+  font-size:21px;line-height:1;box-shadow:0 6px 20px rgba(0,0,0,.45);transition:transform .18s}
+.sos-fab:hover{transform:scale(1.07)}
+@media(max-width:560px){ .sos-fab{right:12px;width:42px;height:42px;font-size:19px} }
 /* El colchón real lo fija ajustarAlturaHeaderChat() midiendo el muelle. */
 #screen-chat .msgs{padding-bottom:150px}
 .msg-inp{flex:1;padding:14px 18px;border:1px solid rgba(255,255,255,.14);border-radius:28px;font-size:19px;font-family:inherit;resize:none;outline:none;min-height:74px;max-height:160px;line-height:1.6;background:#2E2C28;color:#fff;transition:border-color .2s}
@@ -761,7 +789,7 @@ body.pres-mode .gm-row{max-width:80%}
 <!-- ── SCREEN: API KEY ── -->
 <div id="screen-key" class="screen">
   <div class="hdr">
-    <div class="badge">💆 SPA EMOCIONAL IA PREMIUM · V34</div>
+    <div class="badge">💆 SPA EMOCIONAL IA PREMIUM · V35</div>
     <h1 style="font-size:24px">Bienvenido a tu SPA</h1>
     <p>Ingresa tu API Key de Anthropic para comenzar</p>
   </div>
@@ -785,7 +813,7 @@ body.pres-mode .gm-row{max-width:80%}
 <div id="screen-setup" class="screen">
   <div class="hdr">
     <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:1rem;position:relative">
-      <div class="badge" style="margin-bottom:0">🛠️ CONSTRUCCIÓN · MODO COACH · V34</div>
+      <div class="badge" style="margin-bottom:0">🛠️ CONSTRUCCIÓN · MODO COACH · V35</div>
       <button class="fb-dot-btn" id="btn-feedback-setup" title="Feedback / Soporte" style="position:absolute;right:0;top:50%;transform:translateY(-50%)"></button>
     </div>
     <h1 style="font-size:24px">Construye el SPA de tu cliente</h1>
@@ -1242,6 +1270,7 @@ body.pres-mode .gm-row{max-width:80%}
     <div class="chat-hdr-sticky-wrap">
       <div class="chat-hdr">
         <button class="back-btn" id="btn-back">‹</button>
+        <img class="hdr-nudo" src="" alt="Talento Emocional">
         <div class="chat-hdr-stack">
           <div class="chat-eyebrow" id="chat-eyebrow">SPA Emocional IA · Premium</div>
           <div class="chat-client-line" id="chat-subtitle">—</div>
@@ -1259,6 +1288,10 @@ body.pres-mode .gm-row{max-width:80%}
     <div class="msgs" id="msgs-area">
       <div class="empty-chat">Iniciando sesión...</div>
     </div>
+    <!-- V35 — Botón de contacto siempre visible: es la vía para pedir
+         recarga o ayuda sin salir de la sesión. -->
+    <button class="sos-fab" id="sos-fab" title="Contactar a Talento Emocional">🛟</button>
+
     <!-- V34 — Muelle inferior fijo: toolbar + escritura siempre visibles -->
     <div class="bottom-dock" id="bottom-dock">
     <div id="attach-strip" style="display:none;background:var(--white);border-top:1px solid var(--border);padding:6px 14px;font-size:15px;color:var(--navy-text);font-weight:600;align-items:center;gap:8px">📎 <span id="attach-name"></span> <button id="attach-remove" style="background:none;border:none;color:var(--wine);cursor:pointer;font-size:16px;font-weight:700">✕</button></div>
@@ -1293,6 +1326,25 @@ body.pres-mode .gm-row{max-width:80%}
   </div>
   <button class="back-link" id="hist-back">‹ Volver al menú</button>
   <div style="height:14px"></div>
+
+  <!-- V35 — Interruptor real de seguimiento. El Disclaimer lo prometía
+       y no existía; ahora el líder decide si su historial se guarda. -->
+  <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:15px 17px;margin-bottom:16px">
+    <div style="display:flex;align-items:flex-start;gap:13px">
+      <label class="sw-hist" style="margin:2px 0 0">
+        <input type="checkbox" id="hist-toggle">
+        <span class="sw-pista"></span>
+      </label>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:15px;font-weight:700;color:var(--text)">Guardar el seguimiento de mi proceso</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.5;margin-top:3px">
+          Tus sesiones se guardan <b>solo en este dispositivo</b>, en tu navegador. No viajan a ningún servidor y Talento Emocional no puede leerlas.
+          Si lo apagas, dejarán de guardarse y se borrará lo que haya.
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="hist-list" id="hist-list"></div>
   <button class="hist-clear" id="hist-clear" style="display:none">Borrar todo el historial</button>
   <p class="copy">Talento Emocional by © Santiago Delgado · Todos los derechos reservados</p>
@@ -1404,6 +1456,7 @@ body.pres-mode .gm-row{max-width:80%}
   <div style="max-width:760px;margin:0 auto">
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-bottom:10px;position:sticky;top:0;z-index:5;flex-wrap:wrap">
       <button id="btn-download-pdf" style="background:#C9A24E;color:#1A1A1A;border:none;padding:10px 16px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">⬇ Exportar PDF</button>
+      <button id="btn-download-html" style="background:transparent;color:#E8C879;border:1px solid rgba(201,162,78,.5);padding:10px 16px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">💾 Guardar HTML</button>
       <button id="btn-close-resumen" style="background:#2A2E36;color:#ECECEA;border:none;padding:10px 16px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer">✕ Cerrar</button>
     </div>
     <div id="resumen-loading" style="background:var(--white);border-radius:12px;padding:3rem 2rem;text-align:center;color:var(--muted)">
@@ -1573,7 +1626,9 @@ body.pres-mode .gm-row{max-width:80%}
     <input type="text" id="fb-name" placeholder="¿Cómo te llamas?">
     <div style="display:flex;gap:8px;margin-top:16px">
       <button id="fb-save" class="btn" style="margin-top:0;flex:1;background:#1A2233;color:var(--navy-text);border:1px solid var(--border)">Guardar</button>
-      <button id="fb-send" class="btn btn-navy" style="margin-top:0;flex:1.4">📧 Enviar a soporte</button>
+      <button id="fb-telegram" class="btn" style="margin-top:0;flex:1.4;background:linear-gradient(135deg,#D9B96E,#B08A3C);color:#211B0E;border:none;font-weight:800">✈️ Enviar por Telegram</button>
+      <button id="fb-copiar" class="btn" style="margin-top:0;flex:1;background:transparent;color:#D9B96E;border:1px solid rgba(201,162,78,.45);font-weight:700">📋 Copiar</button>
+      <button id="fb-send" class="btn" style="margin-top:0;flex:1;background:transparent;color:#B9B3A4;border:1px solid var(--border)">✉️ Correo</button>
     </div>
     <div id="fb-done" style="display:none;text-align:center;color:var(--green);font-size:16px;font-weight:600;margin-top:12px">✓ ¡Gracias! Tu mensaje fue registrado.</div>
   </div>
@@ -2092,6 +2147,17 @@ function mensajeDeError(e) {
   const st = e && e.httpStatus;
   if (st === 401) return 'Este SPA aún no está activado. Contacta a Talento Emocional para habilitarlo.';
   if (st === 429) return 'Has alcanzado el uso previsto para hoy. Tu SPA vuelve a estar disponible mañana.';
+  // V35 — Saldo agotado: se dice con claridad y se ofrece la salida.
+  if (st === 402) {
+    const p = state.profile || {};
+    const quien = p.name ? p.name + ', s' : 'S';
+    const prox = new Date();
+    prox.setMonth(prox.getMonth() + 1, 1);
+    const mesTxt = prox.toLocaleDateString('es-MX', { day: 'numeric', month: 'long' });
+    return quien + 'e agotaron tus SPA-Tokens de este mes.\n\n' +
+           'Se renuevan solos el ' + mesTxt + '. Si los necesitas antes, toca el botón 🛟 de abajo ' +
+           'y pide tu recarga: el mensaje ya va listo con tus datos.';
+  }
   return 'El SPA está teniendo un momento de conexión. Intenta de nuevo en unos segundos.';
 }
 
@@ -2905,6 +2971,8 @@ function lomoFaseHtml(n) {
 }
 
 function renderMessages() {
+  // V35 — Los avatares se rellenan al final de esta función.
+
   let suprimirScrollRender = window.__suprimirScrollRender || false;
   const area = document.getElementById('msgs-area');
   if (state.messages.length === 0) {
@@ -2912,27 +2980,64 @@ function renderMessages() {
     return;
   }
   const primeraIA = state.messages.findIndex(m => m.role === 'assistant');
+  // V35 — Índice del último mensaje del líder, para ofrecer la corrección.
+  let ultimoUser = -1;
+  state.messages.forEach((m, k) => { if (m.role === 'user') ultimoUser = k; });
   area.innerHTML = state.messages.map((msg, i) => {
     if (msg.role === 'user') {
       const chip = (msg.attach && msg.attach.length) ? '<div style="font-size:14px;opacity:.85;margin-bottom:4px">📎 ' + msg.attach.map(a => escHtml(a.name)).join(', ') + '</div>' : '';
       const visible = displayUserContent(msg.content);
       if (!visible) return ''; // mensaje puramente técnico (raro) — no se muestra burbuja vacía
-      return `<div class="msg-row user"><div class="bubble user">${chip}${escHtml(visible)}</div></div>`;
+      // V35 — Corregir el último mensaje: una sola vez, y solo el último.
+      const editable = (i === ultimoUser) && !state.yaEdito && !state.loading && i > 0;
+      const lapiz = editable ? `<button class="edit-btn" onclick="editarUltimo()" title="Corregir este mensaje">✏️</button>` : '';
+      return `<div class="msg-row user">${lapiz}<div class="bubble user">${chip}${escHtml(visible)}</div></div>`;
     } else {
       // V34 — Lomo de fase: color, número y letras verticales según la fase detectada.
       // La bienvenida (primera respuesta) va siempre en neutro: aún no hay recorrido.
       const nf = (i === primeraIA) ? 0 : detectarFase(msg.content);
       const cls = nf ? ' tiene-fase fw-f' + nf : '';
-      return `<div class="msg-row ai"><div class="ai-icon">💆</div><div class="fase-wrap${cls}">${lomoFaseHtml(nf)}<div class="bubble ai">${mdToHtml(limpiarMarcaFase(msg.content))}</div></div><button class="tts-btn" onclick="speakMsg(${i})" title="Escuchar / detener">🔊</button></div>`;
+      return `<div class="msg-row ai"><div class="ai-icon"><img src="" alt=""></div><div class="fase-wrap${cls}">${lomoFaseHtml(nf)}<div class="bubble ai">${mdToHtml(limpiarMarcaFase(msg.content))}</div></div><button class="tts-btn" onclick="speakMsg(${i})" title="Escuchar / detener">🔊</button></div>`;
     }
   }).join('');
   if (state.loading) {
-    area.innerHTML += `<div class="msg-row ai"><div class="ai-icon">💆</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+    area.innerHTML += `<div class="msg-row ai"><div class="ai-icon"><img src="" alt=""></div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
   }
+  colocarLogos();   // V35 — avatares de las burbujas recién pintadas
   if (!suprimirScrollRender) {
     area.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
 }
+
+// ══════════════════════════════════════════════════════
+//  V35 — CORREGIR EL ÚLTIMO MENSAJE
+//  Devuelve el texto a la caja, borra el intercambio y
+//  permite reenviarlo. Una sola vez por sesión: cubre el
+//  error de dedo sin abrir la puerta a rehacer la sesión.
+// ══════════════════════════════════════════════════════
+window.editarUltimo = function () {
+  if (state.loading || state.yaEdito) return;
+  let idx = -1;
+  state.messages.forEach((m, k) => { if (m.role === 'user') idx = k; });
+  if (idx <= 0) return;
+
+  const texto = displayUserContent(state.messages[idx].content);
+  if (!confirm('¿Corregir tu último mensaje?\n\nSe borrará la respuesta del SPA y podrás escribirlo de nuevo. Solo puede hacerse una vez.')) return;
+
+  // Se elimina el mensaje y todo lo que vino después.
+  state.messages = state.messages.slice(0, idx);
+  state.yaEdito = true;
+  saveSession();
+  renderMessages();
+
+  const inp = document.getElementById('msg-input');
+  if (inp) {
+    inp.value = texto;
+    inp.focus();
+    inp.style.height = 'auto';
+    inp.style.height = Math.min(inp.scrollHeight, 150) + 'px';
+  }
+};
 
 function escHtml(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
@@ -2944,6 +3049,10 @@ function speakMsg(i) {
   speakText(msg.content, btns[i] || null);
 }
 window.speakMsg = speakMsg;
+
+// V35 — Nudo de Talento Emocional incrustado: se usa como avatar del SPA
+// y como sello en los encabezados. No depende de ningún archivo externo.
+const LOGO_TE_MINI = 'data:image/png;base64,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';
 
 // V34 — Si el modelo escribe una entidad HTML («&nbsp;», «&amp;», «&mdash;»),
 // el escapado posterior la convertiría en texto literal en pantalla. Se
@@ -3102,7 +3211,8 @@ function crearBurbujaIAStreaming() {
   const area = document.getElementById('msgs-area');
   const escribiendo = area.querySelector('.msg-row.ai:last-child .typing');
   if (escribiendo) escribiendo.closest('.msg-row').remove();
-  area.insertAdjacentHTML('beforeend', '<div class="msg-row ai"><div class="ai-icon">💆</div><div class="fase-wrap"><div class="fase-spine"></div><div class="bubble ai"></div></div></div>');
+  area.insertAdjacentHTML('beforeend', '<div class="msg-row ai"><div class="ai-icon"><img src="" alt=""></div><div class="fase-wrap"><div class="fase-spine"></div><div class="bubble ai"></div></div></div>');
+  colocarLogos();   // V35
 }
 function actualizarBurbujaIAStreaming(texto) {
   const area = document.getElementById('msgs-area');
@@ -3160,6 +3270,7 @@ function sessionKey() {
 }
 function saveSession() {
   try {
+    if (!seguimientoActivo()) return;   // V35
     almacen.setItem(sessionKey(), JSON.stringify(state.messages));
   } catch(e) {}
 }
@@ -3381,10 +3492,13 @@ function renderResumen(d) {
 function descargarPDFResumen() {
   const sheet = document.getElementById('resumen-sheet');
   if (!sheet) { alert('Primero genera el resumen.'); return; }
-  const c = '<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Hoja Resumen · SPA Emocional AI</title></head><body style="margin:0;padding:20px;background:#F2F1ED">' + sheet.outerHTML + '</body></html>';
+  // V35 — Antes se abría la ventana SIN los estilos de la página: por eso el
+  // PDF perdía el diseño y apilaba las tarjetas. Ahora viajan completos,
+  // más las reglas de impresión que evitan cortar bloques a la mitad.
+  const c = fullReportHTML();
   const w = window.open('', '_blank');
   w.document.write(c); w.document.close(); w.focus();
-  setTimeout(() => { w.focus(); w.print(); }, 600);
+  setTimeout(() => { w.focus(); w.print(); }, 800);
 }
 
 // ── Selector de documento para exportar en PDF ──
@@ -3417,6 +3531,8 @@ function exportarDocComoPDF(idx) {
   const c = '<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Documento · SPA Emocional AI</title>'
     + '<style>body{font-family:Georgia,serif;font-size:13pt;line-height:1.7;margin:2.5cm;color:#1A1A1A}'
     + '.meta{font-size:10pt;color:#777;margin-bottom:24px;border-bottom:1px solid #ccc;padding-bottom:10px}'
+    + 'p,div,li,blockquote{break-inside:avoid;page-break-inside:avoid}'
+    + 'h1,h2,h3,.md-h1,.md-h2,.md-h3{break-after:avoid;page-break-after:avoid}'
     + '@media print{body{margin:2cm}}</style></head><body>'
     + '<div class="meta">' + (state.profile.name || '') + ' &middot; ' + fecha + '</div>'
     + cuerpo + '</body></html>';
@@ -3425,10 +3541,44 @@ function exportarDocComoPDF(idx) {
   document.getElementById('doc-pdf-overlay').style.display = 'none'; document.getElementById('doc-pdf-overlay').classList.remove('mostrar');
   setTimeout(() => { w.focus(); w.print(); }, 600);
 }
+// V35 — La Hoja Resumen se guarda como HTML con TODOS sus estilos, para que
+// el líder la abra en cualquier navegador y se vea igual que en pantalla.
+function estilosDeLaPagina() {
+  let css = '';
+  document.querySelectorAll('style').forEach(e => { css += e.textContent + '\n'; });
+  return css;
+}
+
+function reglasImpresionResumen() {
+  // Fondos que sí se imprimen, tarjetas que no se parten, y paleta clara al
+  // imprimir: en pantalla luce oscuro; en papel y PDF, legible y compartible.
+  return '@media print{' +
+    '*{-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
+    '@page{size:letter portrait;margin:12mm}' +
+    'body{background:#fff!important;padding:0!important}' +
+    '.rs-card,.rs-box,.rs-panel,.rs-grid>*{break-inside:avoid;page-break-inside:avoid}' +
+    'p,li,tr{break-inside:avoid;page-break-inside:avoid}' +
+    '}';
+}
+
 function fullReportHTML() {
   const sheet = document.getElementById('resumen-sheet');
   if (!sheet) return null;
-  return '<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Hoja Resumen · SPA Emocional AI</title></head><body style="margin:0;padding:20px;background:#F2F1ED">' + sheet.outerHTML + '</body></html>';
+  return '<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+    '<title>Hoja Resumen · SPA Emocional IA</title><style>' +
+    estilosDeLaPagina() + reglasImpresionResumen() +
+    '</style></head><body style="margin:0;padding:20px;background:#F2F1ED">' +
+    sheet.outerHTML + '</body></html>';
+}
+
+// Descarga la Hoja Resumen como archivo HTML.
+function descargarResumenHTML() {
+  const html = fullReportHTML();
+  if (!html) { alert('Primero genera tu Hoja Resumen.'); return; }
+  const nombre = 'Hoja_Resumen_' + slugArchivo((state.profile && state.profile.name) || 'lider') +
+                 '_' + new Date().toISOString().slice(0, 10) + '.html';
+  descargarBlobFile(html, 'text/html;charset=utf-8', nombre);
 }
 function descargarBlobFile(content, mime, filename) {
   const blob = new Blob(['\ufeff' + content], { type: mime });
@@ -4234,7 +4384,7 @@ function profileFromConfig(c) {
 //  El SPA descarga la plantilla más reciente, le inyecta su
 //  propio perfil congelado y genera el archivo actualizado.
 // ══════════════════════════════════════════════════════
-const SPA_VERSION = 'V34';
+const SPA_VERSION = 'V35';
 const SPA_UPDATE_URL = 'https://raw.githubusercontent.com/TalentoEmocional/SpaEmocional/main/SPA_IA_TE_CONSTRUCTOR.html'; // ← URL fija, nombre sin versión — nunca cambia
 
 async function updateSpaFromTemplate() {
@@ -4372,7 +4522,24 @@ function loadHistory() {
   try { return JSON.parse(almacen.getItem(historyKey()) || '[]'); }
   catch (e) { return []; }
 }
+// V35 — El líder decide si su proceso se guarda. Por omisión está activo:
+// es lo que ya ocurría, y así el que no toque nada no pierde continuidad.
+function seguimientoActivo() {
+  try { return almacen.getItem('spa_seguimiento') !== 'off'; }
+  catch (e) { return true; }
+}
+
+function fijarSeguimiento(activo) {
+  try { almacen.setItem('spa_seguimiento', activo ? 'on' : 'off'); } catch (e) {}
+  if (!activo) {
+    // Al apagarlo se borra lo guardado: es lo que promete el aviso.
+    try { almacen.removeItem(historyKey()); } catch (e) {}
+    try { almacen.removeItem(sessionKey()); } catch (e) {}
+  }
+}
+
 function persistHistory(hist) {
+  if (!seguimientoActivo()) return;   // V35 — el líder lo tiene apagado
   // Conserva imagen solo en las 4 más recientes para cuidar el espacio
   hist.forEach((h, i) => { if (i >= 4 && h.img) h.img = null; });
   const key = historyKey();
@@ -4693,13 +4860,16 @@ function loadFeedback() {
 function persistFeedback(arr) {
   try { almacen.setItem('spa_v3_feedback', JSON.stringify(arr.slice(0, 100))); } catch(e) {}
 }
-function openFeedback() {
+function openFeedback(tipoInicial) {
   document.getElementById('fb-message').value = '';
   document.getElementById('fb-name').value = (state.profile && state.profile.name) ? state.profile.name : '';
   document.getElementById('fb-done').style.display = 'none';
-  document.getElementById('fb-type').selectedIndex = 0;
+  // V35 — Si se abre desde el aviso de saldo, llega listo para pedir recarga.
+  const selTipo = document.getElementById('fb-type');
+  if (tipoInicial) { selTipo.value = tipoInicial; }
+  else { selTipo.selectedIndex = 0; }
   const tb = document.getElementById('fb-token-block');
-  if (tb) tb.style.display = 'none';
+  if (tb) tb.style.display = (selTipo.value === 'Tokens') ? 'block' : 'none';
   document.getElementById('feedback-overlay').style.display = 'block';
   document.body.style.overflow = 'hidden';
 }
@@ -4742,12 +4912,42 @@ function feedbackDone() {
     document.body.style.overflow = '';
   }, 1400);
 }
+// V35 — El mensaje que se envía por cualquier vía, ya con los datos del líder.
+const TELEGRAM_TE = 'https://t.me/talentoemocional';
+
+function textoFeedback(fb) {
+  const p = state.profile || {};
+  const saldo = (p.spaTokens !== null && p.spaTokens !== undefined) ? p.spaTokens + ' SPA-Tokens' : '';
+  return 'SPA Emocional IA · ' + fb.type + '\n' +
+         'De: ' + (fb.name || p.name || 'sin nombre') + '\n' +
+         (p.codigo ? 'Código: ' + p.codigo + '\n' : '') +
+         (saldo ? 'Saldo: ' + saldo + '\n' : '') +
+         'Fecha: ' + new Date(fb.fecha).toLocaleString('es-MX') + '\n\n' +
+         fb.message;
+}
+
+function enviarPorTelegram() {
+  const fb = collectFeedback();
+  if (!fb) return;
+  saveFeedbackLocal(fb);
+  // Telegram no permite prellenar al escribir a una persona: se copia primero.
+  copiarAlPortapapeles(textoFeedback(fb), document.getElementById('fb-telegram'), '✈️ Enviar por Telegram');
+  setTimeout(() => { window.open(TELEGRAM_TE, '_blank'); }, 500);
+  setTimeout(feedbackDone, 900);
+}
+
+function copiarFeedback() {
+  const fb = collectFeedback();
+  if (!fb) return;
+  copiarAlPortapapeles(textoFeedback(fb), document.getElementById('fb-copiar'), '📋 Copiar');
+}
+
 function sendFeedbackMail() {
   const fb = collectFeedback();
   if (!fb) return;
   saveFeedbackLocal(fb);
   const subject = 'SPA Feedback [' + fb.type + '] — ' + fb.spa;
-  const body = 'Tipo: ' + fb.type + '\nSPA: ' + fb.spa + '\nDe: ' + (fb.name || 'anónimo') + '\nFecha: ' + new Date(fb.fecha).toLocaleString('es-MX') + '\n\nMensaje:\n' + fb.message;
+  const body = textoFeedback(fb);
   window.location.href = 'mailto:' + encodeURIComponent(SUPPORT_EMAIL) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   feedbackDone();
 }
@@ -4887,12 +5087,21 @@ function ensureMinRows() {
 // ══════════════════════════════════════════════════════
 //  EVENT LISTENERS
 // ══════════════════════════════════════════════════════
+// V35 — Coloca el nudo en avatares y encabezados. Se llama al arrancar y
+// cada vez que se pinta una burbuja nueva.
+function colocarLogos() {
+  document.querySelectorAll('.ai-icon img, .hdr-nudo').forEach(i => {
+    if (!i.getAttribute('src')) i.src = LOGO_TE_MINI;
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // V33 — El SPA arrancó: se retira la red de seguridad.
   window.__spaArranco = true;
   const avisoArranque = document.getElementById('aviso-arranque');
   if (avisoArranque) avisoArranque.remove();
+  colocarLogos();
 
   // Cierre defensivo desde el arranque: ningún overlay debe verse al cargar la página
   ['resumen-overlay', 'group-resumen-overlay', 'doc-pdf-overlay', 'mood-overlay'].forEach(overlayId => {
@@ -4914,6 +5123,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (FROZEN.modo === 'hosted') {
       const blq = document.getElementById('bloque-actualizar');
       if (blq) blq.style.display = 'none';
+      // V35 — Si la página llegó del servidor, el JavaScript ya corre:
+      // la pantalla de aviso no tiene función y alcanzaba a verse al entrar.
+      const av = document.getElementById('aviso-arranque');
+      if (av) av.remove();
     }
     state.profile = profileFromConfig(FROZEN);
     // V31/A1 — Ya no se carga ninguna API key desde el FROZEN.
@@ -5599,6 +5812,9 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     const dock = document.getElementById('bottom-dock');
     const msgs = document.querySelector('#screen-chat .msgs');
     if (dock && msgs) msgs.style.paddingBottom = (dock.offsetHeight + 14) + 'px';
+    // V35 — El botón de contacto flota justo encima del muelle.
+    const fab = document.getElementById('sos-fab');
+    if (fab && dock) fab.style.bottom = (dock.offsetHeight + 14) + 'px';
   }
   window.addEventListener('resize', ajustarAlturaHeaderChat);
 
@@ -5855,6 +6071,22 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   });
   const c2AccessHistory = document.getElementById('c2-access-history');
   if (c2AccessHistory) c2AccessHistory.addEventListener('click', ()=>{ renderHistory(); showScreen('history'); });
+
+  // ── V35 — Interruptor de seguimiento ──
+  const histToggle = document.getElementById('hist-toggle');
+  if (histToggle) {
+    histToggle.checked = seguimientoActivo();
+    histToggle.addEventListener('change', () => {
+      if (!histToggle.checked) {
+        if (!confirm('¿Dejar de guardar tu proceso?\n\nSe borrará el historial de este dispositivo y las próximas sesiones no se guardarán.')) {
+          histToggle.checked = true;
+          return;
+        }
+      }
+      fijarSeguimiento(histToggle.checked);
+      renderHistory();
+    });
+  }
   const c2AccessDisclaimer = document.getElementById('c2-access-disclaimer');
   if (c2AccessDisclaimer) c2AccessDisclaimer.addEventListener('click', async ()=>{
     hideCtxRows();
@@ -6558,6 +6790,9 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
   // ── FEEDBACK / SOPORTE (usuario) ──
   const fbBtn = document.getElementById('btn-feedback');
   if (fbBtn) fbBtn.addEventListener('click', openFeedback);
+  // V35 — Botón de contacto flotante del chat.
+  const sosFab = document.getElementById('sos-fab');
+  if (sosFab) sosFab.addEventListener('click', () => openFeedback('Soporte'));
   const fbSetupBtn = document.getElementById('btn-feedback-setup');
   if (fbSetupBtn) fbSetupBtn.addEventListener('click', openFeedback);
 
@@ -6657,7 +6892,13 @@ Lee TODOS los comportamientos visibles con su T-score aproximado. No inventes. I
     const fb = collectFeedback(); if (!fb) return;
     saveFeedbackLocal(fb); feedbackDone();
   });
+  const btnHtml = document.getElementById('btn-download-html');
+  if (btnHtml) btnHtml.addEventListener('click', descargarResumenHTML);
   document.getElementById('fb-send').addEventListener('click', sendFeedbackMail);
+  const fbTel = document.getElementById('fb-telegram');
+  if (fbTel) fbTel.addEventListener('click', enviarPorTelegram);
+  const fbCop = document.getElementById('fb-copiar');
+  if (fbCop) fbCop.addEventListener('click', copiarFeedback);
 
   // ── ADMIN DE SOPORTE (Santiago) ──
   const adminBtn = document.getElementById('btn-admin');
