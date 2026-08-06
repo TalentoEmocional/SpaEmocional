@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>SPA Emocional IA · Dossier</title>
+<style>
+  :root{
+    --bg:#18160F;
+    --bg-soft:#211E15;
+    --ink:#F1ECDF;
+    --ink-dim:#C6C0AF;
+    --gold:#C9A24E;
+    --gold-soft:rgba(201,162,78,.14);
+    --line:#3A3526;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  @page{size:A4;margin:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--bg);
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .page{
+    width:210mm;height:297mm;
+    background:var(--bg);
+    padding:22mm 20mm;
+    page-break-after:always;
+    position:relative;
+    display:flex;flex-direction:column;
+  }
+  .page:last-child{page-break-after:auto;}
+
+  .eyebrow{
+    font-size:9.5pt;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;
+  }
+  .pagefoot{
+    position:absolute;bottom:12mm;left:20mm;right:20mm;
+    display:flex;justify-content:space-between;
+    font-size:8pt;color:var(--ink-dim);letter-spacing:.12em;
+    text-transform:uppercase;border-top:1px solid var(--line);
+    padding-top:4mm;
+  }
+  .pagefoot .g{color:var(--gold);}
+
+  h1{font-size:29pt;line-height:1.16;font-weight:700;letter-spacing:-.01em;}
+  h2{font-size:19pt;line-height:1.22;font-weight:700;letter-spacing:-.01em;margin-bottom:7mm;max-width:34ch;}
+  h2 .g{color:var(--gold);}
+  .kicker{
+    font-size:9pt;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--gold);font-weight:700;margin-bottom:4mm;
+  }
+  p.body{font-size:10.5pt;line-height:1.7;color:var(--ink-dim);max-width:68ch;}
+  p.body + p.body{margin-top:4mm;}
+  p.body strong{color:var(--ink);font-weight:600;}
+  .g{color:var(--gold);}
+  .cap{
+    font-size:11pt;line-height:1.6;color:var(--ink);
+    padding:3.6mm 0 3.6mm 8mm;position:relative;
+    border-bottom:1px solid var(--line);
+  }
+  .cap:first-child{border-top:1px solid var(--line);}
+  .cap .cd{
+    color:var(--gold);position:absolute;left:0;font-size:8pt;top:4.6mm;
+  }
+
+  /* -------- portada -------- */
+  .cover{justify-content:space-between;}
+  .cover-mid{margin:auto 0;}
+  .cover h1{font-size:33pt;max-width:20ch;margin:8mm 0 10mm;}
+  .cover .mirror{color:var(--gold);}
+  .cover-sub{font-size:12pt;color:var(--ink-dim);max-width:52ch;line-height:1.65;}
+  .cover-sub strong{color:var(--ink);}
+  .cover-rail{display:flex;flex-wrap:wrap;align-items:center;gap:2mm;margin-top:12mm;}
+  .cover-rail .ph{
+    font-size:8pt;font-weight:700;letter-spacing:.14em;color:var(--gold);
+    border:1px solid var(--gold);padding:2mm 3mm;border-radius:1mm;
+  }
+  .cover-rail .ar{color:var(--gold);opacity:.5;font-size:9pt;padding:0 1mm;}
+  .cover-bottom{font-size:9.5pt;color:var(--ink-dim);border-top:1px solid var(--line);padding-top:5mm;}
+  .cover-bottom strong{color:var(--gold);}
+
+  /* -------- fases -------- */
+  .fase{
+    display:flex;gap:6mm;padding:5.2mm 0;border-top:1px solid var(--line);
+  }
+  .fase:last-of-type{border-bottom:1px solid var(--line);}
+  .fase .fnum{
+    flex:0 0 40mm;
+  }
+  .fase .fnum .f{
+    font-size:8pt;letter-spacing:.2em;color:var(--ink-dim);display:block;
+  }
+  .fase .fnum .v{
+    font-size:12.5pt;font-weight:800;letter-spacing:.06em;color:var(--gold);
+  }
+  .fase .fnum .st{
+    display:inline-block;margin-top:1.6mm;font-size:7pt;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink);background:var(--gold-soft);
+    border:1px solid var(--line);border-radius:10mm;padding:1mm 2.6mm;
+    font-weight:600;white-space:nowrap;
+  }
+  .fase .ftxt{flex:1;}
+  .fase .ftxt h3{font-size:11pt;font-weight:700;margin-bottom:1.6mm;}
+  .fase .ftxt p{font-size:9.8pt;line-height:1.6;color:var(--ink-dim);}
+  .fase .ftxt p strong{color:var(--ink);font-weight:600;}
+
+  /* -------- cards -------- */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:7mm;}
+  .card{
+    background:var(--bg-soft);border:1px solid var(--line);
+    border-top:1.5mm solid var(--gold);
+    padding:6mm;border-radius:1.5mm;
+  }
+  .card h3{font-size:11pt;font-weight:700;margin-bottom:2.5mm;line-height:1.35;}
+  .card p{font-size:9.6pt;line-height:1.62;color:var(--ink-dim);}
+  .card p strong{color:var(--ink);}
+
+  /* -------- usos -------- */
+  .uso{
+    padding:5.5mm 0 5.5mm 7mm;border-left:1mm solid var(--gold);
+    margin-bottom:5mm;background:var(--gold-soft);
+    padding-right:6mm;border-radius:0 1.5mm 1.5mm 0;
+  }
+  .uso h3{font-size:11.5pt;font-weight:700;margin-bottom:2mm;}
+  .uso h3 .n{color:var(--gold);letter-spacing:.15em;font-size:9pt;margin-right:3mm;}
+  .uso p{font-size:9.8pt;line-height:1.65;color:var(--ink-dim);max-width:66ch;}
+  .uso p strong{color:var(--ink);}
+
+  .chips{display:flex;flex-wrap:wrap;gap:2.5mm;margin-top:6mm;}
+  .chip{
+    font-size:9pt;color:var(--ink);background:var(--gold-soft);
+    border:1px solid var(--line);padding:2mm 4mm;border-radius:10mm;
+  }
+
+  /* -------- FAQ -------- */
+  .faq{padding:5mm 0;border-top:1px solid var(--line);}
+  .faq:last-of-type{border-bottom:1px solid var(--line);}
+  .faq h3{font-size:11.5pt;font-weight:700;margin-bottom:2.2mm;}
+  .faq h3::before{content:"— ";color:var(--gold);}
+  .faq p{font-size:9.8pt;line-height:1.65;color:var(--ink-dim);max-width:70ch;}
+  .faq p + p{margin-top:2.5mm;}
+  .faq p strong{color:var(--ink);}
+
+  /* -------- pasos -------- */
+  .step{display:flex;gap:6mm;align-items:flex-start;padding:6mm 0;border-top:1px solid var(--line);}
+  .step:last-of-type{border-bottom:1px solid var(--line);}
+  .step .num{
+    flex:0 0 12mm;height:12mm;border-radius:50%;
+    border:1px solid var(--gold);color:var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:13pt;
+  }
+  .step h3{font-size:12pt;font-weight:700;margin-bottom:1.6mm;}
+  .step p{font-size:10pt;line-height:1.6;color:var(--ink-dim);max-width:60ch;}
+  .price-note{margin-top:6mm;font-size:10.5pt;color:var(--gold);font-weight:600;}
+  .cta{margin-top:5mm;font-size:12pt;font-weight:600;}
+  .cta .g{color:var(--gold);}
+  .legal{
+    margin-top:10mm;font-size:8.5pt;line-height:1.6;color:var(--ink-dim);
+    opacity:.85;max-width:74ch;border-top:1px solid var(--line);padding-top:5mm;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ PÁGINA 1 · PORTADA ============ -->
+<div class="page cover">
+  <div class="eyebrow">Talento Emocional · Dossier del producto</div>
+  <div class="cover-mid">
+    <div class="kicker">SPA Emocional IA</div>
+    <h1>Un líder frente a una IA en blanco recibe respuestas genéricas.<br>Frente al SPA, recibe <span class="mirror">su espejo</span>.</h1>
+    <p class="cover-sub">Coaching ejecutivo con inteligencia artificial, construido sobre <strong>tu evaluación científica de inteligencia emocional</strong> y conducido por una metodología propietaria de siete fases. Resuelves tu reto de hoy — y desarrollas tu inteligencia emocional al resolverlo.</p>
+    <div style="margin-top:12mm;">
+      <div style="font-size:8.5pt;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-dim);font-weight:600;margin-bottom:3mm;">Estilo de liderazgo situacional</div>
+      <div class="cover-rail" style="margin-top:0;">
+        <span class="ph" style="border-radius:10mm;">AUTÉNTICO</span>
+        <span class="ph" style="border-radius:10mm;">COACHING</span>
+        <span class="ph" style="border-radius:10mm;">DEMOCRÁTICO</span>
+        <span class="ph" style="border-radius:10mm;">VISIONARIO</span>
+        <span class="ph" style="border-radius:10mm;">INNOVADOR</span>
+        <span class="ph" style="border-radius:10mm;">SOCIAL</span>
+        <span class="ph" style="border-radius:10mm;">EXIGENTE</span>
+      </div>
+    </div>
+  </div>
+  <div class="cover-bottom">Respaldado por <strong>Talento Emocional</strong> · 25 años de práctica en inteligencia emocional y liderazgo · TalentoEmocional.mx</div>
+</div>
+
+<!-- ============ PÁGINA 2 · CAPACIDADES ============ -->
+<div class="page">
+  <div class="kicker">Lo que hoy exige el liderazgo</div>
+  <h2>Siete capacidades que toda organización espera de sus líderes.</h2>
+  <p class="body">El estilo de liderazgo situacional — el líder que elige el estilo que la situación merece, no solo el que le sale naturalmente — se traduce en capacidades concretas. Entre muchas otras, estas siete:</p>
+
+  <div style="margin-top:8mm;">
+    <div class="cap"><span class="cd">◆</span>Conocer las necesidades reales de sus clientes y colaboradores.</div>
+    <div class="cap"><span class="cd">◆</span>Manejar las situaciones de estrés y frustración propias de la organización.</div>
+    <div class="cap"><span class="cd">◆</span>Comprender y colaborar con los demás para el mayor bien común.</div>
+    <div class="cap"><span class="cd">◆</span>Transmitir una visión estimulante que motive la transformación deseada.</div>
+    <div class="cap"><span class="cd">◆</span>Planear y tomar mejores decisiones.</div>
+    <div class="cap"><span class="cd">◆</span>Establecer relaciones personales cercanas y de confianza.</div>
+    <div class="cap"><span class="cd">◆</span>Alcanzar las metas personales, del equipo y de la organización.</div>
+  </div>
+
+  <p class="body" style="margin-top:9mm;">Del estilo de liderazgo situacional <strong>se habla mucho. Del cómo, casi nadie.</strong> El SPA sí: su metodología de siete fases te lleva de la mano a ejercer cada estilo y cada capacidad — en tus retos reales, no en teoría. Cada situación que resuelves con el SPA es una práctica viva de tu liderazgo situacional.</p>
+  <div class="pagefoot"><span>SPA Emocional IA · Dossier</span><span class="g">03</span></div>
+</div>
+
+<!-- ============ PÁGINA 3 · QUÉ ES / POR QUÉ FUNCIONA ============ -->
+<div class="page">
+  <div class="kicker">Qué es</div>
+  <h2>Un espacio privado donde tus retos se resuelven — y tú te desarrollas al resolverlos.</h2>
+  <p class="body">El SPA Emocional IA es una herramienta de coaching conversacional para líderes. No es capacitación que se olvida ni una app genérica: es <strong>tu reto real de hoy, resuelto</strong>, con una metodología que al mismo tiempo ejercita más de veinte habilidades de la inteligencia emocional, social y visionaria — dentro de la misma situación que resuelves.</p>
+  <p class="body">Cada SPA es individual. Se construye para su líder, con su evaluación científica de inteligencia emocional ya integrada, y lo acompaña las 24 horas desde cualquier dispositivo con navegador.</p>
+
+  <div class="kicker" style="margin-top:11mm;">Por qué funciona</div>
+  <h2>El lenguaje es humano. La emoción va primero. Por eso llega a mejores soluciones.</h2>
+  <p class="body">El SPA te habla con calidez y claridad, no con tecnicismos ni tableros. Y su orden no es casual: <strong>todos los modelos de resolución de problemas suponen a alguien tranquilo definiendo el problema — y nadie define bien cuando está molesto, ansioso o bajo presión.</strong></p>
+  <p class="body">Por eso el SPA trabaja la emoción antes que el razonamiento. Primero recuperas claridad; después separas lo que crees de lo que es — hechos verificables, no suposiciones — y solo entonces diseñas la solución. Muchos líderes descubren en ese punto que el problema era más pequeño de lo que se sentía. Cuando eso ocurre, el SPA lo dice y cierra: <strong>está diseñado para resolverte, no para retenerte.</strong></p>
+  <div class="pagefoot"><span>SPA Emocional IA · Dossier</span><span class="g">03</span></div>
+</div>
+
+<!-- ============ PÁGINA 3 · FASES 1-4 ============ -->
+<div class="page">
+  <div class="kicker">El recorrido</div>
+  <h2>Siete fases, un objetivo por fase —<br>y en cada una, la vivencia de un estilo de liderazgo.</h2>
+
+  <div class="fase">
+    <div class="fnum"><span class="f">FASE 1</span><span class="v">IDENTIFICA</span><span class="st">Estilo Auténtico</span></div>
+    <div class="ftxt">
+      <h3>Nombra lo que sientes y el reto real detrás</h3>
+      <p>La sesión empieza donde estás, no donde "deberías" estar. Pones en palabras la emoción y la situación; el SPA te ayuda a distinguir el síntoma del verdadero reto. <strong>Un problema bien nombrado ya está medio resuelto.</strong></p>
+    </div>
+  </div>
+  <div class="fase">
+    <div class="fnum"><span class="f">FASE 2</span><span class="v">MANEJA</span><span class="st">Estilo Coaching</span></div>
+    <div class="ftxt">
+      <h3>Regula la emoción antes de razonar</h3>
+      <p>Aquí no se reprime ni se ignora nada: la emoción se reconoce, se comprende y se regula. Recuperas el estado interno necesario para pensar con claridad. <strong>Esta fase es la razón por la que las soluciones del SPA se sostienen en el tiempo.</strong></p>
+    </div>
+  </div>
+  <div class="fase">
+    <div class="fnum"><span class="f">FASE 3</span><span class="v">RAZONA</span><span class="st">Estilo Democrático</span></div>
+    <div class="ftxt">
+      <h3>La fase de la objetividad: separa lo que crees de lo que es</h3>
+      <p>Muchos líderes deciden sobre creencias — "seguro piensan que…", "siempre pasa lo mismo". El SPA te aterriza en hechos verificables. <strong>Es el corazón del método</strong>: a veces el reto se vuelve más pequeño de lo que se sentía, o desaparece. Y eso también es ganar.</p>
+    </div>
+  </div>
+  <div class="fase">
+    <div class="fnum"><span class="f">FASE 4</span><span class="v">VISUALIZA</span><span class="st">Estilo Visionario</span></div>
+    <div class="ftxt">
+      <h3>Define el futuro deseado y el para qué</h3>
+      <p>La solución se diseña desde la visión, no desde el malestar. Proyectas el resultado que quieres lograr y el sentido que tiene para ti, tu equipo y tu organización. <strong>Un líder que sabe para qué, encuentra el cómo.</strong></p>
+    </div>
+  </div>
+  <div class="pagefoot"><span>SPA Emocional IA · Dossier</span><span class="g">04</span></div>
+</div>
+
+<!-- ============ PÁGINA 4 · FASES 5-7 ============ -->
+<div class="page">
+  <div class="kicker">El recorrido · continuación</div>
+  <h2>De la visión a la acción con fecha.</h2>
+
+  <div class="fase">
+    <div class="fnum"><span class="f">FASE 5</span><span class="v">INNOVA</span><span class="st">Estilo Innovador</span></div>
+    <div class="ftxt">
+      <h3>Genera opciones creativas con criterio</h3>
+      <p>Con la emoción regulada y los hechos sobre la mesa, se abre el espacio creativo: alternativas que no habías considerado, combinaciones nuevas, caminos frescos. <strong>La creatividad llega cuando la ansiedad ya se fue</strong> — por eso esta fase va aquí y no al principio.</p>
+    </div>
+  </div>
+  <div class="fase">
+    <div class="fnum"><span class="f">FASE 6</span><span class="v">INFLUYE</span><span class="st">Estilo Social</span></div>
+    <div class="ftxt">
+      <h3>Prepara cómo involucrar a otros</h3>
+      <p>Casi ninguna solución se ejecuta en solitario. Aquí preparas la conversación difícil, el mensaje al equipo, la influencia positiva con pares o superiores. <strong>Sales sabiendo qué decir, a quién y cómo.</strong></p>
+    </div>
+  </div>
+  <div class="fase">
+    <div class="fnum"><span class="f">FASE 7</span><span class="v">LOGRA</span><span class="st">Estilo Exigente</span></div>
+    <div class="ftxt">
+      <h3>Cierra con plan documentado — y con tu desarrollo nombrado</h3>
+      <p>Cada sesión termina con acciones concretas y fechas, listas para implementar. Y algo que ningún curso hace: <strong>el SPA te nombra explícitamente el músculo emocional que ejercitaste al resolver.</strong> Resolviste tu reto y sabes en qué creciste.</p>
+    </div>
+  </div>
+
+  <p class="body" style="margin-top:8mm;">El ritmo lo eliges tú: una sesión exprés cuando tienes minutos, o un recorrido profundo cuando el reto lo amerita. No se requiere ninguna habilidad técnica ni saber "redactarle" a una inteligencia artificial — <strong>el proceso te conduce.</strong></p>
+  <div class="pagefoot"><span>SPA Emocional IA · Dossier</span><span class="g">05</span></div>
+</div>
+
+<!-- ============ PÁGINA 5 · LA DIFERENCIA ============ -->
+<div class="page">
+  <div class="kicker">La diferencia</div>
+  <h2>Te conoce antes de que escribas la primera palabra.</h2>
+  <p class="body">Cada SPA se construye con la evaluación científica de inteligencia emocional de su líder, aplicada e interpretada por un consultor certificado. No tienes que explicar quién eres ni aprender a dar instrucciones: el método ya te leyó. Es la diferencia entre <strong>tener acceso al gimnasio y entrenar con alguien que ya revisó tus estudios.</strong></p>
+  <p class="body">Y no solo te conoce: <strong>te observa en acción.</strong> Cuando lo pides, el SPA te da retroalimentación exacta de cómo lo estás haciendo en ese momento — un espejo real, no una evaluación anual. Puedes pedirla con la frecuencia que quieras: al acompañar a un colaborador, al facilitar una reunión o al terminar tu propia sesión, para recordarte qué seguir mejorando.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Nunca verás un número sobre ti.</h3>
+      <p>El SPA te habla en lenguaje humano, no con calificaciones ni tableros. Los puntajes lastiman o distraen; la descripción cualitativa desarrolla. <strong>Es promesa de la casa</strong> — y aplica igual cuando trabajas perfiles de tu equipo.</p>
+    </div>
+    <div class="card">
+      <h3>A veces el reto desaparece. Y eso también es ganar.</h3>
+      <p>Cuando los hechos muestran que el problema era más pequeño de lo que se sentía, el SPA lo dice y cierra la sesión. En un mercado de IA diseñada para retener, <strong>el SPA está diseñado para resolver.</strong></p>
+    </div>
+    <div class="card">
+      <h3>Un experto detrás, siempre.</h3>
+      <p>La inteligencia artificial es el motor; el método, la interpretación y el criterio son de Talento Emocional. Tu SPA lo configura un consultor certificado, <strong>y un humano respalda tu proceso</strong> de principio a fin.</p>
+    </div>
+    <div class="card">
+      <h3>Pensado para cuidarte, no solo para atenderte.</h3>
+      <p>El SPA opera con un protocolo de cuidado y criterios de admisión definidos por el consultor. Es una herramienta de coaching y desarrollo de liderazgo — <strong>con límites claros y responsables.</strong></p>
+    </div>
+  </div>
+  <div class="pagefoot"><span>SPA Emocional IA · Dossier</span><span class="g">06</span></div>
+</div>
+
+<!-- ============ PÁGINA 6 · TRES USOS + PRÁCTICO ============ -->
+<div class="page">
+  <div class="kicker">Tres usos, un solo SPA</div>
+  <h2>Contigo, con tu equipo y con tus reuniones.</h2>
+
+  <div class="uso">
+    <h3><span class="n">01</span>Tus propios retos</h3>
+    <p>Autocoaching estratégico: del malestar a la solución documentada, a tu ritmo y en privado. Un conflicto con un par, una decisión difícil, una queja de cliente, una carga que no baja — <strong>cualquier reto entra por la fase uno y sale con plan.</strong></p>
+  </div>
+  <div class="uso">
+    <h3><span class="n">02</span>Acompañar a alguien de tu equipo</h3>
+    <p>Usa el SPA como coach de un colaborador, con su perfil trabajado bajo consentimiento informado. Mientras conduces la conversación, <strong>recibes retroalimentación en vivo sobre cómo lo estás haciendo</strong> — desarrollas tu estilo coach en situaciones reales, no en simulacros.</p>
+  </div>
+  <div class="uso">
+    <h3><span class="n">03</span>Facilitar reuniones de alto desempeño</h3>
+    <p>Lleva el método a una sesión grupal de solución de retos: estructura, objetividad y cierre en acciones con responsables y fechas. <strong>La reunión deja de ser catarsis y se vuelve solución.</strong></p>
+  </div>
+
+  <div class="kicker" style="margin-top:8mm;">Lo práctico</div>
+  <div class="chips">
+    <span class="chip">Disponible 24/7, sin agendar</span>
+    <span class="chip">En español, con calidez</span>
+    <span class="chip">Cualquier dispositivo con navegador</span>
+    <span class="chip">Adjunta reportes y cifras: los analiza contigo</span>
+    <span class="chip">Elige el ritmo según tu tiempo</span>
+    <span class="chip">Cada sesión cierra con acciones y fechas</span>
+    <span class="chip">Lo que escribes no se guarda automáticamente</span>
+    <span class="chip">Reconoce y celebra tu avance</span>
+  </div>
+  <div class="pagefoot"><span>SPA Emocional IA · Dossier</span><span class="g">07</span></div>
+</div>
+
+<!-- ============ PÁGINA 7 · PREGUNTAS ============ -->
+<div class="page">
+  <div class="kicker">Lo que nos preguntan los líderes</div>
+  <h2>Respuestas directas.</h2>
+
+  <div class="faq">
+    <h3>¿Por qué no usar una inteligencia artificial directa?</h3>
+    <p>La IA es el motor, no el competidor — <strong>nadie compra motores Ferrari en lugar de Ferraris.</strong> El valor está en la metodología de siete fases, en tu perfil científico ya integrado y en un proceso que una IA en blanco jamás ejecutaría por sí sola. Un líder frente a una IA en blanco recibe respuestas genéricas; frente al SPA recibe su espejo.</p>
+  </div>
+  <div class="faq">
+    <h3>Ya uso IA para correos y documentos. ¿No es lo mismo?</h3>
+    <p>Usar IA para redactar no es saber autoguiarse en desarrollo emocional y resolución estratégica. La IA directa es página en blanco: la calidad depende de qué tan bien le pidas. <strong>El SPA es un proceso que ya te conoce, te guía paso a paso, no exige habilidad alguna de redacción — y te desarrolla mientras resuelves.</strong></p>
+  </div>
+  <div class="faq">
+    <h3>¿Es terapia?</h3>
+    <p>No. El SPA es coaching y desarrollo de liderazgo, fundamentado en investigación de inteligencia emocional. <strong>No es un servicio de salud mental ni lo sustituye</strong>, y opera con un protocolo de cuidado que respeta ese límite.</p>
+  </div>
+  <div class="faq">
+    <h3>¿Qué pasa con lo que escribo?</h3>
+    <p>Tus conversaciones no se guardan automáticamente. Tú decides qué conservar de cada sesión — el plan documentado es tuyo.</p>
+  </div>
+  <div class="faq">
+    <h3>¿Necesito saber de tecnología?</h3>
+    <p>No. Si sabes conversar, sabes usar el SPA. Funciona en tu computadora, tableta o celular, sin instalación técnica ni conocimientos previos.</p>
+  </div>
+  <div class="pagefoot"><span>SPA Emocional IA · Dossier</span><span class="g">08</span></div>
+</div>
+
+<!-- ============ PÁGINA 8 · CÓMO EMPEZAR ============ -->
+<div class="page">
+  <div class="kicker">Cómo empezar</div>
+  <h2>Primero lo vives. Después decides.</h2>
+
+  <div class="step">
+    <div class="num">1</div>
+    <div>
+      <h3>Sesión demostrativa en vivo, sin costo</h3>
+      <p>Una hora con un Coach Certificado en la que resuelves un reto real tuyo — no una presentación de ventas.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="num">2</div>
+    <div>
+      <h3>Si te agrada, haces el test de Inteligencia Emocional<span class="g">*</span></h3>
+      <p>Tu SPA personalizado, construido sobre tu evaluación, para usarlo por tu cuenta con tus propios retos.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="num">3</div>
+    <div>
+      <h3>Decides el tiempo que desees utilizarlo<span class="g">*</span></h3>
+      <p>Si el SPA no te aportó, no continúas. Solo habrás resuelto retos reales en el camino.</p>
+    </div>
+  </div>
+
+  <p class="price-note"><span class="g">*</span> Pregunta por los precios.</p>
+  <p class="cta">Reserva tu sesión: <span class="g">tidycal.com/hqp/reservasantiago</span></p>
+  <p class="cta" style="margin-top:2mm;">Escríbenos: <span class="g">hola@talentoemocional.com</span></p>
+
+  <p class="legal">El SPA Emocional IA es una herramienta de coaching y desarrollo de liderazgo, fundamentada en una metodología propietaria y en investigación sobre inteligencia emocional y liderazgo. No es un servicio de salud mental ni sustituye atención terapéutica o médica. Respaldado por Talento Emocional · 25 años de práctica en inteligencia emocional y liderazgo · Creadores del SPA Emocional IA · TalentoEmocional.mx</p>
+  <div class="pagefoot"><span>SPA Emocional IA · Dossier</span><span class="g">09</span></div>
+</div>
+
+</body>
+</html>
